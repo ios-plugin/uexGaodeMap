@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uexplugins>
+    <plugin name="uexGaodeMap">
+            
+        <method name="open"></method>
+        <method name="close"></method>
+        <method name="setMapType"></method>
+        <method name="setTrafficEnabled"></method>
+        <method name="setCenter"></method>
+        <method name="setZoomLevel"></method>
+        <method name="zoomIn"></method>
+        <method name="zoomOut"></method>
+        <method name="rotate"></method>
+        <method name="overlook"></method>
+        <method name="setZoomEnable"></method>
+        <method name="setRotateEnable"></method>
+        <method name="setCompassEnable"></method>
+        <method name="setScrollEnable"></method>
+        <method name="addMarkersOverlay"></method>
+        <method name="setMarkerOverlay"></method>
+        <method name="addPolylineOverlay"></method>
+        <method name="removeOverlay"></method>
+        <method name="addCircleOverlay"></method>
+        <method name="addPolygonOverlay"></method>
+        <method name="addGroundOverlay"></method>
+        <method name="removeMarkersOverlay"></method>
+        <method name="poiSearch"></method>
+        <method name="geocode"></method>
+        <method name="reverseGeocode"></method>
+        <method name="getCurrentLocation"></method>
+        <method name="startLocation"></method>
+        <method name="stopLocation"></method>
+        <method name="setMyLocationEnable"></method>
+        <method name="setUserTrackingMode"></method>
+        
+
+            
+            
+            
+    </plugin>
+        
+</uexplugins>
