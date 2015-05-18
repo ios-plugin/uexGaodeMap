@@ -128,7 +128,7 @@
     self.annotations=_sharedInstance.annotations;
     self.overlays=_sharedInstance.overlays;
     self.locationStyleOptions=_sharedInstance.locationStyleOptions;
-    _mapView.showsScale= YES;
+    _mapView.showsScale= NO;
     
     
     [EUtility brwView:meBrwView addSubview:_mapView];
