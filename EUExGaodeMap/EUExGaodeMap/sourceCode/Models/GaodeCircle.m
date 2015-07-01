@@ -11,24 +11,24 @@
 @implementation GaodeCircle
 
 -(id)init{
-    id tmp = self;
-    self = [[self class] alloc];
-    [tmp release];
+    self=[super init];
+    if(self){
+        [self dataInit];
+    }
     
-    [self dataInit];
     
     return self;
 }
 
 
 -(void)setFillC:(NSString*)colorString{
-    UIColor *fillColor=[ColorConvert returnUIColorFromHex:colorString];
+    UIColor *fillColor=[GaodeModelUtils returnUIColorFromHTMLStr:colorString];
     if(![fillColor isEqual:[UIColor clearColor]]){
         self.fillColor =fillColor;
     }
 }
 -(void)setStrokeC:(NSString*)colorString{
-    UIColor *strokeColor=[ColorConvert returnUIColorFromHex:colorString];
+    UIColor *strokeColor=[GaodeModelUtils returnUIColorFromHTMLStr:colorString];
     if(![strokeColor isEqual:[UIColor clearColor]]){
         self.strokeColor =strokeColor;
     }

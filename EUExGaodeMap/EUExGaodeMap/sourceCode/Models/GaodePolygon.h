@@ -7,7 +7,7 @@
 //
 
 #import <MAMapKit/MAMapKit.h>
-#import "ColorConvert.h"
+#import "GaodeModelUtils.h"
 @interface GaodePolygon : MAPolygon
 @property (nonatomic,copy) NSString *identifier;
 @property (nonatomic,assign) CGFloat lineWidth;

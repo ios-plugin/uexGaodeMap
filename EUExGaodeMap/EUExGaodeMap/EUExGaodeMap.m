@@ -7,21 +7,21 @@
 //
 
 #import "EUExGaodeMap.h"
-#import "EUExGaodeMap+JsonIO.h"
 #import "EUExGaodeMapInstance.h"
 #import "NSDictionary+getString.h"
+#import "JSON.h"
 @interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate> {
-    MAMapView *_mapView;
-    AMapSearchAPI *_search;
-    EUExGaodeMapInstance *_sharedInstance;
 }
+@property(nonatomic,weak)MAMapView *mapView;
+@property(nonatomic,weak)AMapSearchAPI *search;
+@property(nonatomic,weak)EUExGaodeMapInstance *sharedInstance;
 @property(nonatomic,assign) BOOL isInitialized;
 @property(nonatomic,assign) float zoom;
 
 @property(nonatomic,assign) UserLocationStatus locationStatus;
 
-@property(nonatomic,strong) NSMutableArray *annotations;
-@property(nonatomic,strong) NSMutableArray *overlays;
+@property(nonatomic,weak) NSMutableArray *annotations;
+@property(nonatomic,weak) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
 
 @end
@@ -30,9 +30,9 @@
 
 -(id)initWithBrwView:(EBrowserView *) eInBrwView{
     if (self = [super initWithBrwView:eInBrwView]) {
-
-        self.annotations=[NSMutableArray array];
-        self.overlays=[NSMutableArray array];
+         _sharedInstance=[EUExGaodeMapInstance sharedInstance];
+        self.annotations=_sharedInstance.annotations;
+        self.overlays=_sharedInstance.overlays;
         self.locationStatus =ContinuousLocationDisabled;
 
         _mapView.showsUserLocation=NO;
@@ -44,32 +44,30 @@
 
 -(void)dealloc{
     [self clean];
-    [super dealloc];
+
 }
 
 
 
 -(void)clean{
+    
     if(self.annotations){
-       // [self.annotations release];
         self.annotations =nil;
     }
     if(self.overlays){
-       // [self.overlays release];
         self.overlays =nil;
     }
 
     if (_mapView){
         _mapView.delegate=nil;
         [_mapView removeFromSuperview];
-       // [_mapView release];
         _mapView =nil;
     }
     if(_search){
-        //[_search release];
         _search =nil;
         
     }
+    [_sharedInstance clearAll];
 
 }
 
@@ -112,13 +110,13 @@
         height=[[initInfo getStringForKey:@"height"] floatValue];
     }
         
-    _sharedInstance=[EUExGaodeMapInstance sharedInstance];
-    if(!_sharedInstance.isGaodeMaploaded){
-        [_sharedInstance loadGaodeMap];
-    }
-    _mapView=_sharedInstance.gaodeView;
+   
+
+    
     [_sharedInstance clearAll];
-    _mapView.frame=CGRectMake(left,top,width,height);
+    [_sharedInstance loadGaodeMapWithDataLeft:left top:top width:width height:height];
+    _mapView=_sharedInstance.gaodeView;
+
   
 
     _search=_sharedInstance.searchAPI;
@@ -128,7 +126,9 @@
     self.annotations=_sharedInstance.annotations;
     self.overlays=_sharedInstance.overlays;
     self.locationStyleOptions=_sharedInstance.locationStyleOptions;
-    _mapView.showsScale= NO;
+    _mapView.showTraffic= NO;
+    _mapView.mapType=MAMapTypeStandard;
+    //_mapView.showsScale= NO;
     
     
     [EUtility brwView:meBrwView addSubview:_mapView];
@@ -146,7 +146,7 @@
            CLLocationCoordinate2D center=CLLocationCoordinate2DMake(lat,lon);
             
           // CLLocationCoordinate2D center=CLLocationCoordinate2DMake(30.475798000000000001,114.4028150001);
-            NSLog(@"test");
+
             [_mapView setCenterCoordinate:center animated:NO];
             
 
@@ -669,7 +669,7 @@ type://（必选） 0-关闭，1-开启
         }
         [_mapView addAnnotation:pointAnnotation];
         [self.annotations addObject:pointAnnotation];
-        [pointAnnotation release];
+
     }
     
 }
@@ -968,7 +968,6 @@ type://（必选） 0-关闭，1-开启
     [_mapView addOverlay: circle];
 
     [self.overlays addObject:circle];
-    [circle release];
     
 }
 
@@ -1044,7 +1043,6 @@ type://（必选） 0-关闭，1-开启
 
     [_mapView addOverlay:polygon];
     [self.overlays addObject:polygon];
-    [polygon release];
     
 }
 
@@ -1118,7 +1116,20 @@ id://(必选) 唯一标识符
  
  */
 
+-(void)clearMarkersOverlay:(NSString *)identifier{
+    if(!identifier) return;
+    for(int i=0;i<[self.annotations count];i++){
+        GaodePointAnnotation *annotation =self.annotations[i];
+        if([annotation.identifier isEqual:identifier]){
+            
+            [_mapView removeAnnotation:annotation];
+            
+            [self.annotations removeObjectAtIndex:i];
+            
+        }
+    }
 
+}
 
 -(void)removeMarkersOverlay:(NSMutableArray *)inArguments{
     
@@ -1128,17 +1139,7 @@ id://(必选) 唯一标识符
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
     }
-    for(int i=0;i<[self.annotations count];i++){
-        GaodePointAnnotation *annotation =self.annotations[i];
-        if([annotation.identifier isEqual:identifier]){
-            
-            [_mapView removeAnnotation:annotation];
-            
-            [self.annotations removeObjectAtIndex:i];
-
-        }
-    }
-    
+    [self clearMarkersOverlay:identifier];
     
     
 }
@@ -1339,7 +1340,6 @@ id://(必选) 唯一标识符
     }
     
     [_search AMapPlaceSearch:request];
-    [request release];
 }
 
 
@@ -1377,7 +1377,6 @@ id://(必选) 唯一标识符
     }
     
     [_search AMapGeocodeSearch: geoRequest];
-    [geoRequest release];
 }
 
 
@@ -1411,7 +1410,6 @@ id://(必选) 唯一标识符
     regeoRequest.requireExtension = YES;
     
     [_search AMapReGoecodeSearch: regeoRequest];
-    [regeoRequest release];
 
 }
 
@@ -1757,6 +1755,98 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 //见 cbGetCurrentLocation
+-(void) returnJSonWithName:(NSString *)name Object:(id)obj{
+    
+    NSString *result=[obj JSONFragment];
+    NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
+    
+    [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
+    
+}
+-(void)callBack:(NSString *)str{
+    [self performSelector:@selector(delayedCallBack:) withObject:str afterDelay:0.01];
+    //[meBrwView stringByEvaluatingJavaScriptFromString:str];
+}
 
+-(void)delayedCallBack:(NSString *)str{
+    [meBrwView stringByEvaluatingJavaScriptFromString:str];
+}
+
+- (id)getDataFromJson:(NSString *)jsonData{
+    
+    NSError *error = nil;
+    
+    
+    
+    NSData *jsonData2= [jsonData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData2
+                     
+                                                    options:NSJSONReadingMutableContainers
+                     
+                                                      error:&error];
+    
+    if (jsonObject != nil && error == nil){
+        
+        return jsonObject;
+    }else{
+        
+        // 解析錯誤
+        
+        return nil;
+    }
+    
+}
+
+//6-30 新增
+#pragma mark - 3.0.1新增API
+
+-(void)removeMarkersOverlays:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1){
+        [_mapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
+    }
+    id info =[self getDataFromJson:inArguments[0]];
+    if(![info isKindOfClass:[NSArray class]]) return;
+
+    for(NSDictionary *infoDict in info){
+        if([infoDict getStringForKey:@"id"]){
+            NSString *identifier=[infoDict getStringForKey:@"id"];
+            [self clearMarkersOverlay:identifier];
+        }
+        
+    }
+
+}
+-(void)removeOverlays:(NSMutableArray *)inArguments{
+    if([inArguments count]<1){
+        [_mapView removeOverlays:self.overlays];
+        [self.overlays removeAllObjects];
+
+        return;
+    }
+    id info =[self getDataFromJson:inArguments[0]];
+    if(![info isKindOfClass:[NSArray class]]) return;
+    
+    for(NSDictionary *infoDict in info){
+        if([infoDict getStringForKey:@"id"]){
+            NSString *identifier=[infoDict getStringForKey:@"id"];
+            [self clearOverlayById:identifier];
+        }
+    }
+}
+-(void)setScaleVisible:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    id info =[self getDataFromJson:inArguments[0]];
+    if([info isKindOfClass:[NSDictionary class]]){
+        id result=[info objectForKey:@"visible"];
+        if([result boolValue]==YES || [result isEqual:@"true"]){
+            _mapView.showsScale=YES;
+        }else if([result boolValue]==NO || [result isEqual:@"false"]){
+            _mapView.showsScale=NO;
+        }
+    }
+}
 @end
 

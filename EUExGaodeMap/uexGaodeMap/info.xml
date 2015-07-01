@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version ="3.0.0" build="0">
-        <info>0:高德地图(uexGaodeMap)插件 for iOS</info>
+        uexName="uexGaodeMap" version="3.0.1" build="1">
+        <info>1:新增 设置比例尺 等3个API</info>
+        <build>0:高德地图(uexGaodeMap)插件 for iOS</build>
 
     </plugin>
 </uexplugins>

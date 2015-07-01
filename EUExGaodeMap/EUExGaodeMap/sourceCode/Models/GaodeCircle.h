@@ -7,7 +7,7 @@
 //
 
 #import <MAMapKit/MAMapKit.h>
-#import "ColorConvert.h"
+#import "GaodeModelUtils.h"
 @interface GaodeCircle : MACircle
 @property (nonatomic,assign) CGFloat lineWidth;
 @property (nonatomic,assign) BOOL lineDash;

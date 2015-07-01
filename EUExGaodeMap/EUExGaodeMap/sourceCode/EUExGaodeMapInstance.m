@@ -8,33 +8,24 @@
 
 #import "EUExGaodeMapInstance.h"
 
-static EUExGaodeMapInstance *sharedObj = nil;
+
 @implementation EUExGaodeMapInstance
-
-
-
-+ (instancetype) sharedInstance
++ (instancetype)sharedInstance
 {
-    @synchronized (self)
-    {
-        if (sharedObj == nil)
-        {
-            [[self alloc] init];
-        }
-    }
+    static dispatch_once_t pred = 0;
+    __strong static EUExGaodeMapInstance *sharedObj = nil;
+    dispatch_once(&pred, ^{
+        sharedObj = [[self alloc] init];
+        
+        
+    });
     return sharedObj;
 }
 
-+ (id) allocWithZone:(NSZone *)zone
-{
-    @synchronized (self) {
-        if (sharedObj == nil) {
-            sharedObj = [super allocWithZone:zone];
-            return sharedObj;
-        }
-    }
-    return nil;
-}
+
+
+
+
 -(void)clearAll{
     [self clearMapView];
     [self clearSearch];
@@ -43,66 +34,67 @@ static EUExGaodeMapInstance *sharedObj = nil;
     [self.gaodeView setMapStatus: _status animated:NO duration:0];
     
 }
-- (id) copyWithZone:(NSZone *)zone 
-{
-    return self;
-}
-
-- (id) retain
-{
-    return self;
-}
-
-- (NSUInteger) retainCount
-{
-    return UINT_MAX;
-}
-
-- (oneway void) release
-{
-    
-}
-
-- (id) autorelease
-{
-    return self;
-}
 
 - (id)init
 {
-    @synchronized(self) {
-        if (self = [super init]){
-            self.annotations =[NSMutableArray array];
-            self.overlays = [NSMutableArray array];
-            self.isGaodeMaploaded=NO;
-            self.locationStyleOptions=[[GaodeLocationStyle alloc] init];
+    self = [super init];
+    if (self){
+        self.annotations =[NSMutableArray array];
+        self.overlays = [NSMutableArray array];
+        self.isGaodeMaploaded=NO;
+        self.locationStyleOptions=[[GaodeLocationStyle alloc] init];
 
             
             
-        }
-        
-        return nil;
     }
+        
+    return self;
+
 }
--(BOOL)loadGaodeMap{
-    if(!sharedObj) return NO;
+-(BOOL)loadGaodeMapWithDataLeft:(CGFloat)left
+                            top:(CGFloat)top
+                          width:(CGFloat)width
+                         height:(CGFloat)height{
+    //if(!sharedObj) return NO;
+    
+    
+    if(!self.isGaodeMaploaded){
+        NSString *GaodeMapKey=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"uexGaodeMapKey"];
+        
+#warning 输入GaodeMapKey
+        //源码调试时，可以在此输入或更改GaodeMapKey
+        //GaodeMapKey=@"d9b8208b019919dedda01cba2e0a2e21"
+        [MAMapServices sharedServices].apiKey =GaodeMapKey;
+        self.searchAPI = [[AMapSearchAPI alloc] initWithSearchKey:GaodeMapKey Delegate:self];
+        self.isGaodeMaploaded =YES;
+    }
+    
+    [self setFrameLeft:left top:top width:width height:height];
+    
+    
 
-    NSString *GaodeMapKey=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"uexGaodeMapKey"];
-    
-#warning 输入GaodeMapKey 
-    //源码调试时，可以在此输入或更改GaodeMapKey
-    //GaodeMapKey=@"d9b8208b019919dedda01cba2e0a2e21"
     
     
     
-    [MAMapServices sharedServices].apiKey =GaodeMapKey;
-    self.searchAPI = [[AMapSearchAPI alloc] initWithSearchKey:GaodeMapKey Delegate:self];
-
-    self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(0.0,0.0,100.0,100.0)];
-    self.status =[self.gaodeView getMapStatus];
-    self.isGaodeMaploaded =YES;
     return YES;
 }
+
+
+
+-(void)setFrameLeft:(CGFloat)left
+                top:(CGFloat)top
+              width:(CGFloat)width
+             height:(CGFloat)height{
+    if(!self.gaodeView){
+        self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
+        self.status =[self.gaodeView getMapStatus];
+    }else{
+        self.gaodeView.frame=CGRectMake(left,top,width,height);
+    }
+    self.gaodeView.scaleOrigin=CGPointMake(self.gaodeView.scaleOrigin.x, height-40);
+    self.gaodeView.compassOrigin=CGPointMake(5, 5);
+}
+
 
 - (void)clearMapView{
     self.gaodeView.showsUserLocation = NO;

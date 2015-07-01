@@ -25,6 +25,10 @@
 
 
 + (instancetype) sharedInstance;
--(BOOL)loadGaodeMap;
+-(BOOL)loadGaodeMapWithDataLeft:(CGFloat)left
+                            top:(CGFloat)top
+                          width:(CGFloat)width
+                         height:(CGFloat)height;
+
 -(void)clearAll;
 @end

@@ -11,12 +11,14 @@
 @implementation GaodePointAnnotation
 
 -(id)init{
-    id tmp = self;
-    self = [[self class] alloc];
-    [tmp release];
-    self.canShowCallout =NO;
-    self.animatesDrop =YES;
-    self.draggable = NO;
+
+    self = [super init];
+    if(self){
+        self.canShowCallout =NO;
+        self.animatesDrop =YES;
+        self.draggable = NO;
+    }
+    
     
     return self;
 }

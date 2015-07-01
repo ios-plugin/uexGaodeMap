@@ -7,22 +7,22 @@
 //
 
 #import "GaodePolyline.h"
-#import "ColorConvert.h"
+#import "GaodeModelUtils.h"
 
 @implementation GaodePolyline
 -(id)init{
-    id tmp = self;
-    self = [[self class] alloc];
-    [tmp release];
+    self=[super init];
+    if(self){
+        [self dataInit];
+    }
     
-    [self dataInit];
     
     return self;
 }
 
 
 -(void)setFillC:(NSString*)colorString{
-    UIColor *color=[ColorConvert returnUIColorFromHex:colorString];
+    UIColor *color=[GaodeModelUtils returnUIColorFromHTMLStr:colorString];
     if(![color isEqual:[UIColor clearColor]]){
         self.color =color;
     }

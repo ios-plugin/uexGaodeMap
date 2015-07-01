@@ -10,11 +10,12 @@
 
 @implementation GaodeLocationStyle
 -(id)init{
-    id tmp = self;
-    self = [[self class] alloc];
-    [tmp release];
+
+    self=[super init];
+    if(self){
+        [self dataInit];
+    }
     
-    [self dataInit];
     
     return self;
 }

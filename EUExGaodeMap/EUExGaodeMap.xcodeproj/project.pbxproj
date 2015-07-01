@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C61DEF931B428E8D00AAD1B7 /* GaodeModelUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C61DEF921B428E8D00AAD1B7 /* GaodeModelUtils.m */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
 		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
-		C62D1D401B05E3D1002B1875 /* EUExGaodeMap+JsonIO.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D1F1B05E3D1002B1875 /* EUExGaodeMap+JsonIO.m */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
 		C62D1D421B05E3D1002B1875 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D2B1B05E3D1002B1875 /* MAMapKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		C62D1D431B05E3D1002B1875 /* ColorConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D2E1B05E3D1002B1875 /* ColorConvert.m */; };
 		C62D1D441B05E3D1002B1875 /* GaodeCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D301B05E3D1002B1875 /* GaodeCircle.m */; };
 		C62D1D451B05E3D1002B1875 /* GaodeGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D321B05E3D1002B1875 /* GaodeGroundOverlay.m */; };
 		C62D1D461B05E3D1002B1875 /* GaodeLocationStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D341B05E3D1002B1875 /* GaodeLocationStyle.m */; };
@@ -44,6 +43,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C61DEF911B428E8D00AAD1B7 /* GaodeModelUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeModelUtils.h; sourceTree = "<group>"; };
+		C61DEF921B428E8D00AAD1B7 /* GaodeModelUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeModelUtils.m; sourceTree = "<group>"; };
 		C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGaodeMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62D1D131B05E3D1002B1875 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
 		C62D1D141B05E3D1002B1875 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
@@ -55,8 +56,6 @@
 		C62D1D1B1B05E3D1002B1875 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
 		C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
-		C62D1D1E1B05E3D1002B1875 /* EUExGaodeMap+JsonIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EUExGaodeMap+JsonIO.h"; sourceTree = "<group>"; };
-		C62D1D1F1B05E3D1002B1875 /* EUExGaodeMap+JsonIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EUExGaodeMap+JsonIO.m"; sourceTree = "<group>"; };
 		C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
 		C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
 		C62D1D231B05E3D1002B1875 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
@@ -68,8 +67,6 @@
 		C62D1D291B05E3D1002B1875 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		C62D1D2A1B05E3D1002B1875 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		C62D1D2B1B05E3D1002B1875 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
-		C62D1D2D1B05E3D1002B1875 /* ColorConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorConvert.h; sourceTree = "<group>"; };
-		C62D1D2E1B05E3D1002B1875 /* ColorConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorConvert.m; sourceTree = "<group>"; };
 		C62D1D2F1B05E3D1002B1875 /* GaodeCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCircle.h; sourceTree = "<group>"; };
 		C62D1D301B05E3D1002B1875 /* GaodeCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCircle.m; sourceTree = "<group>"; };
 		C62D1D311B05E3D1002B1875 /* GaodeGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeGroundOverlay.h; sourceTree = "<group>"; };
@@ -164,8 +161,6 @@
 				C62D1D1B1B05E3D1002B1875 /* AMap.bundle */,
 				C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */,
 				C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */,
-				C62D1D1E1B05E3D1002B1875 /* EUExGaodeMap+JsonIO.h */,
-				C62D1D1F1B05E3D1002B1875 /* EUExGaodeMap+JsonIO.m */,
 				C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */,
 				C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */,
 				C62D1D221B05E3D1002B1875 /* JSON */,
@@ -195,8 +190,6 @@
 		C62D1D2C1B05E3D1002B1875 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C62D1D2D1B05E3D1002B1875 /* ColorConvert.h */,
-				C62D1D2E1B05E3D1002B1875 /* ColorConvert.m */,
 				C62D1D2F1B05E3D1002B1875 /* GaodeCircle.h */,
 				C62D1D301B05E3D1002B1875 /* GaodeCircle.m */,
 				C62D1D311B05E3D1002B1875 /* GaodeGroundOverlay.h */,
@@ -210,6 +203,8 @@
 				C62D1D391B05E3D1002B1875 /* GaodePolyline.h */,
 				C62D1D3A1B05E3D1002B1875 /* GaodePolyline.m */,
 				C62D1D3B1B05E3D1002B1875 /* model.h */,
+				C61DEF911B428E8D00AAD1B7 /* GaodeModelUtils.h */,
+				C61DEF921B428E8D00AAD1B7 /* GaodeModelUtils.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -286,16 +281,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C62D1D401B05E3D1002B1875 /* EUExGaodeMap+JsonIO.m in Sources */,
 				C62D1D481B05E3D1002B1875 /* GaodePolygon.m in Sources */,
 				C62D1D461B05E3D1002B1875 /* GaodeLocationStyle.m in Sources */,
 				C62D1D4A1B05E3D1002B1875 /* NSDictionary+getString.m in Sources */,
 				C62D1D441B05E3D1002B1875 /* GaodeCircle.m in Sources */,
 				C62D1D491B05E3D1002B1875 /* GaodePolyline.m in Sources */,
 				C62D1D451B05E3D1002B1875 /* GaodeGroundOverlay.m in Sources */,
-				C62D1D431B05E3D1002B1875 /* ColorConvert.m in Sources */,
 				C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */,
 				C62D1D471B05E3D1002B1875 /* GaodePointAnnotation.m in Sources */,
+				C61DEF931B428E8D00AAD1B7 /* GaodeModelUtils.m in Sources */,
 				C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,7 +379,7 @@
 		C62D1D0C1B05E2D6002B1875 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGaodeMap/;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -404,7 +398,7 @@
 		C62D1D0D1B05E2D6002B1875 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGaodeMap/;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
