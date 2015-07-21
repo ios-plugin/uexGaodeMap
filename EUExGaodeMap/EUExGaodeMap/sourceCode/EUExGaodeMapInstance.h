@@ -2,16 +2,28 @@
 //  EUExGaodeMapInstance.h
 //  AppCanPlugin
 //
-//  Created by AppCan on 15/5/12.
+//  Created by lkl on 15/5/12.
 //  Copyright (c) 2015年 zywx. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <MAMapKit/MAMapKit.h>
-#import <AMapSearchKit/AMapSearchAPI.h>
+
 #import "EBrowserView.h"
 #import "EUtility.h"
-#import "model.h"
+#import "GaodeModels.h"
+#import "GaodeCustomAnnotationView.h"
+#import "GaodeOfflineMapManager.h"
+
+typedef NS_ENUM(NSInteger, GaodeGestureType){
+    GaodeGestureTypeClick=0,
+    GaodeGestureTypeLongPress
+};
+
+@protocol GaodeGestureDelegate<NSObject>
+
+-(void)handleGesture:(GaodeGestureType)type withCoordinate:(CLLocationCoordinate2D)coordinate;
+
+
+@end
 
 @interface EUExGaodeMapInstance : NSObject<MAMapViewDelegate, AMapSearchDelegate>
 @property (nonatomic,strong)MAMapView *gaodeView;
@@ -21,6 +33,8 @@
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
 @property (nonatomic,assign) BOOL isGaodeMaploaded;
 @property (nonatomic,strong) MAMapStatus *status;
+@property(nonatomic,strong)GaodeOfflineMapManager *offlineMgr;
+@property(nonatomic,weak)id<GaodeGestureDelegate> delegate;
 
 
 

@@ -2,11 +2,19 @@
 //  EUExGaodeMapInstance.m
 //  AppCanPlugin
 //
-//  Created by AppCan on 15/5/12.
+//  Created by lkl on 15/5/12.
 //  Copyright (c) 2015年 zywx. All rights reserved.
 //
 
 #import "EUExGaodeMapInstance.h"
+
+@interface EUExGaodeMapInstance()<UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UITapGestureRecognizer *singleTap;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+
+@end
+
+
 
 
 @implementation EUExGaodeMapInstance
@@ -28,10 +36,11 @@
 
 -(void)clearAll{
     [self clearMapView];
-    [self clearSearch];
+    [self clearDelegate];
     [self.annotations removeAllObjects];
     [self.overlays removeAllObjects];
     [self.gaodeView setMapStatus: _status animated:NO duration:0];
+    [self.gaodeView removeFromSuperview];
     
 }
 
@@ -43,6 +52,7 @@
         self.overlays = [NSMutableArray array];
         self.isGaodeMaploaded=NO;
         self.locationStyleOptions=[[GaodeLocationStyle alloc] init];
+        self.offlineMgr=[[GaodeOfflineMapManager alloc]initWithMapView:self.gaodeView];
 
             
             
@@ -85,14 +95,21 @@
                 top:(CGFloat)top
               width:(CGFloat)width
              height:(CGFloat)height{
+    
+    
+
+    
+    
     if(!self.gaodeView){
         self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
+        [self setupGestures];
         self.status =[self.gaodeView getMapStatus];
     }else{
         self.gaodeView.frame=CGRectMake(left,top,width,height);
     }
     self.gaodeView.scaleOrigin=CGPointMake(self.gaodeView.scaleOrigin.x, height-40);
     self.gaodeView.compassOrigin=CGPointMake(5, 5);
+     
 }
 
 
@@ -104,18 +121,88 @@
     [self.gaodeView removeOverlays:self.gaodeView.overlays];
 
     
-    self.gaodeView.delegate = nil;
+    
     
     [self.gaodeView setCompassImage:nil];
 
 }
 
 
-- (void)clearSearch
+- (void)clearDelegate
 {
     self.searchAPI.delegate = nil;
+    self.gaodeView.delegate = nil;
+    self.delegate=nil;
 }
 
+
+#pragma mark - 手势
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ((gestureRecognizer == self.singleTap||gestureRecognizer==self.longPress) && ([touch.view isKindOfClass:[UIControl class]] || [touch.view isKindOfClass:[MAAnnotationView class]]))
+    {
+        return NO;
+    }
+    
+
+    
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (void)setupGestures
+{
+    self.longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
+    self.longPress.minimumPressDuration=1.0;
+    self.longPress.delegate=self;
+    [self.gaodeView addGestureRecognizer:self.longPress];
+    
+    self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    self.singleTap.delegate = self;
+    [self.singleTap requireGestureRecognizerToFail:self.longPress];
+    [self.gaodeView addGestureRecognizer:self.singleTap];
+    
+    
+   
+    
+    
+    
+}
+
+-(void)handleSingleTap:(UITapGestureRecognizer *)theSingleTap{
+    CLLocationCoordinate2D coordinate=[self parseGesture:theSingleTap];
+    if([self.delegate respondsToSelector:@selector(handleGesture:withCoordinate:)]){
+        [self.delegate handleGesture:GaodeGestureTypeClick withCoordinate:coordinate];
+    }
+    
+    
+    
+
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)theLongPress{
+    
+    if(theLongPress.state==UIGestureRecognizerStateBegan){
+        CLLocationCoordinate2D coordinate=[self parseGesture:theLongPress];
+        if([self.delegate respondsToSelector:@selector(handleGesture:withCoordinate:)]){
+            [self.delegate handleGesture:GaodeGestureTypeLongPress withCoordinate:coordinate];
+        }
+        
+
+    }
+   
+}
+
+-(CLLocationCoordinate2D)parseGesture:(UIGestureRecognizer *)gesture{
+    CGPoint point=[gesture locationInView:self.gaodeView];
+    return [self.gaodeView convertPoint:point toCoordinateFromView:self.gaodeView];
+    
+}
 
 @end
 

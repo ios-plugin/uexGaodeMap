@@ -5,7 +5,7 @@
 	<key>UexKeyValues</key>
 	<dict>
 		<key>uexGaodeMapKey</key>
-		<string>这里输入GaodeMapKey</string>
+		<string>$UEXGAODEMAP_APP_KEY$</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string></string>
 	</dict>

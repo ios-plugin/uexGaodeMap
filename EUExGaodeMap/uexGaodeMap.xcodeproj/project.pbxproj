@@ -7,17 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42D330001B5E48DA00C07FC4 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D32FD11B5E48DA00C07FC4 /* AMapSearchKit.framework */; };
+		42D330011B5E48DA00C07FC4 /* GaodeError.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FD61B5E48DA00C07FC4 /* GaodeError.m */; };
+		42D330021B5E48DA00C07FC4 /* GaodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FD81B5E48DA00C07FC4 /* GaodeUtility.m */; };
+		42D330031B5E48DA00C07FC4 /* GaodeCACalloutBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FDB1B5E48DA00C07FC4 /* GaodeCACalloutBase.m */; };
+		42D330041B5E48DA00C07FC4 /* GaodeCACalloutTextBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FDE1B5E48DA00C07FC4 /* GaodeCACalloutTextBox.m */; };
+		42D330051B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FE01B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m */; };
+		42D330061B5E48DA00C07FC4 /* GaodeCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FE31B5E48DA00C07FC4 /* GaodeCircle.m */; };
+		42D330071B5E48DA00C07FC4 /* GaodeGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FE51B5E48DA00C07FC4 /* GaodeGroundOverlay.m */; };
+		42D330081B5E48DA00C07FC4 /* GaodeLocationStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FE71B5E48DA00C07FC4 /* GaodeLocationStyle.m */; };
+		42D330091B5E48DA00C07FC4 /* GaodePointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FEA1B5E48DA00C07FC4 /* GaodePointAnnotation.m */; };
+		42D3300A1B5E48DA00C07FC4 /* GaodePolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FEC1B5E48DA00C07FC4 /* GaodePolygon.m */; };
+		42D3300B1B5E48DA00C07FC4 /* GaodePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FEE1B5E48DA00C07FC4 /* GaodePolyline.m */; };
+		42D3300C1B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FF11B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.m */; };
+		42D3300D1B5E48DA00C07FC4 /* GaodeOfflineMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FF31B5E48DA00C07FC4 /* GaodeOfflineMapManager.m */; };
+		42D3300E1B5E48DA00C07FC4 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FF51B5E48DA00C07FC4 /* EUExGaodeMapInstance.m */; };
+		42D3300F1B5E48DA00C07FC4 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D32FFF1B5E48DA00C07FC4 /* MAMapKit.framework */; };
+		42D330111B5E4CF800C07FC4 /* libAppCanEngine_IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D330101B5E4CF800C07FC4 /* libAppCanEngine_IOS.a */; };
 		C62D1E021B05EBA4002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DDD1B05EBA4002B1875 /* EUExGaodeMap.m */; };
-		C62D1E031B05EBA4002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1DE01B05EBA4002B1875 /* AMapSearchKit.framework */; };
-		C62D1E051B05EBA4002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DE51B05EBA4002B1875 /* EUExGaodeMapInstance.m */; };
-		C62D1E061B05EBA4002B1875 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1DEF1B05EBA4002B1875 /* MAMapKit.framework */; };
-		C62D1E081B05EBA4002B1875 /* GaodeCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DF41B05EBA4002B1875 /* GaodeCircle.m */; };
-		C62D1E091B05EBA4002B1875 /* GaodeGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DF61B05EBA4002B1875 /* GaodeGroundOverlay.m */; };
-		C62D1E0A1B05EBA4002B1875 /* GaodeLocationStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DF81B05EBA4002B1875 /* GaodeLocationStyle.m */; };
-		C62D1E0B1B05EBA4002B1875 /* GaodePointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DFA1B05EBA4002B1875 /* GaodePointAnnotation.m */; };
-		C62D1E0C1B05EBA4002B1875 /* GaodePolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DFC1B05EBA4002B1875 /* GaodePolygon.m */; };
-		C62D1E0D1B05EBA4002B1875 /* GaodePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1DFE1B05EBA4002B1875 /* GaodePolyline.m */; };
-		C62D1E0E1B05EBA4002B1875 /* NSDictionary+getString.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1E011B05EBA4002B1875 /* NSDictionary+getString.m */; };
 		C62D1E221B05EC8B002B1875 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E211B05EC8B002B1875 /* Security.framework */; };
 		C62D1E241B05EC99002B1875 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E231B05EC99002B1875 /* SystemConfiguration.framework */; };
 		C62D1E261B05ECA0002B1875 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E251B05ECA0002B1875 /* CoreTelephony.framework */; };
@@ -29,15 +36,12 @@
 		C62D1E321B05ECCD002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E311B05ECCD002B1875 /* UIKit.framework */; };
 		C62D1E341B05ECE0002B1875 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E331B05ECE0002B1875 /* libz.dylib */; };
 		C62D1E361B05ECE5002B1875 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E351B05ECE5002B1875 /* libstdc++.6.0.9.dylib */; };
-		C62D1E3A1B05ED12002B1875 /* Beqtucontent.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1E391B05ED12002B1875 /* Beqtucontent.m */; };
-		C62D1E3F1B05F09E002B1875 /* libAppCanEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E3E1B05F09E002B1875 /* libAppCanEngine.a */; };
 		C62D1E411B05F10B002B1875 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E401B05F10B002B1875 /* libsqlite3.dylib */; };
 		C62D1E431B05F150002B1875 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E421B05F150002B1875 /* AudioToolbox.framework */; };
 		C62D1E451B05F19C002B1875 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E441B05F19C002B1875 /* ImageIO.framework */; };
 		C62D1E471B05F1A4002B1875 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E461B05F1A4002B1875 /* MapKit.framework */; };
 		C62D1E491B05F1E1002B1875 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E481B05F1E1002B1875 /* CFNetwork.framework */; };
 		C62D1E4B1B05F1E9002B1875 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1E4A1B05F1E9002B1875 /* MobileCoreServices.framework */; };
-		C666445E1B43C0DA00E054C8 /* GaodeModelUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C666445D1B43C0DA00E054C8 /* GaodeModelUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,42 +57,56 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C62D1DD71B05EBA4002B1875 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
-		C62D1DD81B05EBA4002B1875 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
-		C62D1DD91B05EBA4002B1875 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
-		C62D1DDA1B05EBA4002B1875 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
-		C62D1DDB1B05EBA4002B1875 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
+		42D32FCA1B5E48DA00C07FC4 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
+		42D32FCB1B5E48DA00C07FC4 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
+		42D32FCC1B5E48DA00C07FC4 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
+		42D32FCD1B5E48DA00C07FC4 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
+		42D32FCE1B5E48DA00C07FC4 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
+		42D32FD01B5E48DA00C07FC4 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		42D32FD11B5E48DA00C07FC4 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		42D32FD21B5E48DA00C07FC4 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
+		42D32FD51B5E48DA00C07FC4 /* GaodeError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeError.h; sourceTree = "<group>"; };
+		42D32FD61B5E48DA00C07FC4 /* GaodeError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeError.m; sourceTree = "<group>"; };
+		42D32FD71B5E48DA00C07FC4 /* GaodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeUtility.h; sourceTree = "<group>"; };
+		42D32FD81B5E48DA00C07FC4 /* GaodeUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeUtility.m; sourceTree = "<group>"; };
+		42D32FDA1B5E48DA00C07FC4 /* GaodeCACalloutBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACalloutBase.h; sourceTree = "<group>"; };
+		42D32FDB1B5E48DA00C07FC4 /* GaodeCACalloutBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCACalloutBase.m; sourceTree = "<group>"; };
+		42D32FDC1B5E48DA00C07FC4 /* GaodeCACallouts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACallouts.h; sourceTree = "<group>"; };
+		42D32FDD1B5E48DA00C07FC4 /* GaodeCACalloutTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACalloutTextBox.h; sourceTree = "<group>"; };
+		42D32FDE1B5E48DA00C07FC4 /* GaodeCACalloutTextBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCACalloutTextBox.m; sourceTree = "<group>"; };
+		42D32FDF1B5E48DA00C07FC4 /* GaodeCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomAnnotationView.h; sourceTree = "<group>"; };
+		42D32FE01B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomAnnotationView.m; sourceTree = "<group>"; };
+		42D32FE21B5E48DA00C07FC4 /* GaodeCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCircle.h; sourceTree = "<group>"; };
+		42D32FE31B5E48DA00C07FC4 /* GaodeCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCircle.m; sourceTree = "<group>"; };
+		42D32FE41B5E48DA00C07FC4 /* GaodeGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeGroundOverlay.h; sourceTree = "<group>"; };
+		42D32FE51B5E48DA00C07FC4 /* GaodeGroundOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeGroundOverlay.m; sourceTree = "<group>"; };
+		42D32FE61B5E48DA00C07FC4 /* GaodeLocationStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeLocationStyle.h; sourceTree = "<group>"; };
+		42D32FE71B5E48DA00C07FC4 /* GaodeLocationStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeLocationStyle.m; sourceTree = "<group>"; };
+		42D32FE81B5E48DA00C07FC4 /* GaodeModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeModels.h; sourceTree = "<group>"; };
+		42D32FE91B5E48DA00C07FC4 /* GaodePointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePointAnnotation.h; sourceTree = "<group>"; };
+		42D32FEA1B5E48DA00C07FC4 /* GaodePointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePointAnnotation.m; sourceTree = "<group>"; };
+		42D32FEB1B5E48DA00C07FC4 /* GaodePolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolygon.h; sourceTree = "<group>"; };
+		42D32FEC1B5E48DA00C07FC4 /* GaodePolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolygon.m; sourceTree = "<group>"; };
+		42D32FED1B5E48DA00C07FC4 /* GaodePolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolyline.h; sourceTree = "<group>"; };
+		42D32FEE1B5E48DA00C07FC4 /* GaodePolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolyline.m; sourceTree = "<group>"; };
+		42D32FF01B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeOfflineInQueueItem.h; sourceTree = "<group>"; };
+		42D32FF11B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineInQueueItem.m; sourceTree = "<group>"; };
+		42D32FF21B5E48DA00C07FC4 /* GaodeOfflineMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeOfflineMapManager.h; sourceTree = "<group>"; };
+		42D32FF31B5E48DA00C07FC4 /* GaodeOfflineMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineMapManager.m; sourceTree = "<group>"; };
+		42D32FF41B5E48DA00C07FC4 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
+		42D32FF51B5E48DA00C07FC4 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
+		42D32FF71B5E48DA00C07FC4 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		42D32FF81B5E48DA00C07FC4 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		42D32FF91B5E48DA00C07FC4 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		42D32FFA1B5E48DA00C07FC4 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		42D32FFB1B5E48DA00C07FC4 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		42D32FFC1B5E48DA00C07FC4 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		42D32FFD1B5E48DA00C07FC4 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		42D32FFE1B5E48DA00C07FC4 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		42D32FFF1B5E48DA00C07FC4 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		42D330101B5E4CF800C07FC4 /* libAppCanEngine_IOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCanEngine_IOS.a; path = ../libAppCanEngine_IOS.a; sourceTree = "<group>"; };
 		C62D1DDC1B05EBA4002B1875 /* EUExGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMap.h; sourceTree = "<group>"; };
 		C62D1DDD1B05EBA4002B1875 /* EUExGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMap.m; sourceTree = "<group>"; };
-		C62D1DDF1B05EBA4002B1875 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		C62D1DE01B05EBA4002B1875 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
-		C62D1DE11B05EBA4002B1875 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
-		C62D1DE41B05EBA4002B1875 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
-		C62D1DE51B05EBA4002B1875 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
-		C62D1DE71B05EBA4002B1875 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		C62D1DE81B05EBA4002B1875 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
-		C62D1DE91B05EBA4002B1875 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		C62D1DEA1B05EBA4002B1875 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		C62D1DEB1B05EBA4002B1875 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		C62D1DEC1B05EBA4002B1875 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		C62D1DED1B05EBA4002B1875 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		C62D1DEE1B05EBA4002B1875 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		C62D1DEF1B05EBA4002B1875 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
-		C62D1DF31B05EBA4002B1875 /* GaodeCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCircle.h; sourceTree = "<group>"; };
-		C62D1DF41B05EBA4002B1875 /* GaodeCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCircle.m; sourceTree = "<group>"; };
-		C62D1DF51B05EBA4002B1875 /* GaodeGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeGroundOverlay.h; sourceTree = "<group>"; };
-		C62D1DF61B05EBA4002B1875 /* GaodeGroundOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeGroundOverlay.m; sourceTree = "<group>"; };
-		C62D1DF71B05EBA4002B1875 /* GaodeLocationStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeLocationStyle.h; sourceTree = "<group>"; };
-		C62D1DF81B05EBA4002B1875 /* GaodeLocationStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeLocationStyle.m; sourceTree = "<group>"; };
-		C62D1DF91B05EBA4002B1875 /* GaodePointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePointAnnotation.h; sourceTree = "<group>"; };
-		C62D1DFA1B05EBA4002B1875 /* GaodePointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePointAnnotation.m; sourceTree = "<group>"; };
-		C62D1DFB1B05EBA4002B1875 /* GaodePolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolygon.h; sourceTree = "<group>"; };
-		C62D1DFC1B05EBA4002B1875 /* GaodePolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolygon.m; sourceTree = "<group>"; };
-		C62D1DFD1B05EBA4002B1875 /* GaodePolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolyline.h; sourceTree = "<group>"; };
-		C62D1DFE1B05EBA4002B1875 /* GaodePolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolyline.m; sourceTree = "<group>"; };
-		C62D1DFF1B05EBA4002B1875 /* model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = model.h; sourceTree = "<group>"; };
-		C62D1E001B05EBA4002B1875 /* NSDictionary+getString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+getString.h"; sourceTree = "<group>"; };
-		C62D1E011B05EBA4002B1875 /* NSDictionary+getString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+getString.m"; sourceTree = "<group>"; };
 		C62D1E211B05EC8B002B1875 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C62D1E231B05EC99002B1875 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C62D1E251B05ECA0002B1875 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -100,17 +118,12 @@
 		C62D1E311B05ECCD002B1875 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C62D1E331B05ECE0002B1875 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C62D1E351B05ECE5002B1875 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		C62D1E391B05ED12002B1875 /* Beqtucontent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beqtucontent.m; sourceTree = "<group>"; };
-		C62D1E3B1B05EFCC002B1875 /* Beqtucontent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beqtucontent.h; sourceTree = "<group>"; };
-		C62D1E3E1B05F09E002B1875 /* libAppCanEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppCanEngine.a; sourceTree = "<group>"; };
 		C62D1E401B05F10B002B1875 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C62D1E421B05F150002B1875 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C62D1E441B05F19C002B1875 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		C62D1E461B05F1A4002B1875 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C62D1E481B05F1E1002B1875 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C62D1E4A1B05F1E9002B1875 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		C666445C1B43C0DA00E054C8 /* GaodeModelUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeModelUtils.h; sourceTree = "<group>"; };
-		C666445D1B43C0DA00E054C8 /* GaodeModelUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeModelUtils.m; sourceTree = "<group>"; };
 		C69F68771B05E9EF00392E7D /* uexGaodeMap.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = uexGaodeMap.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,106 +140,148 @@
 				C62D1E411B05F10B002B1875 /* libsqlite3.dylib in Frameworks */,
 				C62D1E361B05ECE5002B1875 /* libstdc++.6.0.9.dylib in Frameworks */,
 				C62D1E341B05ECE0002B1875 /* libz.dylib in Frameworks */,
+				42D330001B5E48DA00C07FC4 /* AMapSearchKit.framework in Frameworks */,
 				C62D1E321B05ECCD002B1875 /* UIKit.framework in Frameworks */,
+				42D330111B5E4CF800C07FC4 /* libAppCanEngine_IOS.a in Frameworks */,
 				C62D1E301B05ECC1002B1875 /* Foundation.framework in Frameworks */,
-				C62D1E3F1B05F09E002B1875 /* libAppCanEngine.a in Frameworks */,
 				C62D1E2E1B05ECBB002B1875 /* CoreGraphics.framework in Frameworks */,
 				C62D1E2C1B05ECB2002B1875 /* QuartzCore.framework in Frameworks */,
+				42D3300F1B5E48DA00C07FC4 /* MAMapKit.framework in Frameworks */,
 				C62D1E2A1B05ECAD002B1875 /* OpenGLES.framework in Frameworks */,
 				C62D1E281B05ECA7002B1875 /* CoreLocation.framework in Frameworks */,
 				C62D1E261B05ECA0002B1875 /* CoreTelephony.framework in Frameworks */,
 				C62D1E241B05EC99002B1875 /* SystemConfiguration.framework in Frameworks */,
 				C62D1E221B05EC8B002B1875 /* Security.framework in Frameworks */,
-				C62D1E061B05EBA4002B1875 /* MAMapKit.framework in Frameworks */,
-				C62D1E031B05EBA4002B1875 /* AMapSearchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C62D1DD51B05EBA4002B1875 /* EUExGaodeMap */ = {
+		42D32FC91B5E48DA00C07FC4 /* engineHeader */ = {
 			isa = PBXGroup;
 			children = (
-				C62D1DD61B05EBA4002B1875 /* engineHeader */,
-				C62D1DDC1B05EBA4002B1875 /* EUExGaodeMap.h */,
-				C62D1DDD1B05EBA4002B1875 /* EUExGaodeMap.m */,
-				C62D1DDE1B05EBA4002B1875 /* sourceCode */,
-			);
-			path = EUExGaodeMap;
-			sourceTree = "<group>";
-		};
-		C62D1DD61B05EBA4002B1875 /* engineHeader */ = {
-			isa = PBXGroup;
-			children = (
-				C62D1DD71B05EBA4002B1875 /* EBrowserView.h */,
-				C62D1DD81B05EBA4002B1875 /* EUExBase.h */,
-				C62D1DD91B05EBA4002B1875 /* EUExBaseDefine.h */,
-				C62D1DDA1B05EBA4002B1875 /* EUtility.h */,
-				C62D1DDB1B05EBA4002B1875 /* WidgetOneDelegate.h */,
+				42D32FCA1B5E48DA00C07FC4 /* EBrowserView.h */,
+				42D32FCB1B5E48DA00C07FC4 /* EUExBase.h */,
+				42D32FCC1B5E48DA00C07FC4 /* EUExBaseDefine.h */,
+				42D32FCD1B5E48DA00C07FC4 /* EUtility.h */,
+				42D32FCE1B5E48DA00C07FC4 /* WidgetOneDelegate.h */,
 			);
 			path = engineHeader;
 			sourceTree = "<group>";
 		};
-		C62D1DDE1B05EBA4002B1875 /* sourceCode */ = {
+		42D32FCF1B5E48DA00C07FC4 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
-				C62D1DDF1B05EBA4002B1875 /* AMap.bundle */,
-				C62D1DE01B05EBA4002B1875 /* AMapSearchKit.framework */,
-				C62D1DE11B05EBA4002B1875 /* AppCanPlugin-Prefix.pch */,
-				C62D1DE41B05EBA4002B1875 /* EUExGaodeMapInstance.h */,
-				C62D1DE51B05EBA4002B1875 /* EUExGaodeMapInstance.m */,
-				C62D1DE61B05EBA4002B1875 /* JSON */,
-				C62D1DEF1B05EBA4002B1875 /* MAMapKit.framework */,
-				C62D1DF01B05EBA4002B1875 /* Models */,
-				C62D1E001B05EBA4002B1875 /* NSDictionary+getString.h */,
-				C62D1E011B05EBA4002B1875 /* NSDictionary+getString.m */,
+				42D32FD01B5E48DA00C07FC4 /* AMap.bundle */,
+				42D32FD11B5E48DA00C07FC4 /* AMapSearchKit.framework */,
+				42D32FD21B5E48DA00C07FC4 /* AppCanPlugin-Prefix.pch */,
+				42D32FD31B5E48DA00C07FC4 /* Classes */,
+				42D32FF41B5E48DA00C07FC4 /* EUExGaodeMapInstance.h */,
+				42D32FF51B5E48DA00C07FC4 /* EUExGaodeMapInstance.m */,
+				42D32FF61B5E48DA00C07FC4 /* JSON */,
+				42D32FFF1B5E48DA00C07FC4 /* MAMapKit.framework */,
 			);
 			path = sourceCode;
 			sourceTree = "<group>";
 		};
-		C62D1DE61B05EBA4002B1875 /* JSON */ = {
+		42D32FD31B5E48DA00C07FC4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C62D1DE71B05EBA4002B1875 /* JSON.h */,
-				C62D1DE81B05EBA4002B1875 /* JSONParser.h */,
-				C62D1DE91B05EBA4002B1875 /* NSObject+SBJSON.h */,
-				C62D1DEA1B05EBA4002B1875 /* NSString+SBJSON.h */,
-				C62D1DEB1B05EBA4002B1875 /* SBJSON.h */,
-				C62D1DEC1B05EBA4002B1875 /* SBJsonBase.h */,
-				C62D1DED1B05EBA4002B1875 /* SBJsonParser.h */,
-				C62D1DEE1B05EBA4002B1875 /* SBJsonWriter.h */,
+				42D32FD41B5E48DA00C07FC4 /* Base */,
+				42D32FD91B5E48DA00C07FC4 /* CustomAnnotation */,
+				42D32FE11B5E48DA00C07FC4 /* Model */,
+				42D32FEF1B5E48DA00C07FC4 /* OfflineMap */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		42D32FD41B5E48DA00C07FC4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				42D32FD51B5E48DA00C07FC4 /* GaodeError.h */,
+				42D32FD61B5E48DA00C07FC4 /* GaodeError.m */,
+				42D32FD71B5E48DA00C07FC4 /* GaodeUtility.h */,
+				42D32FD81B5E48DA00C07FC4 /* GaodeUtility.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		42D32FD91B5E48DA00C07FC4 /* CustomAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				42D32FDA1B5E48DA00C07FC4 /* GaodeCACalloutBase.h */,
+				42D32FDB1B5E48DA00C07FC4 /* GaodeCACalloutBase.m */,
+				42D32FDC1B5E48DA00C07FC4 /* GaodeCACallouts.h */,
+				42D32FDD1B5E48DA00C07FC4 /* GaodeCACalloutTextBox.h */,
+				42D32FDE1B5E48DA00C07FC4 /* GaodeCACalloutTextBox.m */,
+				42D32FDF1B5E48DA00C07FC4 /* GaodeCustomAnnotationView.h */,
+				42D32FE01B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m */,
+			);
+			path = CustomAnnotation;
+			sourceTree = "<group>";
+		};
+		42D32FE11B5E48DA00C07FC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42D32FE21B5E48DA00C07FC4 /* GaodeCircle.h */,
+				42D32FE31B5E48DA00C07FC4 /* GaodeCircle.m */,
+				42D32FE41B5E48DA00C07FC4 /* GaodeGroundOverlay.h */,
+				42D32FE51B5E48DA00C07FC4 /* GaodeGroundOverlay.m */,
+				42D32FE61B5E48DA00C07FC4 /* GaodeLocationStyle.h */,
+				42D32FE71B5E48DA00C07FC4 /* GaodeLocationStyle.m */,
+				42D32FE81B5E48DA00C07FC4 /* GaodeModels.h */,
+				42D32FE91B5E48DA00C07FC4 /* GaodePointAnnotation.h */,
+				42D32FEA1B5E48DA00C07FC4 /* GaodePointAnnotation.m */,
+				42D32FEB1B5E48DA00C07FC4 /* GaodePolygon.h */,
+				42D32FEC1B5E48DA00C07FC4 /* GaodePolygon.m */,
+				42D32FED1B5E48DA00C07FC4 /* GaodePolyline.h */,
+				42D32FEE1B5E48DA00C07FC4 /* GaodePolyline.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		42D32FEF1B5E48DA00C07FC4 /* OfflineMap */ = {
+			isa = PBXGroup;
+			children = (
+				42D32FF01B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.h */,
+				42D32FF11B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.m */,
+				42D32FF21B5E48DA00C07FC4 /* GaodeOfflineMapManager.h */,
+				42D32FF31B5E48DA00C07FC4 /* GaodeOfflineMapManager.m */,
+			);
+			path = OfflineMap;
+			sourceTree = "<group>";
+		};
+		42D32FF61B5E48DA00C07FC4 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				42D32FF71B5E48DA00C07FC4 /* JSON.h */,
+				42D32FF81B5E48DA00C07FC4 /* JSONParser.h */,
+				42D32FF91B5E48DA00C07FC4 /* NSObject+SBJSON.h */,
+				42D32FFA1B5E48DA00C07FC4 /* NSString+SBJSON.h */,
+				42D32FFB1B5E48DA00C07FC4 /* SBJSON.h */,
+				42D32FFC1B5E48DA00C07FC4 /* SBJsonBase.h */,
+				42D32FFD1B5E48DA00C07FC4 /* SBJsonParser.h */,
+				42D32FFE1B5E48DA00C07FC4 /* SBJsonWriter.h */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
 		};
-		C62D1DF01B05EBA4002B1875 /* Models */ = {
+		C62D1DD51B05EBA4002B1875 /* EUExGaodeMap */ = {
 			isa = PBXGroup;
 			children = (
-				C666445C1B43C0DA00E054C8 /* GaodeModelUtils.h */,
-				C666445D1B43C0DA00E054C8 /* GaodeModelUtils.m */,
-				C62D1DF31B05EBA4002B1875 /* GaodeCircle.h */,
-				C62D1DF41B05EBA4002B1875 /* GaodeCircle.m */,
-				C62D1DF51B05EBA4002B1875 /* GaodeGroundOverlay.h */,
-				C62D1DF61B05EBA4002B1875 /* GaodeGroundOverlay.m */,
-				C62D1DF71B05EBA4002B1875 /* GaodeLocationStyle.h */,
-				C62D1DF81B05EBA4002B1875 /* GaodeLocationStyle.m */,
-				C62D1DF91B05EBA4002B1875 /* GaodePointAnnotation.h */,
-				C62D1DFA1B05EBA4002B1875 /* GaodePointAnnotation.m */,
-				C62D1DFB1B05EBA4002B1875 /* GaodePolygon.h */,
-				C62D1DFC1B05EBA4002B1875 /* GaodePolygon.m */,
-				C62D1DFD1B05EBA4002B1875 /* GaodePolyline.h */,
-				C62D1DFE1B05EBA4002B1875 /* GaodePolyline.m */,
-				C62D1DFF1B05EBA4002B1875 /* model.h */,
+				42D32FC91B5E48DA00C07FC4 /* engineHeader */,
+				42D32FCF1B5E48DA00C07FC4 /* sourceCode */,
+				C62D1DDC1B05EBA4002B1875 /* EUExGaodeMap.h */,
+				C62D1DDD1B05EBA4002B1875 /* EUExGaodeMap.m */,
 			);
-			path = Models;
+			path = EUExGaodeMap;
 			sourceTree = "<group>";
 		};
 		C69F686E1B05E9EF00392E7D = {
 			isa = PBXGroup;
 			children = (
-				C62D1E3B1B05EFCC002B1875 /* Beqtucontent.h */,
-				C62D1E391B05ED12002B1875 /* Beqtucontent.m */,
+				42D330101B5E4CF800C07FC4 /* libAppCanEngine_IOS.a */,
 				C62D1DD51B05EBA4002B1875 /* EUExGaodeMap */,
 				C69F68791B05E9EF00392E7D /* Frameworks */,
 				C69F68781B05E9EF00392E7D /* Products */,
@@ -250,7 +305,6 @@
 				C62D1E441B05F19C002B1875 /* ImageIO.framework */,
 				C62D1E421B05F150002B1875 /* AudioToolbox.framework */,
 				C62D1E401B05F10B002B1875 /* libsqlite3.dylib */,
-				C62D1E3E1B05F09E002B1875 /* libAppCanEngine.a */,
 				C62D1E351B05ECE5002B1875 /* libstdc++.6.0.9.dylib */,
 				C62D1E331B05ECE0002B1875 /* libz.dylib */,
 				C62D1E311B05ECCD002B1875 /* UIKit.framework */,
@@ -317,17 +371,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C62D1E0C1B05EBA4002B1875 /* GaodePolygon.m in Sources */,
-				C666445E1B43C0DA00E054C8 /* GaodeModelUtils.m in Sources */,
-				C62D1E0A1B05EBA4002B1875 /* GaodeLocationStyle.m in Sources */,
-				C62D1E0E1B05EBA4002B1875 /* NSDictionary+getString.m in Sources */,
-				C62D1E081B05EBA4002B1875 /* GaodeCircle.m in Sources */,
-				C62D1E3A1B05ED12002B1875 /* Beqtucontent.m in Sources */,
-				C62D1E0D1B05EBA4002B1875 /* GaodePolyline.m in Sources */,
-				C62D1E091B05EBA4002B1875 /* GaodeGroundOverlay.m in Sources */,
-				C62D1E051B05EBA4002B1875 /* EUExGaodeMapInstance.m in Sources */,
-				C62D1E0B1B05EBA4002B1875 /* GaodePointAnnotation.m in Sources */,
+				42D330011B5E48DA00C07FC4 /* GaodeError.m in Sources */,
+				42D3300A1B5E48DA00C07FC4 /* GaodePolygon.m in Sources */,
+				42D3300D1B5E48DA00C07FC4 /* GaodeOfflineMapManager.m in Sources */,
+				42D330031B5E48DA00C07FC4 /* GaodeCACalloutBase.m in Sources */,
+				42D330061B5E48DA00C07FC4 /* GaodeCircle.m in Sources */,
+				42D330051B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m in Sources */,
+				42D330091B5E48DA00C07FC4 /* GaodePointAnnotation.m in Sources */,
+				42D330021B5E48DA00C07FC4 /* GaodeUtility.m in Sources */,
+				42D330081B5E48DA00C07FC4 /* GaodeLocationStyle.m in Sources */,
+				42D330041B5E48DA00C07FC4 /* GaodeCACalloutTextBox.m in Sources */,
+				42D3300E1B5E48DA00C07FC4 /* EUExGaodeMapInstance.m in Sources */,
 				C62D1E021B05EBA4002B1875 /* EUExGaodeMap.m in Sources */,
+				42D330071B5E48DA00C07FC4 /* GaodeGroundOverlay.m in Sources */,
+				42D3300C1B5E48DA00C07FC4 /* GaodeOfflineInQueueItem.m in Sources */,
+				42D3300B1B5E48DA00C07FC4 /* GaodePolyline.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,8 +481,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExBaiduMap/engineHeader",
-					"$(PROJECT_DIR)/EUExBaiduMap/sourceCode/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphoneos",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -450,8 +508,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExBaiduMap/engineHeader",
-					"$(PROJECT_DIR)/EUExBaiduMap/sourceCode/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphoneos",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

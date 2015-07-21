@@ -32,6 +32,18 @@
         <method name="stopLocation"></method>
         <method name="setMyLocationEnable"></method>
         <method name="setUserTrackingMode"></method>
+        <method name="removeMarkersOverlays"></method>
+        <method name="removeOverlays"></method>
+        <method name="setScaleVisible"></method>
+        <method name="download"></method>
+        <method name="pause"></method>
+        <method name="restart"></method>
+        <method name="getAvailableCityList"></method>
+        <method name="getAvailableProvinceList"></method>
+        <method name="getDownloadList"></method>
+        <method name="getDownloadingList"></method>
+        <method name="isUpdate"></method>
+        <method name="delete"></method>
         
 
             

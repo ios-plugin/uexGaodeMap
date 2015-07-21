@@ -8,9 +8,26 @@
 
 #import "EUExGaodeMap.h"
 #import "EUExGaodeMapInstance.h"
-#import "NSDictionary+getString.h"
 #import "JSON.h"
-@interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate> {
+
+@implementation NSDictionary (getString)
+-(NSString*)getStringForKey:(id)key{
+    id strData=[self objectForKey:key];
+    if(strData){
+        return [NSString stringWithFormat:@"%@",strData];
+    }else{
+        return nil;
+    }
+    
+    
+}
+
+@end
+
+
+
+
+@interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
 }
 @property(nonatomic,weak)MAMapView *mapView;
 @property(nonatomic,weak)AMapSearchAPI *search;
@@ -60,7 +77,6 @@
 
     if (_mapView){
         _mapView.delegate=nil;
-        [_mapView removeFromSuperview];
         _mapView =nil;
     }
     if(_search){
@@ -122,6 +138,8 @@
     _search=_sharedInstance.searchAPI;
     _search.delegate = self;
     _mapView.delegate = self;
+    _sharedInstance.offlineMgr.delegate=self;
+     _sharedInstance.delegate=self;
     _mapView.customizeUserLocationAccuracyCircleRepresentation = YES;
     self.annotations=_sharedInstance.annotations;
     self.overlays=_sharedInstance.overlays;
@@ -129,9 +147,12 @@
     _mapView.showTraffic= NO;
     _mapView.mapType=MAMapTypeStandard;
     //_mapView.showsScale= NO;
+   
     
     
     [EUtility brwView:meBrwView addSubview:_mapView];
+
+
     
     
     if([initInfo getStringForKey:@"latitude"]){
@@ -154,7 +175,7 @@
         
     }
     
-    [self returnJSonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!"];
+    [self callbackJsonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!"];
       
     
 }
@@ -480,22 +501,51 @@ type://（必选） 0-关闭，1-开启
     //大头针标注
     if ([annotation isKindOfClass:[GaodePointAnnotation class]]) {
         GaodePointAnnotation *pointAnnotation=annotation;
+        if(pointAnnotation.isCustomCallout){
+            GaodeCustomAnnotationView *annotationView;
+            if([_mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier]&&[[_mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier] isKindOfClass:[GaodeCustomAnnotationView class]]){
+                annotationView=(GaodeCustomAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier];
+            }else{
+                annotationView=[[GaodeCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointAnnotation.identifier];
+                [annotationView setupWithCalloutDict:pointAnnotation.customCalloutData];
+            }
+            if(pointAnnotation.iconImage){
+                annotationView.image = pointAnnotation.iconImage;
+                //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
+                annotationView.centerOffset = CGPointMake(0, -18);
+            }
+            annotationView.canShowCallout=NO;
+            annotationView.animatesDrop = pointAnnotation.animatesDrop  ; //设置标注动画显示
+            annotationView.draggable = pointAnnotation.draggable; //设置标注可以拖动
+            annotationView.pinColor = MAPinAnnotationColorPurple;
+
+            return annotationView;
+
+            
+            
+            
+            
+        }else{
+            MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier];
+            
+            
+            if (annotationView == nil) {
+                annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointAnnotation.identifier];
+            }
+            annotationView.canShowCallout= pointAnnotation.canShowCallout; //设置气泡可以弹出
+            annotationView.animatesDrop = pointAnnotation.animatesDrop  ; //设置标注动画显示
+            annotationView.draggable = pointAnnotation.draggable; //设置标注可以拖动
+            annotationView.pinColor = MAPinAnnotationColorPurple;
+            if(pointAnnotation.iconImage){
+                annotationView.image = pointAnnotation.iconImage;
+                //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
+                annotationView.centerOffset = CGPointMake(0, -18);
+            }
+            
+            return annotationView;
+        }
         
-        MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier];
-        if (annotationView == nil) {
-            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointAnnotation.identifier];
-        }
-        annotationView.canShowCallout= pointAnnotation.canShowCallout; //设置气泡可以弹出
-        annotationView.animatesDrop = pointAnnotation.animatesDrop  ; //设置标注动画显示
-        annotationView.draggable = pointAnnotation.draggable; //设置标注可以拖动
-        annotationView.pinColor = MAPinAnnotationColorPurple;
-        if(pointAnnotation.iconImage){
-            annotationView.image = pointAnnotation.iconImage;
-            //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
-            annotationView.centerOffset = CGPointMake(0, -18);
-        }
-     
-        return annotationView;
+        
     }
     
     //自定义标注
@@ -618,8 +668,8 @@ type://（必选） 0-关闭，1-开启
 -(void)addMarkersOverlay:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    NSArray *markerDict =[self getDataFromJson:inArguments[0]];
-    for(NSDictionary *info in markerDict)
+    NSArray *markerArray =[self getDataFromJson:inArguments[0]];
+    for(NSDictionary *info in markerArray)
     {
         
         NSString *identifier=nil;
@@ -639,22 +689,28 @@ type://（必选） 0-关闭，1-开启
             icon=[info getStringForKey:@"icon"];
         }
         NSDictionary *bubble=nil;
-        if([info objectForKey:@"bubble"]){
+        if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
             bubble=[info objectForKey:@"bubble"];
         }
-        GaodePointAnnotation *existAnnotation =[self searchAnnotationById:identifier];
-        if(existAnnotation){
-            [_mapView removeAnnotation:existAnnotation];
-            [self.annotations removeObject:existAnnotation];
+        NSDictionary *customBubble=nil;
+                                           if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
+            customBubble=[info objectForKey:@"customBubble"];
+                                               
         }
+
+        if([self searchAnnotationById:identifier])return;
+
         GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
         pointAnnotation.identifier =identifier;
         pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
         if(icon){
             [pointAnnotation createIconImage:icon];
         }
-        
-        if(bubble){
+        if(customBubble){
+            pointAnnotation.isCustomCallout=YES;
+            pointAnnotation.customCalloutData=customBubble;
+        }
+        if(bubble&&!pointAnnotation.isCustomCallout){
             BOOL isEmpty=YES;
             if([bubble getStringForKey:@"title"]){
                 pointAnnotation.title=[bubble getStringForKey:@"title"];
@@ -667,6 +723,7 @@ type://（必选） 0-关闭，1-开启
             }
             pointAnnotation.canShowCallout=!isEmpty;
         }
+        
         [_mapView addAnnotation:pointAnnotation];
         [self.annotations addObject:pointAnnotation];
 
@@ -688,14 +745,14 @@ type://（必选） 0-关闭，1-开启
  */
 
 -(GaodePointAnnotation*)searchAnnotationById:(NSString *)identifier{
-    for(int i=0;i<[self.annotations count];i++){
-        GaodePointAnnotation *annotation=self.annotations[i];
+    for(GaodePointAnnotation *annotation in self.annotations){
         if ([annotation.identifier isEqual:identifier]){
             return annotation;
         }
     }
     return  nil;
 }
+
 
 -(void)setMarkerOverlay:(NSMutableArray *)inArguments{
     
@@ -724,6 +781,7 @@ type://（必选） 0-关闭，1-开启
     
     GaodePointAnnotation *pointAnnotation =[self searchAnnotationById:identifier];
     if(!pointAnnotation) return;
+
     [_mapView removeAnnotation:pointAnnotation];
 
 
@@ -1118,17 +1176,12 @@ id://(必选) 唯一标识符
 
 -(void)clearMarkersOverlay:(NSString *)identifier{
     if(!identifier) return;
-    for(int i=0;i<[self.annotations count];i++){
-        GaodePointAnnotation *annotation =self.annotations[i];
-        if([annotation.identifier isEqual:identifier]){
-            
-            [_mapView removeAnnotation:annotation];
-            
-            [self.annotations removeObjectAtIndex:i];
-            
-        }
+    if([self searchAnnotationById:identifier]){
+        GaodePointAnnotation *annotation=[self searchAnnotationById:identifier];
+        [_mapView removeAnnotation:annotation];
+        [self.annotations removeObject:annotation];
     }
-
+    
 }
 
 -(void)removeMarkersOverlay:(NSMutableArray *)inArguments{
@@ -1197,7 +1250,7 @@ id://(必选) 唯一标识符
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [dict setValue:@"1" forKey:@"errorCode"];
     [dict setValue:errorString forKey:@"errorInfo" ];
-    [self returnJSonWithName:@"cbPoiSearch" Object:dict];
+    [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
 }
 
 
@@ -1281,10 +1334,10 @@ id://(必选) 唯一标识符
                     NSDictionary *lowerLeft=[dataInfo objectForKey:@"lowerLeft"];
                     NSDictionary *upperRight=[dataInfo objectForKey:@"upperRigh"];
                     
-                    AMapGeoPoint *leftTopPoint =[AMapGeoPoint locationWithLatitude:[[upperRight getStringForKey:@"latitude:"] floatValue]
+                    AMapGeoPoint *leftTopPoint =[AMapGeoPoint locationWithLatitude:[[upperRight getStringForKey:@"latitude"] floatValue]
                                                                         longitude:[[lowerLeft getStringForKey:@"longitude"] floatValue]];
                     
-                     AMapGeoPoint *rightButtomPoint =[AMapGeoPoint locationWithLatitude:[[lowerLeft getStringForKey:@"latitude:"] floatValue]
+                     AMapGeoPoint *rightButtomPoint =[AMapGeoPoint locationWithLatitude:[[lowerLeft getStringForKey:@"latitude"] floatValue]
                                                                              longitude:[[upperRight getStringForKey:@"longitude"] floatValue]
                                                       ];
                     
@@ -1305,7 +1358,7 @@ id://(必选) 唯一标识符
                     NSMutableArray *polygonPoints=[NSMutableArray array];
                     for(int i=0;i<[dataInfo count];i++){
                         NSDictionary *pointDict=dataInfo[i];
-                        AMapGeoPoint *point =[AMapGeoPoint locationWithLatitude:[[pointDict getStringForKey:@"latitude:"] floatValue]
+                        AMapGeoPoint *point =[AMapGeoPoint locationWithLatitude:[[pointDict getStringForKey:@"latitude"] floatValue]
                                                                              longitude:[[pointDict getStringForKey:@"longitude"] floatValue]];
                         
                         [polygonPoints addObject:point];
@@ -1450,7 +1503,6 @@ id://(必选) 唯一标识符
 }
 
 
-
 /*
  ###startLocation
  
@@ -1584,20 +1636,20 @@ updatingLocation:(BOOL)updatingLocation
             case GettingCurrentPosition:
                 self.locationStatus=ContinuousLocationDisabled;
                 _mapView.showsUserLocation=NO;
-                [self returnJSonWithName:@"cbGetCurrentLocation" Object:dict];
+                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
                 break;
             case GettingCurrentPositionWhileLocating:
                 self.locationStatus=ContinuousLocationEnabled;
-                [self returnJSonWithName:@"cbGetCurrentLocation" Object:dict];
+                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
 
                 break;
             case GettingCurrentPositionWhileMarking:
                 self.locationStatus=ContinuousLocationEnabledWithMarker;
-                [self returnJSonWithName:@"cbGetCurrentLocation" Object:dict];
+                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
                 break;
                 
             default:
-                [self returnJSonWithName:@"onReceiveLocation" Object:dict];
+                [self callbackJsonWithName:@"onReceiveLocation" Object:dict];
                 break;
         }
     }
@@ -1624,7 +1676,7 @@ updatingLocation:(BOOL)updatingLocation
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:longitude forKey:@"longitude"];
     [dict setValue:latitude  forKey:@"latitude"];
-    [self returnJSonWithName:@"cbGeocode" Object:dict];
+    [self callbackJsonWithName:@"cbGeocode" Object:dict];
 }
 
 
@@ -1642,7 +1694,7 @@ updatingLocation:(BOOL)updatingLocation
     if(response.regeocode != nil) {
         NSMutableDictionary *dict =[NSMutableDictionary dictionary];
         [dict setValue:response.regeocode.formattedAddress forKey:@"address"];
-        [self returnJSonWithName:@"cbReverseGeocode" Object:dict];
+        [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
     }
 }
 
@@ -1675,7 +1727,7 @@ updatingLocation:(BOOL)updatingLocation
  ]
  }
  */
-\
+
 
 -(void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request
                 response:(AMapPlaceSearchResponse *)respons{
@@ -1715,7 +1767,7 @@ updatingLocation:(BOOL)updatingLocation
     }
 
     [dict setValue:data forKey:@"data"];
-    [self returnJSonWithName:@"cbPoiSearch" Object:dict];
+    [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
     
 }
 
@@ -1726,7 +1778,7 @@ updatingLocation:(BOOL)updatingLocation
 
 
 - (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView dataSize:(NSInteger)dataSize{
-    [self returnJSonWithName:@"onMapLoadedListener" Object:nil];
+    [self callbackJsonWithName:@"onMapLoadedListener" Object:nil];
 }
     
 
@@ -1743,7 +1795,7 @@ updatingLocation:(BOOL)updatingLocation
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view{
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:view.reuseIdentifier forKey:@"id"];
-    [self returnJSonWithName:@"onMarkerClickListener" Object:dict];
+    [self callbackJsonWithName:@"onMarkerClickListener" Object:dict];
 }
 
 
@@ -1755,7 +1807,7 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 //见 cbGetCurrentLocation
--(void) returnJSonWithName:(NSString *)name Object:(id)obj{
+-(void) callbackJsonWithName:(NSString *)name Object:(id)obj{
     
     NSString *result=[obj JSONFragment];
     NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
@@ -1798,7 +1850,7 @@ updatingLocation:(BOOL)updatingLocation
     
 }
 
-//6-30 新增
+//2015-6-30 新增 by lkl
 #pragma mark - 3.0.1新增API
 
 -(void)removeMarkersOverlays:(NSMutableArray *)inArguments{
@@ -1847,6 +1899,256 @@ updatingLocation:(BOOL)updatingLocation
             _mapView.showsScale=NO;
         }
     }
+}
+
+-(void)handleGesture:(GaodeGestureType)type withCoordinate:(CLLocationCoordinate2D)coordinate{
+     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
+     [dict setValue:@(coordinate.latitude) forKey:@"latitude"];
+     [dict setValue:@(coordinate.longitude) forKey:@"longitude"];
+    
+    switch (type) {
+        case GaodeGestureTypeClick:
+            [self callbackJsonWithName:@"onMapClickListener" Object:dict];
+            break;
+        case GaodeGestureTypeLongPress:
+            [self callbackJsonWithName:@"onMapLongClickListener" Object:dict];
+            break;
+            
+        default:
+            break;
+    }
+}
+-(void)clear:(NSMutableArray *)inArguments{
+    [self removeMarkersOverlays:nil];
+    [self removeOverlays:nil];
+}
+
+
+#pragma mark - OfflineMap
+//20150714 by lkl
+
+
+-(void)download:(NSMutableArray *)inArguments{
+     _sharedInstance.offlineMgr.delegate=self;
+    if([inArguments count]<1) return;
+     id dlInfo =[self getDataFromJson:inArguments[0]];
+    if([dlInfo isKindOfClass:[NSArray class]]){
+        for(NSDictionary *downloadDict in dlInfo){
+            NSString *searchKey=nil;
+            if([downloadDict objectForKey:@"city"]){
+                searchKey=[downloadDict getStringForKey:@"city"];
+            }else if([downloadDict objectForKey:@"province"]){
+                searchKey=[downloadDict getStringForKey:@"province"];
+            }
+            if(searchKey){
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [_sharedInstance.offlineMgr sendDownloadGaodeOfflineMapItemRequestByKey:searchKey callback:^(GaodeOfflineDownloadRequest reqCB) {
+                        NSString* errorStr=nil;
+                        NSNumber* errorCode;
+                        
+                        switch (reqCB) {
+                            case GaodeOfflineRequestAlreadyFinish:
+                                errorStr=@"已经下载完成，请到已下载列表查看！";
+                                errorCode=@-3;
+                                break;
+                            case GaodeOfflineRequestDumplicate:
+                                errorCode=@-2;
+                                errorStr=@"已经存在列表中！";
+                                break;
+                                
+                            case GaodeOfflineRequestNotExist:
+                                errorStr=@"城市或省名称错误！";
+                                errorCode=@-1;
+                                break;
+                            case GaodeOfflineRequestSuccess:
+                                errorCode=@0;
+                            default:
+                                
+                                break;
+                        }
+                        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                        [dict setValue:searchKey forKey:@"name"];
+                        [dict setValue:errorCode forKey:@"errorCode"];
+                        if(errorStr)[dict setValue:errorStr forKey:@"errorStr"];
+                        [self callbackJsonWithName:@"cbDownload" Object:dict];
+                    }];
+
+                });
+            }
+
+        }
+    }
+}
+//onDownload
+/* 当downloadStatus == MAOfflineMapDownloadStatusProgress 时, info参数是个NSDictionary,
+ 如下两个key用来获取已下载和总和的数据大小(单位byte), 对应的是NSNumber(long long) 类型. */
+//extern NSString * const MAOfflineMapDownloadReceivedSizeKey;
+//extern NSString * const MAOfflineMapDownloadExpectedSizeKey;
+
+-(void)offlineItem:(MAOfflineItem *)item downloadStatusDidChange:(GaodeOfflineDownloadStatus)status info:(id)info{
+   
+
+    NSNumber *completeCode=@0;
+    NSNumber *statusCode;
+    switch (status) {
+        case GaodeOfflineDownloadDownloading:
+            completeCode=[NSNumber numberWithFloat:((float)[[info objectForKey:MAOfflineMapDownloadReceivedSizeKey] floatValue]/(float)[[info objectForKey:MAOfflineMapDownloadExpectedSizeKey] floatValue]*100)];
+            statusCode=@0;
+            
+            break;
+        case GaodeOfflineDownloadPause:
+            completeCode=[NSNumber numberWithFloat:((float)item.downloadedSize/(float)item.size*100)];
+            statusCode=@3;
+            
+            break;
+        case GaodeOfflineDownloadError:
+            completeCode=@0;
+            statusCode=@-1;
+            
+            break;
+        case GaodeOfflineDownloadSuccess:
+            completeCode=@100;
+            statusCode=@4;
+            
+            break;
+        case GaodeOfflineDownloadUnzip:
+            completeCode=@100;
+            statusCode=@1;
+            
+            break;
+        case GaodeOfflineDownloadWaiting:
+            completeCode=[NSNumber numberWithFloat:((float)item.downloadedSize/(float)item.size*100)];
+            statusCode=@2;
+            
+            break;
+        default:
+            break;
+            
+    }
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    [dict setValue:item.name forKey:@"name"];
+    [dict setValue:completeCode forKey:@"completeCode"];
+    if(statusCode)[dict setValue:statusCode forKey:@"status"];
+    [self callbackJsonWithName:@"onDownload" Object:dict];
+
+}
+
+
+-(void)pause:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    id info=[self getDataFromJson:inArguments[0]];
+    if([info isKindOfClass:[NSArray class]]){
+        for(NSString *keyStr in info){
+
+                [_sharedInstance.offlineMgr pauseDownloadByKey:keyStr];
+
+            
+        }
+    }
+}
+-(void)restart:(NSMutableArray *)inArguments{
+     _sharedInstance.offlineMgr.delegate=self;
+    if([inArguments count]<1) return;
+    id info=[self getDataFromJson:inArguments[0]];
+    if([info isKindOfClass:[NSArray class]]){
+        for(NSString *keyStr in info){
+
+                [_sharedInstance.offlineMgr restartDownloadByKey:keyStr];
+
+            
+        }
+    }
+}
+
+
+-(void)getAvailableCityList:(NSMutableArray *)inArguments{
+    NSMutableArray *result=[NSMutableArray array];
+
+         for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
+             
+             [result addObject:[_sharedInstance.offlineMgr parseCity:item]];
+             
+             
+         }
+         [self callbackJsonWithName:@"cbGetAvailableCityList" Object:result];
+         
+         
+
+
+    
+}
+
+-(void)getAvailableProvinceList:(NSMutableArray *)inArguments{
+    NSMutableArray *result=[NSMutableArray array];
+
+    for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
+            [result addObject:[_sharedInstance.offlineMgr parseProvince:item]];
+    }
+    [self callbackJsonWithName:@"cbGetAvailableProvinceList" Object:result];
+}
+
+-(void)getDownloadList:(NSMutableArray *)inArguments{
+    NSMutableArray *result=[NSMutableArray array];
+
+        for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
+            if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
+                NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                [dict setValue:@1 forKey:@"type"];
+                [dict setValue:item.name forKey:@"name"];
+                [dict setValue:[NSNumber numberWithLongLong:item.size] forKey:@"size"];
+                [dict setValue:@100 forKey:@"completeCode"];
+                [result addObject:dict];
+            }
+        }
+        for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
+            if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
+                NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                [dict setValue:@2 forKey:@"type"];
+                [dict setValue:item.name forKey:@"name"];
+                [dict setValue:[NSNumber numberWithLongLong:item.size] forKey:@"size"];
+                [dict setValue:@100 forKey:@"completeCode"];
+                [result addObject:dict];
+            }
+        }
+        [self callbackJsonWithName:@"cbGetDownloadList" Object:result];
+
+        
+
+}
+-(void)getDownloadingList:(NSMutableArray *)inArguments{
+    [self callbackJsonWithName:@"cbGetDownloadingList" Object:[_sharedInstance.offlineMgr getDownloadingList]];
+}
+-(void)isUpdate:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    id info=[self getDataFromJson:inArguments[0]];
+    
+    
+    NSString *searchKey=nil;
+    if([info objectForKey:@"city"]){
+        searchKey=[info getStringForKey:@"city"];
+    }else if([info objectForKey:@"province"]){
+        searchKey=[info getStringForKey:@"province"];
+    }
+    MAOfflineItem *item=[_sharedInstance.offlineMgr searchItem:searchKey];
+    if(item){
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setValue:item.name forKey:@"name"];
+        [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
+        [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
+    }
+    
+    
+}
+-(void)delete:(NSMutableArray *)inArguments{
+    if([inArguments count]<1){
+        [_sharedInstance.offlineMgr.offlineMap cancelAll];
+        [_sharedInstance.offlineMgr.offlineMap clearDisk];
+        [_sharedInstance.offlineMgr clearQueue];
+        [_mapView reloadMap];
+        [self callbackJsonWithName:@"cbDelete" Object:nil];
+
+    }
+    
 }
 @end
 
