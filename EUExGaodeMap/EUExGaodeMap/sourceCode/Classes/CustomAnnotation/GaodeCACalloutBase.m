@@ -71,7 +71,6 @@
     if(calloutDict&&[calloutDict objectForKey:@"type"]){
         id type=[calloutDict objectForKey:@"type"];
         if([type isEqual:@"textBox"]||[type integerValue]==1) return GaodeCACalloutTypeTextBox;
-        if([type isEqual:@"test"]||[type integerValue]==2) return GaodeCACalloutTypeTest;
     }
     
     

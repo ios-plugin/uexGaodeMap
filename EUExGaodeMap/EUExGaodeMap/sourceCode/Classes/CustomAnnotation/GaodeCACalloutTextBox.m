@@ -15,6 +15,7 @@
 @property(nonatomic,strong)UIColor *shadowColor;
 @property(nonatomic,assign)CGFloat shadowOffsetX;
 @property(nonatomic,assign)CGFloat shadowOffsetY;
+@property(nonatomic,assign)CGFloat shadowRadius;
 
 @property(nonatomic,strong)UILabel *titleView;
 @property(nonatomic,strong)UIColor *titleColor;
@@ -25,6 +26,7 @@
 @property(nonatomic,strong)UIColor *textColor;
 @property(nonatomic,strong)UIFont *textFont;
 @property(nonatomic,copy)NSString *textStr;
+
 
 @end
 
@@ -42,7 +44,7 @@
     //设置阴影
     self.layer.shadowColor = self.shadowColor.CGColor;
     self.layer.shadowOpacity = 1.0;
-    
+    self.layer.shadowRadius=self.shadowRadius;
     self.layer.shadowOffset = CGSizeMake(self.shadowOffsetX, self.shadowOffsetY);
 }
 - (void)drawInContext:(CGContextRef)context {
@@ -128,6 +130,7 @@
     self.mainWidth=[self getFloatForKey:@"width" ifEmpty:^{result = NO;}];
     if(empty) return NO;
     self.bgColor=[self getColorForKey:@"bgColor" ifEmpty:nil];
+    self.shadowRadius=[self getFloatForKey:@"shadowRadius" ifEmpty:nil];
     self.shadowOffsetX=[self getFloatForKey:@"shadowOffsetX" ifEmpty:nil];
     self.shadowOffsetY=[self getFloatForKey:@"shadowOffsetY" ifEmpty:nil];
     self.shadowColor=[self getColorForKey:@"shadowColor" ifEmpty:nil];

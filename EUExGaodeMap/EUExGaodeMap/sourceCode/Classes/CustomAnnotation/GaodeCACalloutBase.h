@@ -15,7 +15,6 @@
 typedef NS_ENUM(NSInteger, GaodeCACalloutType){
     GaodeCACalloutTypeUndefined=0,
     GaodeCACalloutTypeTextBox,
-    GaodeCACalloutTypeTest,
 };
 
 @class GaodeCustomAnnotationView;
