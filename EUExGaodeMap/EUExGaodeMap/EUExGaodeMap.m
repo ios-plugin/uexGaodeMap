@@ -806,6 +806,15 @@ type://（必选） 0-关闭，1-开启
         }
         pointAnnotation.canShowCallout=!isEmpty;
     }
+    NSDictionary *customBubble=nil;
+    if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
+        customBubble=[info objectForKey:@"customBubble"];
+        
+    }
+    if(customBubble){
+        pointAnnotation.isCustomCallout=YES;
+        pointAnnotation.customCalloutData=customBubble;
+    }
     [_mapView addAnnotation:pointAnnotation];
 
 }
