@@ -25,7 +25,14 @@
 }
 
 -(void)createIconImage:(NSString *)str{
-    NSData *imageData = [NSData dataWithContentsOfFile: str];
+     str=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSData *imageData=nil;
+    if([str hasPrefix:@"http"]){
+        imageData=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
+    }else{
+        imageData = [NSData dataWithContentsOfFile:str];
+    }
+
     UIImage *image = [UIImage imageWithData: imageData];
     if(image){
         self.iconImage = image;

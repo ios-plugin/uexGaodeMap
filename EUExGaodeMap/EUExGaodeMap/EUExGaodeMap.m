@@ -509,10 +509,12 @@ type://（必选） 0-关闭，1-开启
                 annotationView=[[GaodeCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointAnnotation.identifier];
                 [annotationView setupWithCalloutDict:pointAnnotation.customCalloutData];
             }
+        
             if(pointAnnotation.iconImage){
                 annotationView.image = pointAnnotation.iconImage;
                 //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
-                annotationView.centerOffset = CGPointMake(0, -18);
+                CGFloat offsetY=annotationView.image.size.height/-2;
+                annotationView.centerOffset = CGPointMake(0, offsetY);
             }
             annotationView.canShowCallout=NO;
             annotationView.animatesDrop = pointAnnotation.animatesDrop  ; //设置标注动画显示
@@ -539,7 +541,8 @@ type://（必选） 0-关闭，1-开启
             if(pointAnnotation.iconImage){
                 annotationView.image = pointAnnotation.iconImage;
                 //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
-                annotationView.centerOffset = CGPointMake(0, -18);
+                CGFloat offsetY=annotationView.image.size.height/-2;
+                annotationView.centerOffset = CGPointMake(0, offsetY);
             }
             
             return annotationView;
@@ -687,6 +690,7 @@ type://（必选） 0-关闭，1-开启
         NSString *icon=nil;
         if([info getStringForKey:@"icon"]){
             icon=[info getStringForKey:@"icon"];
+            icon=[self absPath:icon];
         }
         NSDictionary *bubble=nil;
         if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
@@ -773,6 +777,7 @@ type://（必选） 0-关闭，1-开启
     NSString *icon=nil;
     if([info getStringForKey:@"icon"]){
         icon=[info getStringForKey:@"icon"];
+        icon=[self absPath:icon];
     }
     NSDictionary *bubble=nil;
     if([info objectForKey:@"bubble"]){
@@ -811,9 +816,14 @@ type://（必选） 0-关闭，1-开启
         customBubble=[info objectForKey:@"customBubble"];
         
     }
+        
+    
     if(customBubble){
         pointAnnotation.isCustomCallout=YES;
         pointAnnotation.customCalloutData=customBubble;
+    }else{
+        pointAnnotation.isCustomCallout=NO;
+        pointAnnotation.customCalloutData=nil;
     }
     [_mapView addAnnotation:pointAnnotation];
 
@@ -1870,6 +1880,10 @@ updatingLocation:(BOOL)updatingLocation
     }
     id info =[self getDataFromJson:inArguments[0]];
     if(![info isKindOfClass:[NSArray class]]) return;
+    if([info count]==0){
+        [_mapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
+    }
 
     for(NSDictionary *infoDict in info){
         if([infoDict getStringForKey:@"id"]){
