@@ -1877,6 +1877,7 @@ updatingLocation:(BOOL)updatingLocation
     if([inArguments count]<1){
         [_mapView removeAnnotations:self.annotations];
         [self.annotations removeAllObjects];
+        return;
     }
     id info =[self getDataFromJson:inArguments[0]];
     if(![info isKindOfClass:[NSArray class]]) return;

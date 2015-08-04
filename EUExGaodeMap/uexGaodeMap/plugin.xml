@@ -44,6 +44,7 @@
         <method name="getDownloadingList"></method>
         <method name="isUpdate"></method>
         <method name="delete"></method>
+        <method name="clear"></method>
         
 
             

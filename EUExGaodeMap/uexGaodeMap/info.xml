@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.2" build="2">
-        <info>2:新增点击回调;新增离线地图功能</info>
+        uexName="uexGaodeMap" version="3.0.3" build="3">
+        <info>3:修复clear接口可能会导致闪退的bug</info>
+        <build>2:新增点击回调;新增离线地图功能</build>
         <build>1:新增 设置比例尺 等3个API</build>
         <build>0:高德地图(uexGaodeMap)插件 for iOS</build>
 
