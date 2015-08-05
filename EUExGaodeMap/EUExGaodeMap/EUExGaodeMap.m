@@ -1041,6 +1041,10 @@ type://（必选） 0-关闭，1-开启
     if(lineWidth){
         circle.lineWidth=[lineWidth floatValue];
     }
+    
+    if([info objectForKey:@"lineDash"]&&[[info objectForKey:@"lineDash"] boolValue]==YES){
+        circle.lineDash=YES;
+    }
     //在地图上添加圆
     [_mapView addOverlay: circle];
 
@@ -1643,34 +1647,36 @@ id://(必选) 唯一标识符
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
 updatingLocation:(BOOL)updatingLocation
 {
-    if(updatingLocation) {
-         NSDate *datenow = [NSDate date];
-        NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
-        //取出当前位置的坐标
-        NSMutableDictionary *dict =[NSMutableDictionary dictionaryWithCapacity:2];
-        [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.latitude] forKey:@"latitude"];
-        [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.longitude] forKey:@"longitude"];
-        [dict setValue:timestamp forKey:@"timestamp"];
-        switch (self.locationStatus) {
-            case GettingCurrentPosition:
-                self.locationStatus=ContinuousLocationDisabled;
-                _mapView.showsUserLocation=NO;
-                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
-                break;
-            case GettingCurrentPositionWhileLocating:
-                self.locationStatus=ContinuousLocationEnabled;
-                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+    
+    NSDate *datenow = [NSDate date];
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    //取出当前位置的坐标
+    NSMutableDictionary *dict =[NSMutableDictionary dictionaryWithCapacity:2];
+    [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.latitude] forKey:@"latitude"];
+    [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.longitude] forKey:@"longitude"];
+    [dict setValue:timestamp forKey:@"timestamp"];
+    switch (self.locationStatus) {
+        case GettingCurrentPosition:
+            self.locationStatus=ContinuousLocationDisabled;
+            _mapView.showsUserLocation=NO;
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+            break;
+        case GettingCurrentPositionWhileLocating:
+            self.locationStatus=ContinuousLocationEnabled;
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
 
-                break;
-            case GettingCurrentPositionWhileMarking:
-                self.locationStatus=ContinuousLocationEnabledWithMarker;
-                [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
-                break;
+            break;
+        case GettingCurrentPositionWhileMarking:
+            self.locationStatus=ContinuousLocationEnabledWithMarker;
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+            break;
                 
-            default:
-                [self callbackJsonWithName:@"onReceiveLocation" Object:dict];
-                break;
-        }
+        default:
+            if(updatingLocation){
+            [self callbackJsonWithName:@"onReceiveLocation" Object:dict];
+            }
+            break;
+        
     }
 }
 

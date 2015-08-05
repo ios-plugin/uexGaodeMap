@@ -23,9 +23,9 @@
 
 -(void)setFillC:(NSString*)colorString{
     UIColor *color=[GaodeUtility returnUIColorFromHTMLStr:colorString];
-    if(![color isEqual:[UIColor clearColor]]){
+
         self.color =color;
-    }
+    
 }
 
 -(void)dataInit{
