@@ -510,17 +510,19 @@ type://（必选） 0-关闭，1-开启
                 [annotationView setupWithCalloutDict:pointAnnotation.customCalloutData];
             }
         
-            if(pointAnnotation.iconImage){
-                annotationView.image = pointAnnotation.iconImage;
-                //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
-                CGFloat offsetY=annotationView.image.size.height/-2;
-                annotationView.centerOffset = CGPointMake(0, offsetY);
-            }
+           
             annotationView.canShowCallout=NO;
             annotationView.animatesDrop = pointAnnotation.animatesDrop  ; //设置标注动画显示
             annotationView.draggable = pointAnnotation.draggable; //设置标注可以拖动
             annotationView.pinColor = MAPinAnnotationColorPurple;
+            if(pointAnnotation.iconImage){
+  
+                annotationView.image = pointAnnotation.iconImage;
 
+                //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
+                CGFloat offsetY=annotationView.image.size.height/-2;
+                annotationView.centerOffset = CGPointMake(0, offsetY);
+            }
             return annotationView;
 
             
@@ -1716,11 +1718,15 @@ updatingLocation:(BOOL)updatingLocation
 
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
 {
+    NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     if(response.regeocode != nil) {
-        NSMutableDictionary *dict =[NSMutableDictionary dictionary];
+        [dict setValue:@0 forKey:@"errorCode"];
         [dict setValue:response.regeocode.formattedAddress forKey:@"address"];
-        [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
+        
+    }else{
+        [dict setValue:@-1 forKey:@"errorCode"];
     }
+    [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
 }
 
 
