@@ -9,5 +9,5 @@
 
 
 @interface GaodeUtility : NSObject
-+(UIColor *)returnUIColorFromHTMLStr:(NSString *)ColorString;
++(UIColor *)UIColorFromHTMLStr:(NSString *)ColorString;
 @end

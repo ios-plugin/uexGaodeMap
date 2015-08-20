@@ -12,6 +12,7 @@
 #import "GaodeModels.h"
 #import "GaodeCustomAnnotationView.h"
 #import "GaodeOfflineMapManager.h"
+#import "GaodeCustomButtonManager.h"
 
 typedef NS_ENUM(NSInteger, GaodeGestureType){
     GaodeGestureTypeClick=0,
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
 @property (nonatomic,assign) BOOL isGaodeMaploaded;
 @property (nonatomic,strong) MAMapStatus *status;
 @property(nonatomic,strong)GaodeOfflineMapManager *offlineMgr;
+@property(nonatomic,strong)GaodeCustomButtonManager *buttonMgr;
 @property(nonatomic,weak)id<GaodeGestureDelegate> delegate;
 
 

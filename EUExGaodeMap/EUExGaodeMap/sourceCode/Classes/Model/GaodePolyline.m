@@ -22,7 +22,7 @@
 
 
 -(void)setFillC:(NSString*)colorString{
-    UIColor *color=[GaodeUtility returnUIColorFromHTMLStr:colorString];
+    UIColor *color=[GaodeUtility UIColorFromHTMLStr:colorString];
 
         self.color =color;
     

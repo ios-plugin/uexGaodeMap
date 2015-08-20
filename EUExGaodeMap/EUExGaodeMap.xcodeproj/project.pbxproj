@@ -20,6 +20,8 @@
 		4235B29A1B5739F9004DA814 /* GaodePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B28C1B5739F9004DA814 /* GaodePolyline.m */; };
 		4235B29B1B5739F9004DA814 /* GaodeOfflineMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B28F1B5739F9004DA814 /* GaodeOfflineMapManager.m */; };
 		4235B29E1B573A6E004DA814 /* GaodeOfflineInQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */; };
+		4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */; };
+		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
 		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
@@ -76,6 +78,10 @@
 		4235B28F1B5739F9004DA814 /* GaodeOfflineMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineMapManager.m; sourceTree = "<group>"; };
 		4235B29C1B573A6E004DA814 /* GaodeOfflineInQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeOfflineInQueueItem.h; sourceTree = "<group>"; };
 		4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineInQueueItem.m; sourceTree = "<group>"; };
+		4247F9431B85DBBF00DDE38A /* GaodeCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButton.h; sourceTree = "<group>"; };
+		4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButton.m; sourceTree = "<group>"; };
+		4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButtonManager.h; sourceTree = "<group>"; };
+		4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButtonManager.m; sourceTree = "<group>"; };
 		C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGaodeMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62D1D131B05E3D1002B1875 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
 		C62D1D141B05E3D1002B1875 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 		4235B2701B5739F9004DA814 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4247F9421B85DBBF00DDE38A /* CustomButton */,
 				4235B2711B5739F9004DA814 /* Base */,
 				4235B2761B5739F9004DA814 /* CustomAnnotation */,
 				4235B27F1B5739F9004DA814 /* Model */,
@@ -196,6 +203,17 @@
 				4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */,
 			);
 			path = OfflineMap;
+			sourceTree = "<group>";
+		};
+		4247F9421B85DBBF00DDE38A /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				4247F9431B85DBBF00DDE38A /* GaodeCustomButton.h */,
+				4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */,
+				4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */,
+				4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */,
+			);
+			path = CustomButton;
 			sourceTree = "<group>";
 		};
 		C62D1CEE1B05E2D6002B1875 = {
@@ -341,10 +359,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4235B2901B5739F9004DA814 /* GaodeError.m in Sources */,
+				4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */,
 				4235B2991B5739F9004DA814 /* GaodePolygon.m in Sources */,
 				4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */,
 				4235B29B1B5739F9004DA814 /* GaodeOfflineMapManager.m in Sources */,
 				4235B2951B5739F9004DA814 /* GaodeCircle.m in Sources */,
+				4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */,
 				4235B2941B5739F9004DA814 /* GaodeCustomAnnotationView.m in Sources */,
 				4235B2981B5739F9004DA814 /* GaodePointAnnotation.m in Sources */,
 				4235B2911B5739F9004DA814 /* GaodeUtility.m in Sources */,

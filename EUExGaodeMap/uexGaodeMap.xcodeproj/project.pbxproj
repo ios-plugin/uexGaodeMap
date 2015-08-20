@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4247F94E1B85DC5B00DDE38A /* GaodeCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F94B1B85DC5B00DDE38A /* GaodeCustomButton.m */; };
+		4247F94F1B85DC5B00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F94D1B85DC5B00DDE38A /* GaodeCustomButtonManager.m */; };
 		42D330001B5E48DA00C07FC4 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D32FD11B5E48DA00C07FC4 /* AMapSearchKit.framework */; };
 		42D330011B5E48DA00C07FC4 /* GaodeError.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FD61B5E48DA00C07FC4 /* GaodeError.m */; };
 		42D330021B5E48DA00C07FC4 /* GaodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D32FD81B5E48DA00C07FC4 /* GaodeUtility.m */; };
@@ -57,6 +59,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4247F94A1B85DC5B00DDE38A /* GaodeCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButton.h; sourceTree = "<group>"; };
+		4247F94B1B85DC5B00DDE38A /* GaodeCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButton.m; sourceTree = "<group>"; };
+		4247F94C1B85DC5B00DDE38A /* GaodeCustomButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButtonManager.h; sourceTree = "<group>"; };
+		4247F94D1B85DC5B00DDE38A /* GaodeCustomButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButtonManager.m; sourceTree = "<group>"; };
 		42D32FCA1B5E48DA00C07FC4 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
 		42D32FCB1B5E48DA00C07FC4 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
 		42D32FCC1B5E48DA00C07FC4 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
@@ -158,6 +164,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4247F9491B85DC5B00DDE38A /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				4247F94A1B85DC5B00DDE38A /* GaodeCustomButton.h */,
+				4247F94B1B85DC5B00DDE38A /* GaodeCustomButton.m */,
+				4247F94C1B85DC5B00DDE38A /* GaodeCustomButtonManager.h */,
+				4247F94D1B85DC5B00DDE38A /* GaodeCustomButtonManager.m */,
+			);
+			path = CustomButton;
+			sourceTree = "<group>";
+		};
 		42D32FC91B5E48DA00C07FC4 /* engineHeader */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +205,7 @@
 		42D32FD31B5E48DA00C07FC4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4247F9491B85DC5B00DDE38A /* CustomButton */,
 				42D32FD41B5E48DA00C07FC4 /* Base */,
 				42D32FD91B5E48DA00C07FC4 /* CustomAnnotation */,
 				42D32FE11B5E48DA00C07FC4 /* Model */,
@@ -372,10 +390,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				42D330011B5E48DA00C07FC4 /* GaodeError.m in Sources */,
+				4247F94F1B85DC5B00DDE38A /* GaodeCustomButtonManager.m in Sources */,
 				42D3300A1B5E48DA00C07FC4 /* GaodePolygon.m in Sources */,
 				42D3300D1B5E48DA00C07FC4 /* GaodeOfflineMapManager.m in Sources */,
 				42D330031B5E48DA00C07FC4 /* GaodeCACalloutBase.m in Sources */,
 				42D330061B5E48DA00C07FC4 /* GaodeCircle.m in Sources */,
+				4247F94E1B85DC5B00DDE38A /* GaodeCustomButton.m in Sources */,
 				42D330051B5E48DA00C07FC4 /* GaodeCustomAnnotationView.m in Sources */,
 				42D330091B5E48DA00C07FC4 /* GaodePointAnnotation.m in Sources */,
 				42D330021B5E48DA00C07FC4 /* GaodeUtility.m in Sources */,

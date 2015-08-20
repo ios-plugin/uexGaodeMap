@@ -78,7 +78,7 @@
 }
 -(UIColor *)getColorForKey:(NSString*)key ifEmpty:(void (^)(void))block{
     if([self.dataDict objectForKey:key]&&[[self.dataDict objectForKey:key] isKindOfClass:[NSString class]]){
-        return [GaodeUtility returnUIColorFromHTMLStr:[self.dataDict objectForKey:key]];
+        return [GaodeUtility UIColorFromHTMLStr:[self.dataDict objectForKey:key]];
     }else{
         if(block) block();
         return [UIColor clearColor];

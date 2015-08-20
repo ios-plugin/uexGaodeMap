@@ -41,6 +41,7 @@
     [self.overlays removeAllObjects];
     [self.gaodeView setMapStatus: _status animated:NO duration:0];
     [self.gaodeView removeFromSuperview];
+    [self.buttonMgr hideAllButtons];
     
 }
 
@@ -104,6 +105,7 @@
         self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
         [self setupGestures];
         self.status =[self.gaodeView getMapStatus];
+        self.buttonMgr=[[GaodeCustomButtonManager alloc]initWithMapView:self.gaodeView];
     }else{
         self.gaodeView.frame=CGRectMake(left,top,width,height);
     }

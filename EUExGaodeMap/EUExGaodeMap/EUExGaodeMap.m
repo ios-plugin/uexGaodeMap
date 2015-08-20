@@ -2186,5 +2186,128 @@ updatingLocation:(BOOL)updatingLocation
     }
     
 }
+
+
+#pragma mark - Custom Buttons
+
+-(void)setCustomButton:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    //id info=[self getDataFromJson:inArguments[0]];
+    id info =[inArguments[0] JSONValue];
+    if(![info isKindOfClass:[NSDictionary class]]) return;
+    NSString *identifier,*title=nil;
+    UIColor *titleColor=[UIColor clearColor];
+    UIImage *bgImage=nil;
+    CGFloat x,y,w,h;
+    if([info objectForKey:@"x"]){
+        x=[[info objectForKey:@"x"] floatValue];
+    }else return;
+    if([info objectForKey:@"y"]){
+        y=[[info objectForKey:@"y"] floatValue];
+    }else return;
+    if([info objectForKey:@"width"]){
+        w=[[info objectForKey:@"width"] floatValue];
+    }else return;
+    if([info objectForKey:@"height"]){
+        h=[[info objectForKey:@"height"] floatValue];
+    }else return;
+    if([info objectForKey:@"id"]){
+        identifier=[info objectForKey:@"id"];
+    }else return;
+    if([info objectForKey:@"bgImage"]){
+        NSString* imageUrl=[info objectForKey:@"bgImage"];
+        NSData *imageData = [NSData dataWithContentsOfFile:[self absPath:imageUrl]];
+        if(!imageData){
+            imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self absPath:imageUrl]]];
+        }
+        bgImage=[UIImage imageWithData:imageData];
+    }else return;
+    if([info objectForKey:@"title"]){
+        title=[info objectForKey:@"title"];
+    }
+    if([info objectForKey:@"titleColor"]){
+        NSString *colorStr=[info objectForKey:@"titleColor"];
+        titleColor=[GaodeUtility UIColorFromHTMLStr:colorStr];
+    }
+    [_sharedInstance.buttonMgr addButtonWithId:identifier
+                                          andX:x
+                                          andY:y
+                                      andWidth:w
+                                     andHeight:h
+                                      andTitle:title
+                                 andTitleColor:titleColor
+                                    andBGImage:bgImage
+                                    completion:^(NSString *identifier, BOOL result) {
+                                        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                                        [dict setValue:identifier forKey:@"id"];
+                                        if(result){
+                                            [dict setValue:@YES forKey:@"isSuccess"];
+                                        }else{
+                                            [dict setValue:@NO forKey:@"isSuccess"];
+                                        }
+                                        [self callbackJsonWithName:@"cbSetCustomButton" Object:dict];
+                                    }];
+    
+    
+}
+
+-(void)deleteCustomButton:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    
+    NSString *identifier=inArguments[0];
+    
+    
+    [_sharedInstance.buttonMgr removeButtonWithId:identifier completion:^(NSString *identifier, BOOL result) {
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setValue:identifier forKey:@"id"];
+        if(result){
+            [dict setValue:@YES forKey:@"isSuccess"];
+        }else{
+            [dict setValue:@NO forKey:@"isSuccess"];
+        }
+        [self callbackJsonWithName:@"cbRemoveCustomButton" Object:dict];
+    }];
+}
+-(void)showCustomButtons:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    id info=[self getDataFromJson:inArguments[0]];
+    if(![info isKindOfClass:[NSArray class]]) return;
+    __weak typeof(self) weakself=self;
+    [_sharedInstance.buttonMgr showButtons:info
+                                completion:^(NSArray *succArr, NSArray *failArr) {
+                                    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                                    [dict setValue:succArr forKey:@"successfulIds"];
+                                    [dict setValue:failArr forKey:@"failedIds"];
+                                    [self callbackJsonWithName:@"cbShowCustomButtons" Object:dict];
+                                }
+                                   onClick:^(NSString *identifier) {
+                                       if(weakself) [weakself callbackJsonWithName:@"onCustomButtonClick" Object:identifier];
+                                       
+                                   }];
+    
+}
+
+
+-(void)hideCustomButtons:(NSMutableArray *)inArguments{
+    if([inArguments count]<1){
+        [_sharedInstance.buttonMgr hideButtons:[_sharedInstance.buttonMgr.buttonDict allKeys] completion:^(NSArray *succArr, NSArray *failArr) {
+            NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+            [dict setValue:succArr forKey:@"successfulIds"];
+            [dict setValue:failArr forKey:@"failedIds"];
+            [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
+        }];
+    }else{
+        id info=[self getDataFromJson:inArguments[0]];
+        if(![info isKindOfClass:[NSArray class]]) return;
+        [_sharedInstance.buttonMgr hideButtons:info completion:^(NSArray *succArr, NSArray *failArr) {
+            NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+            [dict setValue:succArr forKey:@"successfulIds"];
+            [dict setValue:failArr forKey:@"failedIds"];
+            [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
+            
+        }];
+    }
+}
+
 @end
 

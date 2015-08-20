@@ -19,16 +19,14 @@
     return self;
 }
 -(void)setFillC:(NSString*)colorString{
-    UIColor *fillColor=[GaodeUtility returnUIColorFromHTMLStr:colorString];
+    UIColor *fillColor=[GaodeUtility UIColorFromHTMLStr:colorString];
+    self.fillColor =fillColor;
 
-        self.fillColor =fillColor;
-    
 }
 -(void)setStrokeC:(NSString*)colorString{
-    UIColor *strokeColor=[GaodeUtility returnUIColorFromHTMLStr:colorString];
+    UIColor *strokeColor=[GaodeUtility UIColorFromHTMLStr:colorString];
+    self.strokeColor =strokeColor;
 
-        self.strokeColor =strokeColor;
-    
 }
 
 -(void)dataInit{

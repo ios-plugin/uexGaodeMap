@@ -11,7 +11,7 @@
 @implementation GaodeUtility
 #define END return [UIColor clearColor]
 
-+(UIColor *)returnUIColorFromHTMLStr:(NSString *)colorString{
++(UIColor *)UIColorFromHTMLStr:(NSString *)colorString{
     colorString=[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([colorString hasPrefix:@"#"]){
         
@@ -61,18 +61,18 @@
     }
     if (([colorString hasPrefix:@"RGB("]||[colorString hasPrefix:@"rgb("])&&[colorString hasSuffix:@")"]){
         colorString=[colorString substringWithRange:NSMakeRange(4, [colorString length] -5)];
-        return [self returnColorWithRGBAArray:[colorString componentsSeparatedByString:@","]];
+        return [self ColorWithRGBAArray:[colorString componentsSeparatedByString:@","]];
     }
     if (([colorString hasPrefix:@"RGBA("]||[colorString hasPrefix:@"rgba("])&&[colorString hasSuffix:@")"]){
         colorString=[colorString substringWithRange:NSMakeRange(5, [colorString length] -6)];
-        return [self returnColorWithRGBAArray:[colorString componentsSeparatedByString:@","]];
+        return [self ColorWithRGBAArray:[colorString componentsSeparatedByString:@","]];
     }
     END;
     
     
 }
 
-+(UIColor*) returnColorWithRGBAArray:(NSArray *)rgbaStr{
++(UIColor*) ColorWithRGBAArray:(NSArray *)rgbaStr{
     if([rgbaStr count]<3) END;
     NSMutableArray *rgb=[NSMutableArray array];
     NSString *alpha=@"1";
