@@ -31,7 +31,16 @@
     return self;
 }
 
--(void)addButtonWithId:(NSString*)identifier andX:(CGFloat)x andY:(CGFloat)y andWidth:(CGFloat)width andHeight:(CGFloat)height andTitle:(NSString *)title andTitleColor:(UIColor *)titleColor andBGImage:(UIImage *)bgImg completion:(void (^)(NSString *, BOOL))completion{
+-(void)addButtonWithId:(NSString*)identifier
+                  andX:(CGFloat)x
+                  andY:(CGFloat)y
+              andWidth:(CGFloat)width
+             andHeight:(CGFloat)height
+              andTitle:(NSString *)title
+         andTitleColor:(UIColor *)titleColor
+          andTitleSize:(CGFloat)titleSize
+            andBGImage:(UIImage *)bgImg
+            completion:(void (^)(NSString *, BOOL))completion{
     if([self.buttonDict objectForKey:identifier]){
         if(completion) completion(identifier,NO);
         return;
@@ -42,7 +51,8 @@
         [button setBackgroundImage:bgImg forState:UIControlStateNormal];
         if(title&&[title length]>0){
             [button setTitle:title forState:UIControlStateNormal];
-            if(titleColor) [button setTitleColor:titleColor forState:UIControlStateNormal];
+            [button setTitleColor:titleColor forState:UIControlStateNormal];
+            if(titleSize != -1) button.titleLabel.font=[UIFont systemFontOfSize:titleSize];
         }
         [self.buttonDict setValue:button forKey:identifier];
         if(completion)completion(identifier,YES);
@@ -52,7 +62,7 @@
     
     
 }
--(void)removeButtonWithId:(NSString *)identifier completion:(void (^)(NSString *, BOOL))completion{
+-(void)deleteButtonWithId:(NSString *)identifier completion:(void (^)(NSString *, BOOL))completion{
     if(![self.buttonDict objectForKey:identifier]){
         if(completion) completion(identifier,NO);
     }else{

@@ -2196,9 +2196,10 @@ updatingLocation:(BOOL)updatingLocation
     id info =[inArguments[0] JSONValue];
     if(![info isKindOfClass:[NSDictionary class]]) return;
     NSString *identifier,*title=nil;
-    UIColor *titleColor=[UIColor clearColor];
+    UIColor *titleColor=[UIColor blackColor];
     UIImage *bgImage=nil;
     CGFloat x,y,w,h;
+    CGFloat titleSize=-1;
     if([info objectForKey:@"x"]){
         x=[[info objectForKey:@"x"] floatValue];
     }else return;
@@ -2225,9 +2226,13 @@ updatingLocation:(BOOL)updatingLocation
     if([info objectForKey:@"title"]){
         title=[info objectForKey:@"title"];
     }
+    
     if([info objectForKey:@"titleColor"]){
         NSString *colorStr=[info objectForKey:@"titleColor"];
         titleColor=[GaodeUtility UIColorFromHTMLStr:colorStr];
+    }
+    if([info objectForKey:@"titleSize"]){
+        titleSize=[[info objectForKey:@"titleSize"] floatValue];
     }
     [_sharedInstance.buttonMgr addButtonWithId:identifier
                                           andX:x
@@ -2236,6 +2241,7 @@ updatingLocation:(BOOL)updatingLocation
                                      andHeight:h
                                       andTitle:title
                                  andTitleColor:titleColor
+                                  andTitleSize:titleSize
                                     andBGImage:bgImage
                                     completion:^(NSString *identifier, BOOL result) {
                                         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
@@ -2257,7 +2263,7 @@ updatingLocation:(BOOL)updatingLocation
     NSString *identifier=inArguments[0];
     
     
-    [_sharedInstance.buttonMgr removeButtonWithId:identifier completion:^(NSString *identifier, BOOL result) {
+    [_sharedInstance.buttonMgr deleteButtonWithId:identifier completion:^(NSString *identifier, BOOL result) {
         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
         [dict setValue:identifier forKey:@"id"];
         if(result){
@@ -2265,7 +2271,7 @@ updatingLocation:(BOOL)updatingLocation
         }else{
             [dict setValue:@NO forKey:@"isSuccess"];
         }
-        [self callbackJsonWithName:@"cbRemoveCustomButton" Object:dict];
+        [self callbackJsonWithName:@"cbDeleteCustomButton" Object:dict];
     }];
 }
 -(void)showCustomButtons:(NSMutableArray *)inArguments{

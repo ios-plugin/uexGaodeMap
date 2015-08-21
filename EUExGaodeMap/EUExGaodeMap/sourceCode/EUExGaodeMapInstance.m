@@ -97,10 +97,6 @@
               width:(CGFloat)width
              height:(CGFloat)height{
     
-    
-
-    
-    
     if(!self.gaodeView){
         self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
         [self setupGestures];

@@ -18,9 +18,18 @@
 
 -(instancetype)initWithMapView:(MAMapView *)mapView;
 
--(void)addButtonWithId:(NSString*)identifier andX:(CGFloat)x andY:(CGFloat)y andWidth:(CGFloat)width andHeight:(CGFloat)height andTitle:(NSString *)title andTitleColor:(UIColor*)titleColor andBGImage:(UIImage*)bgImg completion:(void(^)(NSString * identifier,BOOL result))completion;
+-(void)addButtonWithId:(NSString*)identifier
+                  andX:(CGFloat)x
+                  andY:(CGFloat)y
+              andWidth:(CGFloat)width
+             andHeight:(CGFloat)height
+              andTitle:(NSString *)title
+         andTitleColor:(UIColor*)titleColor
+          andTitleSize:(CGFloat)titleSize
+            andBGImage:(UIImage*)bgImg
+            completion:(void(^)(NSString * identifier,BOOL result))completion;
 
--(void)removeButtonWithId:(NSString*)identifier completion:(void(^)(NSString * identifier,BOOL result))completion;
+-(void)deleteButtonWithId:(NSString*)identifier completion:(void(^)(NSString * identifier,BOOL result))completion;
 
 
 -(void)showButtons:(NSArray*)ids completion:(void(^)(NSArray* succArr,NSArray* failArr))completion onClick:(eventBlock)clickBlock;
