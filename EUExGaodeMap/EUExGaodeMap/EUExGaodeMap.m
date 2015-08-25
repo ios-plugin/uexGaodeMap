@@ -1693,16 +1693,17 @@ updatingLocation:(BOOL)updatingLocation
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest*)request response:(AMapGeocodeSearchResponse *)response
 {
-    
-    if([response.geocodes count] == 0) {
-        return;
-    }
-    AMapGeocode  *geocode =response.geocodes[0];
-    NSString *longitude =[NSString stringWithFormat:@"%f",geocode.location.longitude];
-    NSString *latitude =[NSString stringWithFormat:@"%f",geocode.location.latitude];
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
-    [dict setValue:longitude forKey:@"longitude"];
-    [dict setValue:latitude  forKey:@"latitude"];
+    [dict setValue:request.address forKey:@"address"];
+    if([response.geocodes count] > 0) {
+        AMapGeocode  *geocode =response.geocodes[0];
+        NSString *longitude =[NSString stringWithFormat:@"%f",geocode.location.longitude];
+        NSString *latitude =[NSString stringWithFormat:@"%f",geocode.location.latitude];
+        
+        [dict setValue:longitude forKey:@"longitude"];
+        [dict setValue:latitude  forKey:@"latitude"];
+    }
+
     [self callbackJsonWithName:@"cbGeocode" Object:dict];
 }
 
@@ -1723,9 +1724,12 @@ updatingLocation:(BOOL)updatingLocation
         [dict setValue:@0 forKey:@"errorCode"];
         [dict setValue:response.regeocode.formattedAddress forKey:@"address"];
         
+        
     }else{
         [dict setValue:@-1 forKey:@"errorCode"];
     }
+    [dict setValue:@(request.location.latitude) forKey:@"latitude"];
+    [dict setValue:@(request.location.longitude) forKey:@"longitude"];
     [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
 }
 
