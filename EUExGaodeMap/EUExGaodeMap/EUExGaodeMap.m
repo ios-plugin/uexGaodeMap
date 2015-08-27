@@ -1695,6 +1695,9 @@ updatingLocation:(BOOL)updatingLocation
 {
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:request.address forKey:@"address"];
+    if(request.city && [request.city count]>0){
+        [dict setValue:request.city[0] forKey:@"city"];
+    }
     if([response.geocodes count] > 0) {
         AMapGeocode  *geocode =response.geocodes[0];
         NSString *longitude =[NSString stringWithFormat:@"%f",geocode.location.longitude];
