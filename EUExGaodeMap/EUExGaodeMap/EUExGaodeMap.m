@@ -100,6 +100,7 @@
  height:,//(可选) 地图高度
  longitude:,//(可选) 中心点经度
  latitude://(可选) 中心点纬度
+ isScrollWithWeb:,//(可选) 地图是否跟随网页滚动，默认为false
  }
  
  */
@@ -113,6 +114,7 @@
     CGFloat top=0;
     CGFloat width=CGRectGetWidth(meBrwView.bounds);
     CGFloat height=CGRectGetHeight(meBrwView.bounds);
+    BOOL isScrollWithWeb=false;
     if([initInfo getStringForKey:@"left"]){
         left=[[initInfo getStringForKey:@"left"] floatValue];
     }
@@ -125,7 +127,10 @@
     if([initInfo getStringForKey:@"height"]){
         height=[[initInfo getStringForKey:@"height"] floatValue];
     }
-        
+    if([initInfo objectForKey:@"isScrollWithWeb"] &&[[initInfo objectForKey:@"isScrollWithWeb"] boolValue]){
+        isScrollWithWeb=YES;
+    }
+    
    
 
     
@@ -149,8 +154,12 @@
     //_mapView.showsScale= NO;
    
     
+    if(isScrollWithWeb){
+        [EUtility brwView:meBrwView addSubviewToScrollView:_mapView];
+    }else{
+        [EUtility brwView:meBrwView addSubview:_mapView];
+    }
     
-    [EUtility brwView:meBrwView addSubview:_mapView];
 
 
     

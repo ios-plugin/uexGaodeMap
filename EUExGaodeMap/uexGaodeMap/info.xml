@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.4" build="4">
-        <info>4:新增自定义按钮功能</info>
+        uexName="uexGaodeMap" version="3.0.5" build="5">
+        <info>5:open接口添加参数isScrollWithWeb</info>
+        <build>4:新增自定义按钮功能</build>
         <build>3:修复bugs；设置圆形覆盖物边界默认为实线</build>
         <build>2:新增点击回调;新增离线地图功能</build>
         <build>1:新增 设置比例尺 等3个API</build>
