@@ -138,10 +138,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C62D1E451B05F19C002B1875 /* ImageIO.framework in Frameworks */,
 				C62D1E4B1B05F1E9002B1875 /* MobileCoreServices.framework in Frameworks */,
 				C62D1E491B05F1E1002B1875 /* CFNetwork.framework in Frameworks */,
 				C62D1E471B05F1A4002B1875 /* MapKit.framework in Frameworks */,
-				C62D1E451B05F19C002B1875 /* ImageIO.framework in Frameworks */,
 				C62D1E431B05F150002B1875 /* AudioToolbox.framework in Frameworks */,
 				C62D1E411B05F10B002B1875 /* libsqlite3.dylib in Frameworks */,
 				C62D1E361B05ECE5002B1875 /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -490,6 +490,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: leilei xu (T8E4RVNP82)";
 				DSTROOT = /tmp/uexGaodeMap.dst;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
@@ -517,6 +518,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: leilei xu (T8E4RVNP82)";
 				DSTROOT = /tmp/uexGaodeMap.dst;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",

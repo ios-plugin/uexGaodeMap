@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.5" build="5">
-        <info>5:open接口添加参数isScrollWithWeb</info>
+        uexName="uexGaodeMap" version="3.0.6" build="6">
+        <info>6:open接口添加参数isScrollWithWeb</info>
+        <build>5:地理编码和反地理编码的回调添加参数,方便用户区分</build>
         <build>4:新增自定义按钮功能</build>
         <build>3:修复bugs；设置圆形覆盖物边界默认为实线</build>
         <build>2:新增点击回调;新增离线地图功能</build>
