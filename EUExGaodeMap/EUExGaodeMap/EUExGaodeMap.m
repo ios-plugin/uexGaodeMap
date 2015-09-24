@@ -1855,8 +1855,13 @@ updatingLocation:(BOOL)updatingLocation
 
 //见 cbGetCurrentLocation
 -(void) callbackJsonWithName:(NSString *)name Object:(id)obj{
-    
-    NSString *result=[obj JSONFragment];
+    NSString *result;
+    if([obj isKindOfClass:[NSString class]]){
+        result=(NSString *)obj;
+    }else{
+        result=[obj JSONFragment];
+    }
+
     NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
     
     [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
