@@ -36,7 +36,7 @@
     self.lineWidth =5.f;
     self.fillColor = [UIColor colorWithRed:1 green:0.8 blue:0.0 alpha:0.8];
     self.strokeColor =[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.8];
-    self.lineDash = YES;
+    self.lineDash = NO;
 
     
 }
