@@ -10,19 +10,7 @@
 #import "EUExGaodeMapInstance.h"
 #import "JSON.h"
 
-@implementation NSDictionary (getString)
--(NSString*)getStringForKey:(id)key{
-    id strData=[self objectForKey:key];
-    if(strData){
-        return [NSString stringWithFormat:@"%@",strData];
-    }else{
-        return nil;
-    }
-    
-    
-}
 
-@end
 
 
 
@@ -1919,11 +1907,24 @@ updatingLocation:(BOOL)updatingLocation
         [self.annotations removeAllObjects];
     }
 
-    for(NSDictionary *infoDict in info){
-        if([infoDict getStringForKey:@"id"]){
-            NSString *identifier=[infoDict getStringForKey:@"id"];
+    for(id idInfo in info){
+        
+        NSString *identifier =nil;
+        if([idInfo isKindOfClass:[NSNumber class]]){
+            identifier=[idInfo stringValue];
+        }
+        if([idInfo isKindOfClass:[NSString class]]){
+            identifier=idInfo;
+        }
+        
+        if([idInfo isKindOfClass:[NSDictionary class]]&&[idInfo getStringForKey:@"id"]){
+            identifier=[idInfo getStringForKey:@"id"];
+            
+        }
+        if(identifier&&[identifier length]>0){
             [self clearMarkersOverlay:identifier];
         }
+        
         
     }
 

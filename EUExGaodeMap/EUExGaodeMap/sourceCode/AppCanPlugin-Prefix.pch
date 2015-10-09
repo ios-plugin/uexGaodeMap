@@ -15,4 +15,5 @@
     #import <MAMapKit/MAMapKit.h>
     #import <AMapSearchKit/AMapSearchAPI.h>
     #import "GaodeError.h"
+    #import "NSDictionary+uexGaodeMap.h"
 #endif

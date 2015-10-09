@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.7" build="7">
-        <info>7:当回调的json结构为String时，不再转义一次</info>
+        uexName="uexGaodeMap" version="3.0.8" build="8">
+        <info>8:修正一个可能会导致APP崩溃的bug</info>
+        <build>7:当回调的json结构为String时，不再转义一次</build>
         <build>6:open接口添加参数isScrollWithWeb</build>
         <build>5:地理编码和反地理编码的回调添加参数,方便用户区分</build>
         <build>4:新增自定义按钮功能</build>
