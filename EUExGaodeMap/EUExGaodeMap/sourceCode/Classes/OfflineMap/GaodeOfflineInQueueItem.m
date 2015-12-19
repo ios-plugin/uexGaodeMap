@@ -25,7 +25,7 @@
 +(instancetype)parseToItem:(NSDictionary *)dict{
     BOOL isError=NO;
     NSString *name;
-    GaodeInQueueItemStatus status;
+    GaodeInQueueItemStatus status=GaodeInQueueItemWaiting;
     if([dict objectForKey:@"name"]&&[[dict objectForKey:@"name"] isKindOfClass:[NSString class]]){
         name=[dict objectForKey:@"name"];
     }else{

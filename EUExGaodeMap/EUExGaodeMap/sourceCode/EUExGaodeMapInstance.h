@@ -44,7 +44,8 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
 -(BOOL)loadGaodeMapWithDataLeft:(CGFloat)left
                             top:(CGFloat)top
                           width:(CGFloat)width
-                         height:(CGFloat)height;
+                         height:(CGFloat)height
+                         APIKey:(NSString *)key;
 
 -(void)clearAll;
 @end

@@ -1,0 +1,660 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		012130CC9900211066197CAE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1736C07C97E645D22F5966F3 /* libz.tbd */; };
+		0F6B1F62DAA3F4CAE66301D3 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC46F4C2A961D2D186635F /* libstdc++.tbd */; };
+		3A0FB78A73662F74AFAD330C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC16DA6FF741096CEFAB110 /* libc++.tbd */; };
+		4235B2901B5739F9004DA814 /* GaodeError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2731B5739F9004DA814 /* GaodeError.m */; };
+		4235B2911B5739F9004DA814 /* GaodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2751B5739F9004DA814 /* GaodeUtility.m */; };
+		4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2781B5739F9004DA814 /* GaodeCACalloutBase.m */; };
+		4235B2931B5739F9004DA814 /* GaodeCACalloutTextBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B27B1B5739F9004DA814 /* GaodeCACalloutTextBox.m */; };
+		4235B2941B5739F9004DA814 /* GaodeCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B27D1B5739F9004DA814 /* GaodeCustomAnnotationView.m */; };
+		4235B2951B5739F9004DA814 /* GaodeCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2811B5739F9004DA814 /* GaodeCircle.m */; };
+		4235B2961B5739F9004DA814 /* GaodeGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2831B5739F9004DA814 /* GaodeGroundOverlay.m */; };
+		4235B2971B5739F9004DA814 /* GaodeLocationStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2851B5739F9004DA814 /* GaodeLocationStyle.m */; };
+		4235B2981B5739F9004DA814 /* GaodePointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2881B5739F9004DA814 /* GaodePointAnnotation.m */; };
+		4235B2991B5739F9004DA814 /* GaodePolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B28A1B5739F9004DA814 /* GaodePolygon.m */; };
+		4235B29A1B5739F9004DA814 /* GaodePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B28C1B5739F9004DA814 /* GaodePolyline.m */; };
+		4235B29B1B5739F9004DA814 /* GaodeOfflineMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B28F1B5739F9004DA814 /* GaodeOfflineMapManager.m */; };
+		4235B29E1B573A6E004DA814 /* GaodeOfflineInQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */; };
+		4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */; };
+		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
+		424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
+		424AD02D1C25233500EEC1F8 /* AMapNaviKit.framework in Resources */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
+		424AD02E1C25233A00EEC1F8 /* AMapSearchKit.framework in Resources */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
+		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; };
+		43ED274A4C61B65FCB36D210 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D22834A1840FEAE6C68155 /* UIKit.framework */; };
+		5878CCD7AEA96D300478BAE6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CE787E3AE8ECC70CC5D42F /* MapKit.framework */; };
+		59DDB9EB3F2A14E6B129828F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C903BBDDD698DE58C89DBA /* libsqlite3.tbd */; };
+		6EFECEA06DC0A19D9C0DF80C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E77D296DC468AD28B08775A5 /* SystemConfiguration.framework */; };
+		739C0911550CEEAB16F9BA8E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2451B16E06AD63A42E4A530A /* QuartzCore.framework */; };
+		7B5FF1838A409F3BFAC2F6A5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE224F01AD26FEE44B418E77 /* AudioToolbox.framework */; };
+		8D29C2983AEDA5948D8F1C67 /* AppCanEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D14137BD5AAEBF82D6AD2F0 /* AppCanEngine.framework */; };
+		8EBE36B2CF69E3F726DF316D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3198FF721B723E3B5C1D0E26 /* CoreGraphics.framework */; };
+		902ABCA83C19941D213E2359 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAEC1CA4746176DF483CFC1 /* ImageIO.framework */; };
+		A3589BA4A0337BD4B4871D24 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FC53DC575A2C02EF9A66B9 /* MobileCoreServices.framework */; };
+		ABC2FCD9C08384061C6F628C /* CFNetWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DEE30A7973B4553A3DFA31 /* CFNetWork.framework */; };
+		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
+		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
+		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
+		C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4C1B05E421002B1875 /* UIKit.framework */; };
+		C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4E1B05E433002B1875 /* Foundation.framework */; };
+		C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D501B05E43D002B1875 /* CoreGraphics.framework */; };
+		C62D1D531B05E443002B1875 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D521B05E443002B1875 /* QuartzCore.framework */; };
+		C62D1D551B05E447002B1875 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D541B05E447002B1875 /* OpenGLES.framework */; };
+		C62D1D571B05E44D002B1875 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D561B05E44D002B1875 /* CoreLocation.framework */; };
+		C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D581B05E459002B1875 /* CoreTelephony.framework */; };
+		C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */; };
+		C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D5C1B05E477002B1875 /* Security.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C62D1CF51B05E2D6002B1875 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		14FC53DC575A2C02EF9A66B9 /* MobileCoreServices.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1736C07C97E645D22F5966F3 /* libz.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		18CE787E3AE8ECC70CC5D42F /* MapKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2451B16E06AD63A42E4A530A /* QuartzCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3198FF721B723E3B5C1D0E26 /* CoreGraphics.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3CAEC1CA4746176DF483CFC1 /* ImageIO.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		4235B2721B5739F9004DA814 /* GaodeError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeError.h; sourceTree = "<group>"; };
+		4235B2731B5739F9004DA814 /* GaodeError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeError.m; sourceTree = "<group>"; };
+		4235B2741B5739F9004DA814 /* GaodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeUtility.h; sourceTree = "<group>"; };
+		4235B2751B5739F9004DA814 /* GaodeUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeUtility.m; sourceTree = "<group>"; };
+		4235B2771B5739F9004DA814 /* GaodeCACalloutBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACalloutBase.h; sourceTree = "<group>"; };
+		4235B2781B5739F9004DA814 /* GaodeCACalloutBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCACalloutBase.m; sourceTree = "<group>"; };
+		4235B2791B5739F9004DA814 /* GaodeCACallouts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACallouts.h; sourceTree = "<group>"; };
+		4235B27A1B5739F9004DA814 /* GaodeCACalloutTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCACalloutTextBox.h; sourceTree = "<group>"; };
+		4235B27B1B5739F9004DA814 /* GaodeCACalloutTextBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCACalloutTextBox.m; sourceTree = "<group>"; };
+		4235B27C1B5739F9004DA814 /* GaodeCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomAnnotationView.h; sourceTree = "<group>"; };
+		4235B27D1B5739F9004DA814 /* GaodeCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomAnnotationView.m; sourceTree = "<group>"; };
+		4235B2801B5739F9004DA814 /* GaodeCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCircle.h; sourceTree = "<group>"; };
+		4235B2811B5739F9004DA814 /* GaodeCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCircle.m; sourceTree = "<group>"; };
+		4235B2821B5739F9004DA814 /* GaodeGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeGroundOverlay.h; sourceTree = "<group>"; };
+		4235B2831B5739F9004DA814 /* GaodeGroundOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeGroundOverlay.m; sourceTree = "<group>"; };
+		4235B2841B5739F9004DA814 /* GaodeLocationStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeLocationStyle.h; sourceTree = "<group>"; };
+		4235B2851B5739F9004DA814 /* GaodeLocationStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeLocationStyle.m; sourceTree = "<group>"; };
+		4235B2861B5739F9004DA814 /* GaodeModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeModels.h; sourceTree = "<group>"; };
+		4235B2871B5739F9004DA814 /* GaodePointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePointAnnotation.h; sourceTree = "<group>"; };
+		4235B2881B5739F9004DA814 /* GaodePointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePointAnnotation.m; sourceTree = "<group>"; };
+		4235B2891B5739F9004DA814 /* GaodePolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolygon.h; sourceTree = "<group>"; };
+		4235B28A1B5739F9004DA814 /* GaodePolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolygon.m; sourceTree = "<group>"; };
+		4235B28B1B5739F9004DA814 /* GaodePolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodePolyline.h; sourceTree = "<group>"; };
+		4235B28C1B5739F9004DA814 /* GaodePolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodePolyline.m; sourceTree = "<group>"; };
+		4235B28E1B5739F9004DA814 /* GaodeOfflineMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeOfflineMapManager.h; sourceTree = "<group>"; };
+		4235B28F1B5739F9004DA814 /* GaodeOfflineMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineMapManager.m; sourceTree = "<group>"; };
+		4235B29C1B573A6E004DA814 /* GaodeOfflineInQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeOfflineInQueueItem.h; sourceTree = "<group>"; };
+		4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeOfflineInQueueItem.m; sourceTree = "<group>"; };
+		4247F9431B85DBBF00DDE38A /* GaodeCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButton.h; sourceTree = "<group>"; };
+		4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButton.m; sourceTree = "<group>"; };
+		4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButtonManager.h; sourceTree = "<group>"; };
+		4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButtonManager.m; sourceTree = "<group>"; };
+		424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
+		42A5E38A1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+uexGaodeMap.h"; sourceTree = "<group>"; };
+		42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+uexGaodeMap.m"; sourceTree = "<group>"; };
+		4D14137BD5AAEBF82D6AD2F0 /* AppCanEngine.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AppCanEngine.framework; path = "../../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource/AppCanEngine.framework"; sourceTree = "<group>"; };
+		70DEE30A7973B4553A3DFA31 /* CFNetWork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetWork.framework; path = System/Library/Frameworks/CFNetWork.framework; sourceTree = SDKROOT; };
+		7BDC46F4C2A961D2D186635F /* libstdc++.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		7EC16DA6FF741096CEFAB110 /* libc++.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		84D22834A1840FEAE6C68155 /* UIKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C62D1CF71B05E2D6002B1875 /* uexGaodeMap.framework */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = uexGaodeMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C62D1D131B05E3D1002B1875 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
+		C62D1D141B05E3D1002B1875 /* EUExBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBase.h; sourceTree = "<group>"; };
+		C62D1D151B05E3D1002B1875 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
+		C62D1D161B05E3D1002B1875 /* EUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUtility.h; sourceTree = "<group>"; };
+		C62D1D171B05E3D1002B1875 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
+		C62D1D181B05E3D1002B1875 /* EUExGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMap.h; sourceTree = "<group>"; };
+		C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMap.m; sourceTree = "<group>"; };
+		C62D1D1B1B05E3D1002B1875 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
+		C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
+		C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
+		C62D1D231B05E3D1002B1875 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		C62D1D241B05E3D1002B1875 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		C62D1D251B05E3D1002B1875 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		C62D1D261B05E3D1002B1875 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		C62D1D271B05E3D1002B1875 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		C62D1D281B05E3D1002B1875 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		C62D1D291B05E3D1002B1875 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		C62D1D2A1B05E3D1002B1875 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		C62D1D4C1B05E421002B1875 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C62D1D4E1B05E433002B1875 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C62D1D501B05E43D002B1875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C62D1D521B05E443002B1875 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C62D1D541B05E447002B1875 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C62D1D561B05E44D002B1875 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C62D1D581B05E459002B1875 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C62D1D5C1B05E477002B1875 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DE224F01AD26FEE44B418E77 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E77D296DC468AD28B08775A5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F6C903BBDDD698DE58C89DBA /* libsqlite3.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		F931909FD7765F78E26BA7A2 /* info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = info.plist; path = "../../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource/info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C62D1CF41B05E2D6002B1875 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */,
+				C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */,
+				C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */,
+				C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */,
+				C62D1D571B05E44D002B1875 /* CoreLocation.framework in Frameworks */,
+				C62D1D551B05E447002B1875 /* OpenGLES.framework in Frameworks */,
+				C62D1D531B05E443002B1875 /* QuartzCore.framework in Frameworks */,
+				C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */,
+				C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */,
+				C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */,
+				C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */,
+				5878CCD7AEA96D300478BAE6 /* MapKit.framework in Frameworks */,
+				7B5FF1838A409F3BFAC2F6A5 /* AudioToolbox.framework in Frameworks */,
+				6EFECEA06DC0A19D9C0DF80C /* SystemConfiguration.framework in Frameworks */,
+				902ABCA83C19941D213E2359 /* ImageIO.framework in Frameworks */,
+				ABC2FCD9C08384061C6F628C /* CFNetWork.framework in Frameworks */,
+				A3589BA4A0337BD4B4871D24 /* MobileCoreServices.framework in Frameworks */,
+				43ED274A4C61B65FCB36D210 /* UIKit.framework in Frameworks */,
+				8EBE36B2CF69E3F726DF316D /* CoreGraphics.framework in Frameworks */,
+				739C0911550CEEAB16F9BA8E /* QuartzCore.framework in Frameworks */,
+				3A0FB78A73662F74AFAD330C /* libc++.tbd in Frameworks */,
+				0F6B1F62DAA3F4CAE66301D3 /* libstdc++.tbd in Frameworks */,
+				59DDB9EB3F2A14E6B129828F /* libsqlite3.tbd in Frameworks */,
+				012130CC9900211066197CAE /* libz.tbd in Frameworks */,
+				8D29C2983AEDA5948D8F1C67 /* AppCanEngine.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4235B2701B5739F9004DA814 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4247F9421B85DBBF00DDE38A /* CustomButton */,
+				4235B2711B5739F9004DA814 /* Base */,
+				4235B2761B5739F9004DA814 /* CustomAnnotation */,
+				4235B27F1B5739F9004DA814 /* Model */,
+				4235B28D1B5739F9004DA814 /* OfflineMap */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		4235B2711B5739F9004DA814 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4235B2721B5739F9004DA814 /* GaodeError.h */,
+				4235B2731B5739F9004DA814 /* GaodeError.m */,
+				4235B2741B5739F9004DA814 /* GaodeUtility.h */,
+				4235B2751B5739F9004DA814 /* GaodeUtility.m */,
+				42A5E38A1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.h */,
+				42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		4235B2761B5739F9004DA814 /* CustomAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				4235B2771B5739F9004DA814 /* GaodeCACalloutBase.h */,
+				4235B2781B5739F9004DA814 /* GaodeCACalloutBase.m */,
+				4235B2791B5739F9004DA814 /* GaodeCACallouts.h */,
+				4235B27A1B5739F9004DA814 /* GaodeCACalloutTextBox.h */,
+				4235B27B1B5739F9004DA814 /* GaodeCACalloutTextBox.m */,
+				4235B27C1B5739F9004DA814 /* GaodeCustomAnnotationView.h */,
+				4235B27D1B5739F9004DA814 /* GaodeCustomAnnotationView.m */,
+			);
+			path = CustomAnnotation;
+			sourceTree = "<group>";
+		};
+		4235B27F1B5739F9004DA814 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4235B2801B5739F9004DA814 /* GaodeCircle.h */,
+				4235B2811B5739F9004DA814 /* GaodeCircle.m */,
+				4235B2821B5739F9004DA814 /* GaodeGroundOverlay.h */,
+				4235B2831B5739F9004DA814 /* GaodeGroundOverlay.m */,
+				4235B2841B5739F9004DA814 /* GaodeLocationStyle.h */,
+				4235B2851B5739F9004DA814 /* GaodeLocationStyle.m */,
+				4235B2861B5739F9004DA814 /* GaodeModels.h */,
+				4235B2871B5739F9004DA814 /* GaodePointAnnotation.h */,
+				4235B2881B5739F9004DA814 /* GaodePointAnnotation.m */,
+				4235B2891B5739F9004DA814 /* GaodePolygon.h */,
+				4235B28A1B5739F9004DA814 /* GaodePolygon.m */,
+				4235B28B1B5739F9004DA814 /* GaodePolyline.h */,
+				4235B28C1B5739F9004DA814 /* GaodePolyline.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4235B28D1B5739F9004DA814 /* OfflineMap */ = {
+			isa = PBXGroup;
+			children = (
+				4235B28E1B5739F9004DA814 /* GaodeOfflineMapManager.h */,
+				4235B28F1B5739F9004DA814 /* GaodeOfflineMapManager.m */,
+				4235B29C1B573A6E004DA814 /* GaodeOfflineInQueueItem.h */,
+				4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */,
+			);
+			path = OfflineMap;
+			sourceTree = "<group>";
+		};
+		4247F9421B85DBBF00DDE38A /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				4247F9431B85DBBF00DDE38A /* GaodeCustomButton.h */,
+				4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */,
+				4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */,
+				4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */,
+			);
+			path = CustomButton;
+			sourceTree = "<group>";
+		};
+		C62D1CEE1B05E2D6002B1875 = {
+			isa = PBXGroup;
+			children = (
+				C62D1D111B05E3D1002B1875 /* EUExGaodeMap */,
+				C62D1D4B1B05E3DA002B1875 /* Frameworks */,
+				C62D1CF81B05E2D6002B1875 /* Products */,
+				D6DBF1ADA8ACE9F73FA19C2B /* IDE-Frameworks */,
+				E4807B211D8CBCFDA79AE016 /* AppCanEngine */,
+			);
+			sourceTree = "<group>";
+		};
+		C62D1CF81B05E2D6002B1875 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C62D1CF71B05E2D6002B1875 /* uexGaodeMap.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C62D1D111B05E3D1002B1875 /* EUExGaodeMap */ = {
+			isa = PBXGroup;
+			children = (
+				C62D1D121B05E3D1002B1875 /* engineHeader */,
+				C62D1D181B05E3D1002B1875 /* EUExGaodeMap.h */,
+				C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */,
+				C62D1D1A1B05E3D1002B1875 /* sourceCode */,
+			);
+			path = EUExGaodeMap;
+			sourceTree = "<group>";
+		};
+		C62D1D121B05E3D1002B1875 /* engineHeader */ = {
+			isa = PBXGroup;
+			children = (
+				C62D1D131B05E3D1002B1875 /* EBrowserView.h */,
+				C62D1D141B05E3D1002B1875 /* EUExBase.h */,
+				C62D1D151B05E3D1002B1875 /* EUExBaseDefine.h */,
+				C62D1D161B05E3D1002B1875 /* EUtility.h */,
+				C62D1D171B05E3D1002B1875 /* WidgetOneDelegate.h */,
+			);
+			path = engineHeader;
+			sourceTree = "<group>";
+		};
+		C62D1D1A1B05E3D1002B1875 /* sourceCode */ = {
+			isa = PBXGroup;
+			children = (
+				4235B2701B5739F9004DA814 /* Classes */,
+				C62D1D1B1B05E3D1002B1875 /* AMap.bundle */,
+				C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */,
+				C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */,
+				C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */,
+				C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */,
+				424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */,
+				C62D1D221B05E3D1002B1875 /* JSON */,
+			);
+			path = sourceCode;
+			sourceTree = "<group>";
+		};
+		C62D1D221B05E3D1002B1875 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				C62D1D231B05E3D1002B1875 /* JSON.h */,
+				C62D1D241B05E3D1002B1875 /* JSONParser.h */,
+				C62D1D251B05E3D1002B1875 /* NSObject+SBJSON.h */,
+				C62D1D261B05E3D1002B1875 /* NSString+SBJSON.h */,
+				C62D1D271B05E3D1002B1875 /* SBJSON.h */,
+				C62D1D281B05E3D1002B1875 /* SBJsonBase.h */,
+				C62D1D291B05E3D1002B1875 /* SBJsonParser.h */,
+				C62D1D2A1B05E3D1002B1875 /* SBJsonWriter.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		C62D1D4B1B05E3DA002B1875 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C62D1D5C1B05E477002B1875 /* Security.framework */,
+				C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */,
+				C62D1D581B05E459002B1875 /* CoreTelephony.framework */,
+				C62D1D561B05E44D002B1875 /* CoreLocation.framework */,
+				C62D1D541B05E447002B1875 /* OpenGLES.framework */,
+				C62D1D521B05E443002B1875 /* QuartzCore.framework */,
+				C62D1D501B05E43D002B1875 /* CoreGraphics.framework */,
+				C62D1D4E1B05E433002B1875 /* Foundation.framework */,
+				C62D1D4C1B05E421002B1875 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D6DBF1ADA8ACE9F73FA19C2B /* IDE-Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18CE787E3AE8ECC70CC5D42F /* MapKit.framework */,
+				DE224F01AD26FEE44B418E77 /* AudioToolbox.framework */,
+				E77D296DC468AD28B08775A5 /* SystemConfiguration.framework */,
+				3CAEC1CA4746176DF483CFC1 /* ImageIO.framework */,
+				70DEE30A7973B4553A3DFA31 /* CFNetWork.framework */,
+				14FC53DC575A2C02EF9A66B9 /* MobileCoreServices.framework */,
+				84D22834A1840FEAE6C68155 /* UIKit.framework */,
+				3198FF721B723E3B5C1D0E26 /* CoreGraphics.framework */,
+				2451B16E06AD63A42E4A530A /* QuartzCore.framework */,
+				7EC16DA6FF741096CEFAB110 /* libc++.tbd */,
+				7BDC46F4C2A961D2D186635F /* libstdc++.tbd */,
+				F6C903BBDDD698DE58C89DBA /* libsqlite3.tbd */,
+				1736C07C97E645D22F5966F3 /* libz.tbd */,
+			);
+			path = "IDE-Frameworks";
+			sourceTree = "<group>";
+		};
+		E4807B211D8CBCFDA79AE016 /* AppCanEngine */ = {
+			isa = PBXGroup;
+			children = (
+				4D14137BD5AAEBF82D6AD2F0 /* AppCanEngine.framework */,
+				F931909FD7765F78E26BA7A2 /* info.plist */,
+			);
+			path = AppCanEngine;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C62D1CF61B05E2D6002B1875 /* EUExGaodeMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C62D1D0B1B05E2D6002B1875 /* Build configuration list for PBXNativeTarget "EUExGaodeMap" */;
+			buildPhases = (
+				C62D1CF31B05E2D6002B1875 /* Sources */,
+				C62D1CF41B05E2D6002B1875 /* Frameworks */,
+				C62D1CF51B05E2D6002B1875 /* CopyFiles */,
+				424AD02C1C25232E00EEC1F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EUExGaodeMap;
+			productName = EUExGaodeMap;
+			productReference = C62D1CF71B05E2D6002B1875 /* uexGaodeMap.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C62D1CEF1B05E2D6002B1875 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = AppCan;
+				TargetAttributes = {
+					C62D1CF61B05E2D6002B1875 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+				};
+			};
+			buildConfigurationList = C62D1CF21B05E2D6002B1875 /* Build configuration list for PBXProject "EUExGaodeMapIDE" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C62D1CEE1B05E2D6002B1875;
+			productRefGroup = C62D1CF81B05E2D6002B1875 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C62D1CF61B05E2D6002B1875 /* EUExGaodeMap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		424AD02C1C25232E00EEC1F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424AD02E1C25233A00EEC1F8 /* AMapSearchKit.framework in Resources */,
+				424AD02D1C25233500EEC1F8 /* AMapNaviKit.framework in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C62D1CF31B05E2D6002B1875 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4235B2901B5739F9004DA814 /* GaodeError.m in Sources */,
+				4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */,
+				4235B2991B5739F9004DA814 /* GaodePolygon.m in Sources */,
+				4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */,
+				4235B29B1B5739F9004DA814 /* GaodeOfflineMapManager.m in Sources */,
+				4235B2951B5739F9004DA814 /* GaodeCircle.m in Sources */,
+				4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */,
+				4235B2941B5739F9004DA814 /* GaodeCustomAnnotationView.m in Sources */,
+				4235B2981B5739F9004DA814 /* GaodePointAnnotation.m in Sources */,
+				4235B2911B5739F9004DA814 /* GaodeUtility.m in Sources */,
+				4235B2971B5739F9004DA814 /* GaodeLocationStyle.m in Sources */,
+				C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */,
+				4235B29E1B573A6E004DA814 /* GaodeOfflineInQueueItem.m in Sources */,
+				4235B2931B5739F9004DA814 /* GaodeCACalloutTextBox.m in Sources */,
+				C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */,
+				4235B2961B5739F9004DA814 /* GaodeGroundOverlay.m in Sources */,
+				4235B29A1B5739F9004DA814 /* GaodePolyline.m in Sources */,
+				42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C62D1D091B05E2D6002B1875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C62D1D0A1B05E2D6002B1875 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C62D1D0C1B05E2D6002B1875 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_IDENTIFIER = com.appcan.ide;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Sea King Biological Technology Co., Ltd.";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexGaodeMap/IDE/";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource";
+				INFOPLIST_FILE = "$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource/info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path @loader_path/Frameworks @loader_path";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = uexGaodeMap;
+				PROVISIONING_PROFILE = "756a3ff2-be53-4d08-862a-c050d0dfa3d9";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C62D1D0D1B05E2D6002B1875 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_IDENTIFIER = com.appcan.ide;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Sea King Biological Technology Co., Ltd.";
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/uexGaodeMap/IDE/";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource";
+				INFOPLIST_FILE = "$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource/info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path @loader_path/Frameworks @loader_path";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../AppCanPluginTools-iOS/resource/IDEPluginProjectPackageResource",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = uexGaodeMap;
+				PROVISIONING_PROFILE = "756a3ff2-be53-4d08-862a-c050d0dfa3d9";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C62D1CF21B05E2D6002B1875 /* Build configuration list for PBXProject "EUExGaodeMapIDE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C62D1D091B05E2D6002B1875 /* Debug */,
+				C62D1D0A1B05E2D6002B1875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C62D1D0B1B05E2D6002B1875 /* Build configuration list for PBXNativeTarget "EUExGaodeMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C62D1D0C1B05E2D6002B1875 /* Debug */,
+				C62D1D0D1B05E2D6002B1875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C62D1CEF1B05E2D6002B1875 /* Project object */;
+}

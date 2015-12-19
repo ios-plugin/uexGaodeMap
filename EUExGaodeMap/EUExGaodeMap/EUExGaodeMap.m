@@ -118,12 +118,13 @@
     if([initInfo objectForKey:@"isScrollWithWeb"] &&[[initInfo objectForKey:@"isScrollWithWeb"] boolValue]){
         isScrollWithWeb=YES;
     }
-    
-   
-
+    NSString *APIKey=nil;
+    if([initInfo objectForKey:@"APIKey"] && [initInfo[@"APIKey"] isKindOfClass:[NSString class]]){
+        APIKey=initInfo[@"APIKey"];
+    }
     
     [_sharedInstance clearAll];
-    [_sharedInstance loadGaodeMapWithDataLeft:left top:top width:width height:height];
+    [_sharedInstance loadGaodeMapWithDataLeft:left top:top width:width height:height APIKey:APIKey];
     _mapView=_sharedInstance.gaodeView;
 
   
@@ -1488,7 +1489,6 @@ id://(必选) 唯一标识符
 
 }
 
-#warning 源码调试定位功能时，需要在info.plist 中追加NSLocationAlwaysUsageDescription 字段,以申请相应的权限。
 
 /*
  ###getCurrentLocation

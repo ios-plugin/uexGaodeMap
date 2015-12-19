@@ -22,11 +22,14 @@
 		4235B29E1B573A6E004DA814 /* GaodeOfflineInQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */; };
 		4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */; };
 		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
-		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; settings = {ASSET_TAGS = (); }; };
+		424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
+		424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
+		424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
+		424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1B1B05E3D1002B1875 /* AMap.bundle */; };
+		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
 		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
-		C62D1D421B05E3D1002B1875 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D2B1B05E3D1002B1875 /* MAMapKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4C1B05E421002B1875 /* UIKit.framework */; };
 		C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4E1B05E433002B1875 /* Foundation.framework */; };
 		C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D501B05E43D002B1875 /* CoreGraphics.framework */; };
@@ -42,9 +45,12 @@
 		C62D1CF51B05E2D6002B1875 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */,
+				424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */,
+				424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +89,7 @@
 		4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButton.m; sourceTree = "<group>"; };
 		4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButtonManager.h; sourceTree = "<group>"; };
 		4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButtonManager.m; sourceTree = "<group>"; };
+		424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
 		42A5E38A1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+uexGaodeMap.h"; sourceTree = "<group>"; };
 		42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+uexGaodeMap.m"; sourceTree = "<group>"; };
 		C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGaodeMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +113,6 @@
 		C62D1D281B05E3D1002B1875 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		C62D1D291B05E3D1002B1875 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		C62D1D2A1B05E3D1002B1875 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		C62D1D2B1B05E3D1002B1875 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		C62D1D4C1B05E421002B1875 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C62D1D4E1B05E433002B1875 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C62D1D501B05E43D002B1875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */,
 				C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */,
 				C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */,
 				C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */,
@@ -132,7 +139,6 @@
 				C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */,
 				C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */,
 				C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */,
-				C62D1D421B05E3D1002B1875 /* MAMapKit.framework in Frameworks */,
 				C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,8 +276,8 @@
 				C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */,
 				C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */,
 				C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */,
+				424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */,
 				C62D1D221B05E3D1002B1875 /* JSON */,
-				C62D1D2B1B05E3D1002B1875 /* MAMapKit.framework */,
 			);
 			path = sourceCode;
 			sourceTree = "<group>";
@@ -422,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -458,7 +464,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -477,7 +483,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexGaodeMap;
@@ -496,7 +502,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexGaodeMap;

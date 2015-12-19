@@ -65,17 +65,20 @@
 -(BOOL)loadGaodeMapWithDataLeft:(CGFloat)left
                             top:(CGFloat)top
                           width:(CGFloat)width
-                         height:(CGFloat)height{
+                         height:(CGFloat)height
+                         APIKey:(NSString *)key{
     //if(!sharedObj) return NO;
     
     
     if(!self.isGaodeMaploaded){
         NSString *GaodeMapKey=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"uexGaodeMapKey"];
         
-#warning 输入GaodeMapKey
-        //源码调试时，可以在此输入或更改GaodeMapKey
-        //GaodeMapKey=@"d9b8208b019919dedda01cba2e0a2e21"
-        [MAMapServices sharedServices].apiKey =GaodeMapKey;
+        if(key && key.length>0){
+            [MAMapServices sharedServices].apiKey = key;
+        }else{
+           [MAMapServices sharedServices].apiKey = GaodeMapKey;
+        }
+        
         self.searchAPI = [[AMapSearchAPI alloc] initWithSearchKey:GaodeMapKey Delegate:self];
         self.isGaodeMaploaded =YES;
     }
