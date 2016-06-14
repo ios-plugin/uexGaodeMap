@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.9" build="9">
-        <info>9:添加IDE支持;可以通过接口设置APIKey;解决和高德导航冲突的问题</info>
+        uexName="uexGaodeMap" version="4.0.0" build="10">
+        <info>10:支持引擎4.0，函数入参</info>
+        <build>9:添加IDE支持;可以通过接口设置APIKey;解决和高德导航冲突的问题</build>
         <build>8:修正一个可能会导致APP崩溃的bug</build>
         <build>7:当回调的json结构为String时，不再转义一次</build>
         <build>6:open接口添加参数isScrollWithWeb</build>
