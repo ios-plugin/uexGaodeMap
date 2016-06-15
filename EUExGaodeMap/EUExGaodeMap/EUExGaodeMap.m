@@ -1878,7 +1878,7 @@ updatingLocation:(BOOL)updatingLocation
    // [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
      NSString *cbStr = [NSString stringWithFormat:@"uexGaodeMap.%@",name];
     [self.webViewEngine callbackWithFunctionKeyPath:cbStr arguments:ACArgsPack(result)];
-    [func executeWithArguments:ACArgsPack(result)];
+    [func executeWithArguments:ACArgsPack(obj)];
     func = nil;
 }
 //-(void)callBack:(NSString *)str{
@@ -1966,12 +1966,11 @@ updatingLocation:(BOOL)updatingLocation
     id info =[self getDataFromJson:inArguments[0]];
     if(![info isKindOfClass:[NSArray class]]) return;
     
-    for(NSDictionary *infoDict in info){
-        if([infoDict getStringForKey:@"id"]){
-            NSString *identifier=[infoDict getStringForKey:@"id"];
+    for(id data in info){
+        NSString *identifier = [NSString stringWithFormat:@"%@",data];
             [self clearOverlayById:identifier];
         }
-    }
+    
 }
 -(void)setScaleVisible:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
