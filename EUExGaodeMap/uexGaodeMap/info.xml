@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-    <plugin
-        uexName="uexGaodeMap" version="3.0.9" build="9">
-        <info>9:添加IDE支持;可以通过接口设置APIKey;解决和高德导航冲突的问题</info>
-        <build>8:修正一个可能会导致APP崩溃的bug</build>
-        <build>7:当回调的json结构为String时，不再转义一次</build>
-        <build>6:open接口添加参数isScrollWithWeb</build>
-        <build>5:地理编码和反地理编码的回调添加参数,方便用户区分</build>
-        <build>4:新增自定义按钮功能</build>
-        <build>3:修复bugs；设置圆形覆盖物边界默认为实线</build>
-        <build>2:新增点击回调;新增离线地图功能</build>
-        <build>1:新增 设置比例尺 等3个API</build>
-        <build>0:高德地图(uexGaodeMap)插件 for iOS</build>
-
-    </plugin>
+  <plugin uexName="uexGaodeMap" version="3.0.10" build="10">
+    <info>10: IDE证书更新</info>
+    <build>9: 添加IDE支持;可以通过接口设置APIKey;解决和高德导航冲突的问题</build>
+    <build>8: 修正一个可能会导致APP崩溃的bug</build>
+    <build>7: 当回调的json结构为String时，不再转义一次</build>
+    <build>6: open接口添加参数isScrollWithWeb</build>
+    <build>5: 地理编码和反地理编码的回调添加参数,方便用户区分</build>
+    <build>4: 新增自定义按钮功能</build>
+    <build>3: 修复bugs；设置圆形覆盖物边界默认为实线</build>
+    <build>2: 新增点击回调;新增离线地图功能</build>
+    <build>1: 新增 设置比例尺 等3个API</build>
+    <build>0: 高德地图(uexGaodeMap)插件 for iOS</build>
+  </plugin>
 </uexplugins>
-
