@@ -318,8 +318,8 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
 
 -(NSArray*)loadQueueFromString:(NSString*)str{
     NSArray *tmp=nil;
-    if([str JSONValue]&&[[str JSONValue] isKindOfClass:[NSArray class]]){
-        tmp=[str JSONValue];
+    if([str ac_JSONValue]&&[[str ac_JSONValue] isKindOfClass:[NSArray class]]){
+        tmp=[str ac_JSONValue];
     }else return nil;
     
     
@@ -341,7 +341,7 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
         GaodeOfflineInQueueItem *item=arr[i];
         [tmp addObject:[item saveToDict]];
     }
-    return [tmp JSONFragment];
+    return [tmp ac_JSONFragment];
 }
 
 -(NSInteger)searchInQueueByKey:(NSString*)key{

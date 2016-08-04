@@ -16,13 +16,13 @@
         <method name="setRotateEnable"></method>
         <method name="setCompassEnable"></method>
         <method name="setScrollEnable"></method>
-        <method name="addMarkersOverlay"></method>
+        <method name="addMarkersOverlay" sync = "true"></method>
         <method name="setMarkerOverlay"></method>
-        <method name="addPolylineOverlay"></method>
+        <method name="addPolylineOverlay" sync = "true"></method>
         <method name="removeOverlay"></method>
-        <method name="addCircleOverlay"></method>
-        <method name="addPolygonOverlay"></method>
-        <method name="addGroundOverlay"></method>
+        <method name="addCircleOverlay" sync = "true"></method>
+        <method name="addPolygonOverlay" sync = "true"></method>
+        <method name="addGroundOverlay" sync = "true"></method>
         <method name="removeMarkersOverlay"></method>
         <method name="poiSearch"></method>
         <method name="geocode"></method>
@@ -45,12 +45,12 @@
         <method name="isUpdate"></method>
         <method name="delete"></method>
         <method name="clear"></method>
-        <method name="setCustomButton"></method>
-        <method name="deleteCustomButton"></method>
+        <method name="setCustomButton" sync = "true"></method>
+        <method name="deleteCustomButton" sync = "true"></method>
         <method name="showCustomButtons"></method>
         <method name="hideCustomButtons"></method>
         
-
+       <method name="updateMarkerOverlay"></method>
             
             
             
