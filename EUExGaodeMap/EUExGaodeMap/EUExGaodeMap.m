@@ -109,15 +109,15 @@ static inline NSString * newUUID(){
 
 -(void)open:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-
-    id initInfo = [self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *initInfo) = inArguments;
+    //id initInfo = [self getDataFromJson:inArguments[0]];
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     CGFloat left=0;
     CGFloat top=0;
     CGFloat width=CGRectGetWidth([self.webViewEngine webView].bounds);
     CGFloat height=CGRectGetHeight([self.webViewEngine webView].bounds);
     BOOL isScrollWithWeb=false;
-    if([initInfo getStringForKey:@"left"]){
+    if(initInfo[@"left"]){
         left=[[initInfo getStringForKey:@"left"] floatValue];
     }
     if([initInfo getStringForKey:@"top"]){
@@ -189,7 +189,7 @@ static inline NSString * newUUID(){
         
     }
     
-    [self callbackJsonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!" Function:func];
+    //[self callbackJsonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!" Function:func];
       
     
 }
@@ -225,7 +225,8 @@ static inline NSString * newUUID(){
  */
 -(void)setMapType:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id mapType = [self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *mapType) = inArguments;
+    //id mapType = [self getDataFromJson:inArguments[0]];
     NSInteger MAMapType;
     NSString *type = [mapType getStringForKey:@"type"];
     if([type isEqual:@"2"]){
@@ -253,7 +254,8 @@ type://（必选） 0-关闭，1-开启
 */
 -(void)setTrafficEnabled:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
+    //id info =[self getDataFromJson:inArguments[0]];
     NSString *traffic=[info getStringForKey:@"type"];
     if([traffic isEqual:@"1"]){
         _mapView.showTraffic= YES;
@@ -277,7 +279,8 @@ type://（必选） 0-关闭，1-开启
  */
 -(void)setCenter:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *longitude,*latitude;
     if(![info getStringForKey:@"longitude"]){
         return;
@@ -313,7 +316,8 @@ type://（必选） 0-关闭，1-开启
 }
 -(void)setZoomLevel:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     float zoom =[[info getStringForKey:@"level"] floatValue];
     [self mapZoom:zoom];
 
@@ -367,7 +371,8 @@ type://（必选） 0-关闭，1-开启
 -(void)rotate:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *angle=nil;
     if([info getStringForKey:@"angle"]){
         angle=[info getStringForKey:@"angle"];
@@ -392,7 +397,8 @@ type://（必选） 0-关闭，1-开启
 -(void)overlook:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *angle=nil;
     if([info getStringForKey:@"angle"]){
         angle=[info getStringForKey:@"angle"];
@@ -417,7 +423,8 @@ type://（必选） 0-关闭，1-开启
 -(void)setZoomEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
+    //id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -442,7 +449,8 @@ type://（必选） 0-关闭，1-开启
 -(void)setRotateEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -468,7 +476,8 @@ type://（必选） 0-关闭，1-开启
 -(void)setCompassEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -493,7 +502,8 @@ type://（必选） 0-关闭，1-开启
 -(void)setScrollEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -780,7 +790,8 @@ type://（必选） 0-关闭，1-开启
 -(void)setMarkerOverlay:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
@@ -1389,7 +1400,9 @@ id://(必选) 唯一标识符
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [dict setValue:@"1" forKey:@"errorCode"];
     [dict setValue:errorString forKey:@"errorInfo" ];
-    [self callbackJsonWithName:@"cbPoiSearch" Object:dict Function:self.func];
+    [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
+    [self.func executeWithArguments:ACArgsPack(@(1))];
+    self.func = nil;
 }
 
 
@@ -1398,7 +1411,8 @@ id://(必选) 唯一标识符
     if([inArguments count]<1) return;
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     self.func = func;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *searchKey=nil;
     if([info getStringForKey:@"searchKey"]){
         searchKey=[info getStringForKey:@"searchKey"];
@@ -1551,7 +1565,8 @@ id://(必选) 唯一标识符
 -(void)geocode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *city=nil;
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     self.func = func;
@@ -1590,7 +1605,8 @@ id://(必选) 唯一标识符
 -(void)reverseGeocode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *longitude=nil;
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     self.func = func;
@@ -1696,7 +1712,8 @@ id://(必选) 唯一标识符
     
     if([inArguments count]<1) return;
     if(self.locationStatus == ContinuousLocationDisabled) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -1736,7 +1753,8 @@ id://(必选) 唯一标识符
 -(void)setUserTrackingMode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -1775,30 +1793,40 @@ updatingLocation:(BOOL)updatingLocation
     
     NSDate *datenow = [NSDate date];
     NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    NSNumber *error = @1;
+    if (userLocation.coordinate.latitude && userLocation.coordinate.longitude) {
+        error = @(0);
+    }
     //取出当前位置的坐标
     NSMutableDictionary *dict =[NSMutableDictionary dictionaryWithCapacity:2];
     [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.latitude] forKey:@"latitude"];
     [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.longitude] forKey:@"longitude"];
     [dict setValue:timestamp forKey:@"timestamp"];
+    
     switch (self.locationStatus) {
         case GettingCurrentPosition:
             self.locationStatus=ContinuousLocationDisabled;
             _mapView.showsUserLocation=NO;
-            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict Function:self.func];
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
+            self.func = nil;
             break;
         case GettingCurrentPositionWhileLocating:
             self.locationStatus=ContinuousLocationEnabled;
-            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict Function:self.func];
-
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
+            self.func = nil;
             break;
         case GettingCurrentPositionWhileMarking:
             self.locationStatus=ContinuousLocationEnabledWithMarker;
-            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict Function:self.func];
+            [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
+            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
+            self.func = nil;
             break;
                 
         default:
             if(updatingLocation){
-            [self callbackJsonWithName:@"onReceiveLocation" Object:dict Function:nil];
+            [self callbackJsonWithName:@"onReceiveLocation" Object:dict];
             }
             break;
         
@@ -1818,6 +1846,10 @@ updatingLocation:(BOOL)updatingLocation
 {
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:request.address forKey:@"address"];
+    NSNumber *error = @(1);
+    if (response.geocodes && [response.geocodes count] > 0) {
+        error = @(0);
+    }
     if(request.city && [request.city count]>0){
         [dict setValue:request.city[0] forKey:@"city"];
     }
@@ -1830,7 +1862,9 @@ updatingLocation:(BOOL)updatingLocation
         [dict setValue:latitude  forKey:@"latitude"];
     }
 
-    [self callbackJsonWithName:@"cbGeocode" Object:dict Function:self.func];
+    [self callbackJsonWithName:@"cbGeocode" Object:dict];
+    [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
+    self.func = nil;
 }
 
 
@@ -1846,17 +1880,28 @@ updatingLocation:(BOOL)updatingLocation
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
 {
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
+    NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
+    NSNumber *error = @(1);
     if(response.regeocode != nil) {
         [dict setValue:@0 forKey:@"errorCode"];
         [dict setValue:response.regeocode.formattedAddress forKey:@"address"];
         
+        [resultDic setValue:response.regeocode.formattedAddress forKey:@"address"];
+        [resultDic setValue:@(request.location.latitude) forKey:@"latitude"];
+        [resultDic setValue:@(request.location.longitude) forKey:@"longitude"];
+         error = @(0);
         
     }else{
         [dict setValue:@-1 forKey:@"errorCode"];
+         error = @(1);
     }
     [dict setValue:@(request.location.latitude) forKey:@"latitude"];
     [dict setValue:@(request.location.longitude) forKey:@"longitude"];
-    [self callbackJsonWithName:@"cbReverseGeocode" Object:dict Function:self.func];
+    
+    
+    [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
+    [self.func executeWithArguments:ACArgsPack(error,resultDic)];
+    self.func = nil;
 }
 
 
@@ -1928,7 +1973,10 @@ updatingLocation:(BOOL)updatingLocation
     }
 
     [dict setValue:data forKey:@"data"];
-    [self callbackJsonWithName:@"cbPoiSearch" Object:dict Function:self.func];
+    [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
+    
+    [self.func executeWithArguments:ACArgsPack(@(0),[data copy])];
+    self.func = nil;
     
 }
 
@@ -1939,7 +1987,7 @@ updatingLocation:(BOOL)updatingLocation
 
 
 - (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView dataSize:(NSInteger)dataSize{
-    [self callbackJsonWithName:@"onMapLoadedListener" Object:nil Function:nil];
+    [self callbackJsonWithName:@"onMapLoadedListener" Object:nil];
 }
     
 
@@ -1956,7 +2004,7 @@ updatingLocation:(BOOL)updatingLocation
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view{
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:view.reuseIdentifier forKey:@"id"];
-    [self callbackJsonWithName:@"onMarkerClickListener" Object:dict Function:nil];
+    [self callbackJsonWithName:@"onMarkerClickListener" Object:dict];
 }
 
 
@@ -1967,22 +2015,7 @@ updatingLocation:(BOOL)updatingLocation
  
  */
 
-//见 cbGetCurrentLocation
--(void) callbackJsonWithName:(NSString *)name Object:(id)obj Function:(ACJSFunctionRef*)func{
-    NSString *result;
-    if([obj isKindOfClass:[NSString class]]){
-        result=(NSString *)obj;
-    }else{
-        result=[obj ac_JSONFragment];
-    }
-   
-    //NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
-   // [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
-     NSString *cbStr = [NSString stringWithFormat:@"uexGaodeMap.%@",name];
-    [self.webViewEngine callbackWithFunctionKeyPath:cbStr arguments:ACArgsPack(result)];
-    [func executeWithArguments:ACArgsPack(obj)];
-    func = nil;
-}
+
 -(void) callbackJsonWithName:(NSString *)name Object:(id)obj{
     NSString *result;
     if([obj isKindOfClass:[NSString class]]){
@@ -2043,7 +2076,8 @@ updatingLocation:(BOOL)updatingLocation
         [self.annotations removeAllObjects];
         return;
     }
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray*info) = inArguments;
     if(![info isKindOfClass:[NSArray class]]) return;
     if([info count]==0){
         [_mapView removeAnnotations:self.annotations];
@@ -2079,7 +2113,8 @@ updatingLocation:(BOOL)updatingLocation
 
         return;
     }
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray*info) = inArguments;
     if(![info isKindOfClass:[NSArray class]]) return;
     
     for(id data in info){
@@ -2090,7 +2125,8 @@ updatingLocation:(BOOL)updatingLocation
 }
 -(void)setScaleVisible:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info =[self getDataFromJson:inArguments[0]];
+    //id info =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary*info) = inArguments;
     if([info isKindOfClass:[NSDictionary class]]){
         id result=[info objectForKey:@"visible"];
         if([result boolValue]==YES || [result isEqual:@"true"]){
@@ -2108,10 +2144,10 @@ updatingLocation:(BOOL)updatingLocation
     
     switch (type) {
         case GaodeGestureTypeClick:
-            [self callbackJsonWithName:@"onMapClickListener" Object:dict Function:nil];
+            [self callbackJsonWithName:@"onMapClickListener" Object:dict];
             break;
         case GaodeGestureTypeLongPress:
-            [self callbackJsonWithName:@"onMapLongClickListener" Object:dict Function:nil];
+            [self callbackJsonWithName:@"onMapLongClickListener" Object:dict];
             break;
             
         default:
@@ -2131,9 +2167,9 @@ updatingLocation:(BOOL)updatingLocation
 -(void)download:(NSMutableArray *)inArguments{
      _sharedInstance.offlineMgr.delegate=self;
     if([inArguments count]<1) return;
-     id dlInfo =[self getDataFromJson:inArguments[0]];
+    //id dlInfo =[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray *dlInfo) = inArguments;
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-    self.func = func;
     if([dlInfo isKindOfClass:[NSArray class]]){
         for(NSDictionary *downloadDict in dlInfo){
             NSString *searchKey=nil;
@@ -2168,11 +2204,18 @@ updatingLocation:(BOOL)updatingLocation
                                 
                                 break;
                         }
-                        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                        NSMutableDictionary *dict =[NSMutableDictionary dictionary];
                         [dict setValue:searchKey forKey:@"name"];
                         [dict setValue:errorCode forKey:@"errorCode"];
                         if(errorStr)[dict setValue:errorStr forKey:@"errorStr"];
-                        [self callbackJsonWithName:@"cbDownload" Object:dict Function:func];
+                        [self callbackJsonWithName:@"cbDownload" Object:dict];
+                        
+                        NSMutableDictionary *resultDic =[NSMutableDictionary dictionary];
+                        [resultDic setValue:searchKey forKey:@"name"];
+                        if (errorCode) {
+                            [resultDic setValue:errorStr forKey:@"errorStr"];
+                        }
+                        [func executeWithArguments:ACArgsPack(errorCode,resultDic)];
                     }];
 
                 });
@@ -2231,14 +2274,15 @@ updatingLocation:(BOOL)updatingLocation
     [dict setValue:item.name forKey:@"name"];
     [dict setValue:completeCode forKey:@"completeCode"];
     if(statusCode)[dict setValue:statusCode forKey:@"status"];
-    [self callbackJsonWithName:@"onDownload" Object:dict Function:nil];
+    [self callbackJsonWithName:@"onDownload" Object:dict];
 
 }
 
 
 -(void)pause:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info=[self getDataFromJson:inArguments[0]];
+    //id info=[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray *info) = inArguments;
     if([info isKindOfClass:[NSArray class]]){
         for(NSString *keyStr in info){
 
@@ -2251,7 +2295,8 @@ updatingLocation:(BOOL)updatingLocation
 -(void)restart:(NSMutableArray *)inArguments{
      _sharedInstance.offlineMgr.delegate=self;
     if([inArguments count]<1) return;
-    id info=[self getDataFromJson:inArguments[0]];
+    //id info=[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray *info) = inArguments;
     if([info isKindOfClass:[NSArray class]]){
         for(NSString *keyStr in info){
 
@@ -2269,14 +2314,19 @@ updatingLocation:(BOOL)updatingLocation
     if (inArguments.count > 0) {
         func = JSFunctionArg(inArguments.lastObject);
     }
+    NSNumber *error = @(1);
+    if (_sharedInstance.offlineMgr.offlineMap.cities.count > 0) {
+        error = @(0);
+    }
          for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
              
              [result addObject:[_sharedInstance.offlineMgr parseCity:item]];
              
              
          }
-         [self callbackJsonWithName:@"cbGetAvailableCityList" Object:result Function:func];
-         
+         [self callbackJsonWithName:@"cbGetAvailableCityList" Object:result];
+         [func executeWithArguments:ACArgsPack(error,result)];
+    
          
 
 
@@ -2289,10 +2339,15 @@ updatingLocation:(BOOL)updatingLocation
     if (inArguments.count > 0) {
         func = JSFunctionArg(inArguments.lastObject);
     }
+     NSNumber *error = @(1);
+    if (_sharedInstance.offlineMgr.offlineMap.provinces.count > 0) {
+        error = @(0);
+    }
     for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
             [result addObject:[_sharedInstance.offlineMgr parseProvince:item]];
     }
-    [self callbackJsonWithName:@"cbGetAvailableProvinceList" Object:result Function:func];
+    [self callbackJsonWithName:@"cbGetAvailableProvinceList" Object:result];
+    [func executeWithArguments:ACArgsPack(error,result)];
 }
 
 -(void)getDownloadList:(NSMutableArray *)inArguments{
@@ -2300,6 +2355,10 @@ updatingLocation:(BOOL)updatingLocation
     ACJSFunctionRef *func = nil;
     if (inArguments.count > 0) {
         func = JSFunctionArg(inArguments.lastObject);
+    }
+    NSNumber *error = @(1);
+    if ( _sharedInstance.offlineMgr.offlineMap.cities || _sharedInstance.offlineMgr.offlineMap.provinces) {
+        error = @(0);
     }
         for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
             if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
@@ -2321,9 +2380,10 @@ updatingLocation:(BOOL)updatingLocation
                 [result addObject:dict];
             }
         }
-        [self callbackJsonWithName:@"cbGetDownloadList" Object:result Function:func];
+        [self callbackJsonWithName:@"cbGetDownloadList" Object:result];
+    [func executeWithArguments:ACArgsPack(error,result)];
 
-        
+    
 
 }
 -(void)getDownloadingList:(NSMutableArray *)inArguments{
@@ -2331,13 +2391,18 @@ updatingLocation:(BOOL)updatingLocation
     if (inArguments.count > 0) {
        func = JSFunctionArg(inArguments.lastObject);
     }
-    
-    [self callbackJsonWithName:@"cbGetDownloadingList" Object:[_sharedInstance.offlineMgr getDownloadingList] Function:func];
+    NSNumber *error = @(1);
+    NSArray *resultArr = [_sharedInstance.offlineMgr getDownloadingList];
+    if (resultArr) {
+        error = @(0);
+    }
+    [self callbackJsonWithName:@"cbGetDownloadingList" Object:resultArr];
+    [func executeWithArguments:ACArgsPack(error,resultArr)];
 }
 -(void)isUpdate:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    id info=[self getDataFromJson:inArguments[0]];
-    
+    //id info=[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSDictionary *info) = inArguments;
    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     NSString *searchKey=nil;
     if([info objectForKey:@"city"]){
@@ -2346,13 +2411,15 @@ updatingLocation:(BOOL)updatingLocation
         searchKey=[info getStringForKey:@"province"];
     }
     MAOfflineItem *item=[_sharedInstance.offlineMgr searchItem:searchKey];
+    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+    NSNumber *error = @(1);
     if(item){
-        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        error = @(0);
         [dict setValue:item.name forKey:@"name"];
         [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
-        [self callbackJsonWithName:@"cbIsUpdate" Object:dict Function:func];
+        [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
     }
-    
+    [func executeWithArguments:ACArgsPack(error,dict)];
     
 }
 -(void)delete:(NSMutableArray *)inArguments{
@@ -2375,7 +2442,6 @@ updatingLocation:(BOOL)updatingLocation
     if([inArguments count]<1) return nil;
     //id info=[self getDataFromJson:inArguments[0]];
     ACArgsUnpack(NSDictionary *info) = inArguments;
-    //id info =[inArguments[0] ac_JSONValue];
     if(![info isKindOfClass:[NSDictionary class]]) return nil;
     NSString *identifier,*title=nil;
     UIColor *titleColor=[UIColor blackColor];
@@ -2395,7 +2461,7 @@ updatingLocation:(BOOL)updatingLocation
         h=[[info objectForKey:@"height"] floatValue];
     }else return nil;
     if([info objectForKey:@"id"]){
-        identifier=[info objectForKey:@"id"];
+        identifier=[info getStringForKey:@"id"];
     }else{
         identifier = newUUID();
     };
@@ -2429,14 +2495,15 @@ updatingLocation:(BOOL)updatingLocation
                                   andTitleSize:titleSize
                                     andBGImage:bgImage
                                     completion:^(NSString *identifier, BOOL result) {
+                                        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
                                         if(result){
-                                            //[dict setValue:@YES forKey:@"isSuccess"];
+                                            [dict setValue:@YES forKey:@"isSuccess"];
                                             returnIdentifier = identifier;
                                         }else{
-                                            //[dict setValue:@NO forKey:@"isSuccess"];
+                                            [dict setValue:@NO forKey:@"isSuccess"];
                                             returnIdentifier = nil;
                                         }
-                                        //[self callbackJsonWithName:@"cbSetCustomButton" Object:dict Function:func];
+                                        [self callbackJsonWithName:@"cbSetCustomButton" Object:dict];
                                     }];
     
     return returnIdentifier;
@@ -2444,27 +2511,26 @@ updatingLocation:(BOOL)updatingLocation
 
 -(NSNumber*)deleteCustomButton:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return nil;
-    
-    NSString *identifier=inArguments[0];
-    
+    ACArgsUnpack(NSString*identifier) = inArguments;
     __block BOOL res;
     [_sharedInstance.buttonMgr deleteButtonWithId:identifier completion:^(NSString *identifier, BOOL result) {
-        
-        //[dict setValue:identifier forKey:@"id"];
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setValue:identifier forKey:@"id"];
         if(result){
-            //[dict setValue:@YES forKey:@"isSuccess"];
+            [dict setValue:@YES forKey:@"isSuccess"];
             res = YES;
         }else{
-            //[dict setValue:@NO forKey:@"isSuccess"];
+            [dict setValue:@NO forKey:@"isSuccess"];
             res = NO;
         }
-        //[self callbackJsonWithName:@"cbDeleteCustomButton" Object:dict Function:func];
+        [self callbackJsonWithName:@"cbDeleteCustomButton" Object:dict];
     }];
     return @(res);
 }
 -(NSDictionary*)showCustomButtons:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return nil;
-    id info=[self getDataFromJson:inArguments[0]];
+    //id info=[self getDataFromJson:inArguments[0]];
+    ACArgsUnpack(NSArray *info) = inArguments;
     ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     if(![info isKindOfClass:[NSArray class]]) return nil;
     __weak typeof(self) weakself=self;
@@ -2474,7 +2540,7 @@ updatingLocation:(BOOL)updatingLocation
                                    
                                     [dict setValue:succArr forKey:@"successfulIds"];
                                     [dict setValue:failArr forKey:@"failedIds"];
-                                    [self callbackJsonWithName:@"cbShowCustomButtons" Object:dict Function:func];
+                                    [self callbackJsonWithName:@"cbShowCustomButtons" Object:dict];
                                 }
                                    onClick:^(NSString *identifier) {
                                        if(weakself) [weakself callbackJsonWithName:@"onCustomButtonClick" Object:identifier];
@@ -2491,16 +2557,17 @@ updatingLocation:(BOOL)updatingLocation
            
             [dict setValue:succArr forKey:@"successfulIds"];
             [dict setValue:failArr forKey:@"failedIds"];
-            
+            [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
         }];
     }else{
-        id info=[self getDataFromJson:inArguments[0]];
+        //id info=[self getDataFromJson:inArguments[0]];
+        ACArgsUnpack(NSArray *info) = inArguments;
         if(![info isKindOfClass:[NSArray class]]) return nil;
         [_sharedInstance.buttonMgr hideButtons:info completion:^(NSArray *succArr, NSArray *failArr) {
           
             [dict setValue:succArr forKey:@"successfulIds"];
             [dict setValue:failArr forKey:@"failedIds"];
-            
+            [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
             
         }];
     }

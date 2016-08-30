@@ -45,8 +45,8 @@
         <method name="isUpdate"></method>
         <method name="delete"></method>
         <method name="clear"></method>
-        <method name="setCustomButton" sync = "true"></method>
-        <method name="deleteCustomButton" sync = "true"></method>
+        <method name="setCustomButton"></method>
+        <method name="deleteCustomButton"></method>
         <method name="showCustomButtons"></method>
         <method name="hideCustomButtons"></method>
         
