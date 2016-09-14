@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexGaodeMap" version="3.0.12" build="12">
-    <info>12: 自定义插件,可以换行</info>
-    <build>11: 自定义插件,新增addCustomMarkersOverlay</build>
-    <build>10: IDE证书更新</build>
+  <plugin uexName="uexGaodeMap" version="3.0.10" build="10">
+    <info>10: IDE证书更新</info>
     <build>9: 添加IDE支持;可以通过接口设置APIKey;解决和高德导航冲突的问题</build>
     <build>8: 修正一个可能会导致APP崩溃的bug</build>
     <build>7: 当回调的json结构为String时，不再转义一次</build>
