@@ -100,7 +100,7 @@
               width:(CGFloat)width
              height:(CGFloat)height{
     if(!self.gaodeView){
-        self.gaodeView = [[CustomMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
+        self.gaodeView = [[MAMapView alloc] initWithFrame:CGRectMake(left,top,width,height)];
         [self setupGestures];
         self.status =[self.gaodeView getMapStatus];
         self.buttonMgr=[[GaodeCustomButtonManager alloc]initWithMapView:self.gaodeView];
@@ -152,7 +152,7 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return NO;
+    return YES;
 }
 
 - (void)setupGestures
