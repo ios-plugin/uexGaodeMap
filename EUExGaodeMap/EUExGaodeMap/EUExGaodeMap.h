@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "EUExBase.h"
+#import "CustomImageView.h"
+#import "CustomMapView.h"
 @interface EUExGaodeMap : EUExBase
-
+-(void) callbackJsonWithName:(NSString *)name Object:(id)obj;
 @end

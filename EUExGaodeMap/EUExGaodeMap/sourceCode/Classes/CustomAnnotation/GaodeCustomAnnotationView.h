@@ -15,7 +15,7 @@
 @property(nonatomic,strong)GaodeCACalloutBase *callout;
 @property(nonatomic,strong)NSDictionary *calloutData;
 @property(nonatomic,assign)GaodeCACalloutType calloutType;
-
+@property(nonatomic,assign)UIImageView *yellowView;
 
 -(void)setupWithCalloutDict:(NSDictionary*)dataDict;
 
