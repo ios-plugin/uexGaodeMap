@@ -24,7 +24,7 @@
     return self;
 }
 
--(void)createIconImage:(NSString *)str topIconStr:(NSString *)topIconStr radius:(CGFloat)radius borderColor:(UIColor*)borderColor{
+-(void)createIconImage:(NSString *)str topIconStr:(NSString *)topIconStr radius:(CGFloat)radius borderColor:(UIColor*)borderColor borderWidth:(CGFloat)borderWidth{
     NSLog(@"topIconStr:%@",topIconStr);
      str=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
      topIconStr=[topIconStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -36,7 +36,7 @@
         imageData = [NSData dataWithContentsOfFile:str];
     }
     if([topIconStr hasPrefix:@"http"] || [topIconStr hasPrefix:@"https"]){
-        topImageData =[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
+        topImageData =[NSData dataWithContentsOfURL:[NSURL URLWithString:topIconStr]];
     }else{
         topImageData = [NSData dataWithContentsOfFile:topIconStr];
     }
@@ -49,8 +49,8 @@
         //self.iconImage = [self overlay:[self imageWithImage:scaleImage border:5 borderColor:borderColor] andImage:image];
          self.iconImage = image;
         UIImage *tempImage = [self OriginImage:topImage scaleToSize:[self OriginImage:topImage Width:2*radius Height:2*radius]];
-        self.flashImage = [self imageWithImage:tempImage border:5 borderColor:borderColor];
-         self.bgImage = [self imageWithImage:tempImage border:5 borderColor:[UIColor clearColor]];
+        self.flashImage = [self imageWithImage:tempImage border:borderWidth borderColor:borderColor];
+         self.bgImage = [self imageWithImage:tempImage border:borderWidth borderColor:[UIColor clearColor]];
     }else{
         self.iconImage = image;
     }

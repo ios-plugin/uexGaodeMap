@@ -18,6 +18,6 @@
 @property (nonatomic,assign) BOOL draggable;
 @property (nonatomic,assign) BOOL isCustomCallout;
 @property (nonatomic,strong) NSDictionary *customCalloutData;
--(void)createIconImage:(NSString *)str topIconStr:(NSString *)topIconStr radius:(CGFloat)radius borderColor:(UIColor*)borderColor;
+-(void)createIconImage:(NSString *)str topIconStr:(NSString *)topIconStr radius:(CGFloat)radius borderColor:(UIColor*)borderColor borderWidth:(CGFloat)borderWidth;
 
 @end

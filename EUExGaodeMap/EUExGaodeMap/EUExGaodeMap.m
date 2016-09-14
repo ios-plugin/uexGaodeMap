@@ -28,7 +28,7 @@
 @property(nonatomic,weak) NSMutableArray *annotations;
 @property(nonatomic,weak) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
-
+@property(nonatomic,assign) CGFloat timer;
 @end
 
 @implementation EUExGaodeMap
@@ -534,7 +534,7 @@ type://（必选） 0-关闭，1-开启
                 
                 
                
-                [UIView animateWithDuration:0.4 delay:0 options: UIViewAnimationOptionRepeat animations:^{
+                [UIView animateWithDuration:self.timer delay:0 options: UIViewAnimationOptionRepeat animations:^{
                     
                     //设置结束状态
                     imageView.alpha = 0.2;
@@ -732,7 +732,15 @@ type://（必选） 0-关闭，1-开启
         if([info getStringForKey:@"borderColor"]){
             borderColor =[EUtility colorFromHTMLString:[info getStringForKey:@"borderColor"]];
         };
-
+        CGFloat borderWidth = 2;
+        if([info getStringForKey:@"borderWidth"]){
+            borderWidth =[[info getStringForKey:@"borderWidth"] floatValue];
+        };
+        CGFloat timer = 0.5;
+        if([info getStringForKey:@"timer"]){
+            timer =[[info getStringForKey:@"borderWidth"] floatValue];
+        };
+        self.timer = timer;
         NSDictionary *bubble=nil;
         if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
             bubble=[info objectForKey:@"bubble"];
@@ -749,7 +757,7 @@ type://（必选） 0-关闭，1-开启
         pointAnnotation.identifier =identifier;
         pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
         if(icon){
-            [pointAnnotation createIconImage:icon topIconStr:topIcon radius:radius borderColor:borderColor];
+            [pointAnnotation createIconImage:icon topIconStr:topIcon radius:radius borderColor:borderColor borderWidth:borderWidth];
         }
         if(customBubble){
             pointAnnotation.isCustomCallout=YES;
@@ -815,7 +823,7 @@ type://（必选） 0-关闭，1-开启
         pointAnnotation.identifier =identifier;
         pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
         if(icon){
-            [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil];
+            [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil borderWidth:0];
         }
         if(customBubble){
             pointAnnotation.isCustomCallout=YES;
@@ -902,7 +910,7 @@ type://（必选） 0-关闭，1-开启
     }
     
     if(icon){
-        [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil];
+        [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil borderWidth:0];
     }
     
     if(bubble){
