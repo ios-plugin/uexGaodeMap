@@ -17,7 +17,7 @@
 
 @interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
 }
-@property(nonatomic,weak)CustomMapView *mapView;
+@property(nonatomic,weak)MAMapView *mapView;
 @property(nonatomic,weak)AMapSearchAPI *search;
 @property(nonatomic,weak)EUExGaodeMapInstance *sharedInstance;
 @property(nonatomic,assign) BOOL isInitialized;
@@ -28,7 +28,7 @@
 @property(nonatomic,weak) NSMutableArray *annotations;
 @property(nonatomic,weak) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
-@property(nonatomic,assign) CGFloat timer;
+
 @end
 
 @implementation EUExGaodeMap
@@ -516,33 +516,7 @@ type://（必选） 0-关闭，1-开启
             if(pointAnnotation.iconImage){
   
                 annotationView.image = pointAnnotation.iconImage;
-                
-                UIImageView *imageView = [[UIImageView alloc]initWithImage:pointAnnotation.flashImage];
-                imageView.userInteractionEnabled = NO;
-                imageView.frame = CGRectMake(0,0,pointAnnotation.flashImage.size.width,pointAnnotation.flashImage.size.height);
-                
-                
-                
-                
-                CustomImageView *imageView1 = [[CustomImageView alloc]initWithFrame:CGRectMake(-pointAnnotation.flashImage.size.width/2+pointAnnotation.iconImage.size.width/2,-pointAnnotation.flashImage.size.height-2,pointAnnotation.flashImage.size.width,pointAnnotation.flashImage.size.height)];
-                imageView1.image = pointAnnotation.bgImage;
-                imageView1.uexObj = self;
-                imageView1.identifier = pointAnnotation.identifier;
-                annotationView.yellowView = imageView1;
-                imageView1.userInteractionEnabled = NO;
-                
-                
-                
-               
-                [UIView animateWithDuration:self.timer delay:0 options: UIViewAnimationOptionRepeat animations:^{
-                    
-                    //设置结束状态
-                    imageView.alpha = 0.2;
-                } completion:^(BOOL finished) {
-                    
-                }];
-                [annotationView addSubview:imageView1];
-                [imageView1 addSubview:imageView];
+
                 //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
                 CGFloat offsetY=annotationView.image.size.height/-2;
                 annotationView.centerOffset = CGPointMake(0, offsetY);
@@ -602,7 +576,6 @@ type://（必选） 0-关闭，1-开启
     
     return nil;
 }
-
 #pragma mark OverlayDelegate
 - (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay{
     
@@ -695,7 +668,7 @@ type://（必选） 0-关闭，1-开启
 
 
 
--(void)addCustomMarkersOverlay:(NSMutableArray *)inArguments{
+-(void)addMarkersOverlay:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
     NSArray *markerArray =[self getDataFromJson:inArguments[0]];
@@ -719,111 +692,23 @@ type://（必选） 0-关闭，1-开启
             icon=[info getStringForKey:@"icon"];
             icon=[self absPath:icon];
         }
-        NSString *topIcon = nil;
-        if([info getStringForKey:@"topIcon"]){
-            topIcon=[info getStringForKey:@"topIcon"];
-            topIcon=[self absPath:topIcon];
-        }
-        CGFloat radius = 50;
-        if([info getStringForKey:@"radius"]){
-            radius =[[info getStringForKey:@"radius"] floatValue];
-        };
-        UIColor *borderColor = [UIColor clearColor];
-        if([info getStringForKey:@"borderColor"]){
-            borderColor =[EUtility colorFromHTMLString:[info getStringForKey:@"borderColor"]];
-        };
-        CGFloat borderWidth = 2;
-        if([info getStringForKey:@"borderWidth"]){
-            borderWidth =[[info getStringForKey:@"borderWidth"] floatValue];
-        };
-        CGFloat timer = 0.5;
-        if([info getStringForKey:@"timer"]){
-            timer =[[info getStringForKey:@"borderWidth"] floatValue];
-        };
-        self.timer = timer;
-        NSDictionary *bubble=nil;
-        if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
-            bubble=[info objectForKey:@"bubble"];
-        }
-        NSDictionary *customBubble= @{@"type":@1};
-//        if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
-//            customBubble=[info objectForKey:@"customBubble"];
-//                                               
-//        }
-
-        if([self searchAnnotationById:identifier])return;
-
-        GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
-        pointAnnotation.identifier =identifier;
-        pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
-        if(icon){
-            [pointAnnotation createIconImage:icon topIconStr:topIcon radius:radius borderColor:borderColor borderWidth:borderWidth];
-        }
-        if(customBubble){
-            pointAnnotation.isCustomCallout=YES;
-            pointAnnotation.customCalloutData=customBubble;
-        }
-        if(bubble&&!pointAnnotation.isCustomCallout){
-            BOOL isEmpty=YES;
-            if([bubble getStringForKey:@"title"]){
-                pointAnnotation.title=[bubble getStringForKey:@"title"];
-                isEmpty =NO;
-            }
-        
-            if([bubble getStringForKey:@"subTitle"]){
-                pointAnnotation.subtitle=[bubble getStringForKey:@"subTitle"];
-                isEmpty =NO;
-            }
-            pointAnnotation.canShowCallout=!isEmpty;
-        }
-        
-        [_mapView addAnnotation:pointAnnotation];
-        [self.annotations addObject:pointAnnotation];
-
-    }
-    
-}
--(void)addMarkersOverlay:(NSMutableArray *)inArguments{
-    
-    if([inArguments count]<1) return;
-    NSArray *markerArray =[self getDataFromJson:inArguments[0]];
-    for(NSDictionary *info in markerArray)
-    {
-        
-        NSString *identifier=nil;
-        if([info getStringForKey:@"id"]){
-            identifier=[info getStringForKey:@"id"];
-        }else return;
-        NSString *longitude=nil;
-        if([info getStringForKey:@"longitude"]){
-            longitude=[info getStringForKey:@"longitude"];
-        }else return;
-        NSString *latitude=nil;
-        if([info getStringForKey:@"latitude"]){
-            latitude=[info getStringForKey:@"latitude"];
-        }else return;
-        NSString *icon=nil;
-        if([info getStringForKey:@"icon"]){
-            icon=[info getStringForKey:@"icon"];
-            icon=[self absPath:icon];
-        }
         NSDictionary *bubble=nil;
         if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
             bubble=[info objectForKey:@"bubble"];
         }
         NSDictionary *customBubble=nil;
-        if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
+                                           if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
             customBubble=[info objectForKey:@"customBubble"];
-            
+                                               
         }
-        
+
         if([self searchAnnotationById:identifier])return;
-        
+
         GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
         pointAnnotation.identifier =identifier;
         pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
         if(icon){
-            [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil borderWidth:0];
+            [pointAnnotation createIconImage:icon];
         }
         if(customBubble){
             pointAnnotation.isCustomCallout=YES;
@@ -835,7 +720,7 @@ type://（必选） 0-关闭，1-开启
                 pointAnnotation.title=[bubble getStringForKey:@"title"];
                 isEmpty =NO;
             }
-            
+        
             if([bubble getStringForKey:@"subTitle"]){
                 pointAnnotation.subtitle=[bubble getStringForKey:@"subTitle"];
                 isEmpty =NO;
@@ -845,7 +730,7 @@ type://（必选） 0-关闭，1-开启
         
         [_mapView addAnnotation:pointAnnotation];
         [self.annotations addObject:pointAnnotation];
-        
+
     }
     
 }
@@ -910,7 +795,7 @@ type://（必选） 0-关闭，1-开启
     }
     
     if(icon){
-        [pointAnnotation createIconImage:icon topIconStr:nil radius:0 borderColor:nil borderWidth:0];
+        [pointAnnotation createIconImage:icon];
     }
     
     if(bubble){
