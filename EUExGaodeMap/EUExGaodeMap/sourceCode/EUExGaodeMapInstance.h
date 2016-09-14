@@ -13,7 +13,7 @@
 #import "GaodeCustomAnnotationView.h"
 #import "GaodeOfflineMapManager.h"
 #import "GaodeCustomButtonManager.h"
-
+#import "CustomMapView.h"
 typedef NS_ENUM(NSInteger, GaodeGestureType){
     GaodeGestureTypeClick=0,
     GaodeGestureTypeLongPress
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
 @end
 
 @interface EUExGaodeMapInstance : NSObject<MAMapViewDelegate, AMapSearchDelegate>
-@property (nonatomic,strong)MAMapView *gaodeView;
+@property (nonatomic,strong)CustomMapView *gaodeView;
 @property (nonatomic,strong)AMapSearchAPI *searchAPI;
 @property (nonatomic,strong) NSMutableArray *annotations;
 @property (nonatomic,strong) NSMutableArray *overlays;

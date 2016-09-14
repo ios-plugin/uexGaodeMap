@@ -61,22 +61,25 @@
 - (void)initSubViews {
     CGFloat innerWidth=self.mainWidth-2*self.margin;
     
-
+    
     //设置title
     NSMutableAttributedString *title=[[NSMutableAttributedString alloc]initWithString:self.titleStr];
     [title setAttributes:@{NSForegroundColorAttributeName:self.titleColor,NSFontAttributeName:self.titleFont} range:NSMakeRange(0, [title length])];
     //CGFloat titleHeight=[self sizeWithString:title width:innerWidth options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading  |NSStringDrawingUsesLineFragmentOrigin].height;
-    CGFloat titleHeight=self.titleFont.pointSize*0.9f;
+    //CGFloat titleHeight=self.titleFont.pointSize*0.9f;
     self.titleView=[[UILabel alloc] init];
     self.titleView.attributedText=title;
     self.titleView.backgroundColor=[UIColor clearColor];
-    self.titleView.numberOfLines=1;
-    self.titleView.lineBreakMode=NSLineBreakByTruncatingTail;
-    self.titleView.frame=CGRectMake(_margin, _margin, innerWidth, titleHeight);
-
+    self.titleView.numberOfLines=0;
+    self.titleView.lineBreakMode=NSLineBreakByCharWrapping;
+    CGRect rect = [self.titleView textRectForBounds:CGRectMake(0, 0, innerWidth, MAXFLOAT) limitedToNumberOfLines:0];
+    self.titleView.frame = CGRectMake(_margin, _margin,rect.size.width,rect.size.height);
+    
+    //self.titleView.frame=CGRectMake(_margin, _margin, innerWidth, titleHeight);
+    
     
     //设置text
-
+    
     NSMutableAttributedString *text=[[NSMutableAttributedString alloc]initWithString:self.textStr];
     [text setAttributes:@{NSForegroundColorAttributeName:self.textColor,NSFontAttributeName:self.textFont} range:NSMakeRange(0, [text length])];
     NSArray *textArray=[text.string componentsSeparatedByString:@"\n"];
@@ -92,24 +95,24 @@
     self.textView.backgroundColor=[UIColor clearColor];
     self.textView.lineBreakMode=NSLineBreakByWordWrapping;
     self.textView.numberOfLines=0;
-    self.textView.frame=CGRectMake(_margin, _margin+titleHeight,innerWidth,textHeight);
+    self.textView.frame=CGRectMake(_margin, _margin+rect.size.height,innerWidth,textHeight);
     //[self addSubview:self.textView];
-
     
-    self.bounds=CGRectMake(0, 0, self.mainWidth, _margin*4+textHeight+titleHeight);
+    
+    self.bounds=CGRectMake(0, 0, self.mainWidth, _margin*4+textHeight+rect.size.height);
     
     self.backgroundColor=[UIColor blackColor];
-
-
     
-
+    
+    
+    
     
     [self addSubview:self.titleView];
     [self addSubview:self.textView];
     [self setNeedsDisplay];
     
     
-
+    
     
     
 }
@@ -126,7 +129,7 @@
     __block BOOL result=YES;
     NSError* empty=nil;
     if(![self.dataDict isKindOfClass:[NSDictionary class]]) return NO;
-
+    
     self.mainWidth=[self getFloatForKey:@"width" ifEmpty:^{result = NO;}];
     if(empty) return NO;
     self.bgColor=[self getColorForKey:@"bgColor" ifEmpty:nil];

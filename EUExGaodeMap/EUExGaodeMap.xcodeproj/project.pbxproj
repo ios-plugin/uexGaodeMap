@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		213B315C1D88170B000E44D6 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213B315B1D88170B000E44D6 /* AMapSearchKit.framework */; };
+		213B315E1D881802000E44D6 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213B315D1D881802000E44D6 /* AMapSearchKit.framework */; };
+		215674201D88CC0E00A44A26 /* AMapSearchKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 213B315D1D881802000E44D6 /* AMapSearchKit.framework */; };
+		2183B14A1D585ED400F20350 /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183B1491D585ED400F20350 /* CustomImageView.m */; };
+		2183B14D1D587E1700F20350 /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183B14C1D587E1700F20350 /* CustomMapView.m */; };
 		4235B2901B5739F9004DA814 /* GaodeError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2731B5739F9004DA814 /* GaodeError.m */; };
 		4235B2911B5739F9004DA814 /* GaodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2751B5739F9004DA814 /* GaodeUtility.m */; };
 		4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2781B5739F9004DA814 /* GaodeCACalloutBase.m */; };
@@ -24,11 +29,9 @@
 		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
 		424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
 		424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
-		424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
 		424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1B1B05E3D1002B1875 /* AMap.bundle */; };
 		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
-		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
 		C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4C1B05E421002B1875 /* UIKit.framework */; };
 		C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4E1B05E433002B1875 /* Foundation.framework */; };
@@ -48,8 +51,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				215674201D88CC0E00A44A26 /* AMapSearchKit.framework in CopyFiles */,
 				424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */,
-				424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */,
 				424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +60,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		213B315B1D88170B000E44D6 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = uexGaodeMap/AMapSearchKit.framework; sourceTree = "<group>"; };
+		213B315D1D881802000E44D6 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		2183B1481D585ED400F20350 /* CustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImageView.h; sourceTree = "<group>"; };
+		2183B1491D585ED400F20350 /* CustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageView.m; sourceTree = "<group>"; };
+		2183B14B1D587E1700F20350 /* CustomMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = "<group>"; };
+		2183B14C1D587E1700F20350 /* CustomMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = "<group>"; };
 		4235B2721B5739F9004DA814 /* GaodeError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeError.h; sourceTree = "<group>"; };
 		4235B2731B5739F9004DA814 /* GaodeError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeError.m; sourceTree = "<group>"; };
 		4235B2741B5739F9004DA814 /* GaodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeUtility.h; sourceTree = "<group>"; };
@@ -101,7 +110,6 @@
 		C62D1D181B05E3D1002B1875 /* EUExGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMap.h; sourceTree = "<group>"; };
 		C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMap.m; sourceTree = "<group>"; };
 		C62D1D1B1B05E3D1002B1875 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
 		C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
@@ -129,6 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213B315E1D881802000E44D6 /* AMapSearchKit.framework in Frameworks */,
+				213B315C1D88170B000E44D6 /* AMapSearchKit.framework in Frameworks */,
 				424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */,
 				C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */,
 				C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */,
@@ -139,7 +149,6 @@
 				C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */,
 				C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */,
 				C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */,
-				C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +190,10 @@
 				4235B27B1B5739F9004DA814 /* GaodeCACalloutTextBox.m */,
 				4235B27C1B5739F9004DA814 /* GaodeCustomAnnotationView.h */,
 				4235B27D1B5739F9004DA814 /* GaodeCustomAnnotationView.m */,
+				2183B1481D585ED400F20350 /* CustomImageView.h */,
+				2183B1491D585ED400F20350 /* CustomImageView.m */,
+				2183B14B1D587E1700F20350 /* CustomMapView.h */,
+				2183B14C1D587E1700F20350 /* CustomMapView.m */,
 			);
 			path = CustomAnnotation;
 			sourceTree = "<group>";
@@ -270,9 +283,9 @@
 		C62D1D1A1B05E3D1002B1875 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				213B315D1D881802000E44D6 /* AMapSearchKit.framework */,
 				4235B2701B5739F9004DA814 /* Classes */,
 				C62D1D1B1B05E3D1002B1875 /* AMap.bundle */,
-				C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */,
 				C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */,
 				C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */,
 				C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */,
@@ -300,6 +313,7 @@
 		C62D1D4B1B05E3DA002B1875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				213B315B1D88170B000E44D6 /* AMapSearchKit.framework */,
 				C62D1D5C1B05E477002B1875 /* Security.framework */,
 				C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */,
 				C62D1D581B05E459002B1875 /* CoreTelephony.framework */,
@@ -370,6 +384,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4235B2901B5739F9004DA814 /* GaodeError.m in Sources */,
+				2183B14A1D585ED400F20350 /* CustomImageView.m in Sources */,
+				2183B14D1D587E1700F20350 /* CustomMapView.m in Sources */,
 				4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */,
 				4235B2991B5739F9004DA814 /* GaodePolygon.m in Sources */,
 				4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */,
@@ -480,10 +496,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)/uexGaodeMap",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexGaodeMap;
@@ -499,10 +516,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)/uexGaodeMap",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = uexGaodeMap;

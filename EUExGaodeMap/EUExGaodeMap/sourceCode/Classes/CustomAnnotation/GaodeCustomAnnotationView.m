@@ -56,7 +56,35 @@
             break;
     }
 }
+/***改变响应者链****/
+//-(UIView*)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    UIView *view = [super hitTest:point withEvent:event];
+//    if(view == nil) {
+//        CGPoint tempPoint = [self convertPoint:point toView:self];
+//        if (CGRectContainsPoint(self.bounds, tempPoint)) {
+//           view = self;
+//        }
+//    }
+//    return view;
+//}
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    NSLog(@"hitTest----%@", [self class]);
+    CGPoint yellowPoint = [self convertPoint:point toView:_yellowView];
+    if ([_yellowView pointInside:yellowPoint withEvent:event]) {
+        return _yellowView;
+    }
+    
+    return [super hitTest:point withEvent:event];
+}
 
 
-
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    CGPoint yellowPoint =[_yellowView convertPoint:point fromView:self];
+//    if ([_yellowView pointInside:yellowPoint withEvent:event]) return NO;
+//    
+//    return [super pointInside:point withEvent:event];
+//}
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    return NO;
+//}
 @end
