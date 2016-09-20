@@ -27,7 +27,6 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
         self.offlineMap=[MAOfflineMap sharedOfflineMap];
         self.bgDownload=NO;
         self.isQueueChanged=NO;
-        
         [self loadData];
     }
     return self;
@@ -50,7 +49,7 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
 }
 -(NSDictionary*)parseCity:(MAOfflineItem*)city{
 
-   // if([city isKindOfClass:[MAOfflineItemCommonCity class]]){
+   
         NSMutableDictionary *result=[NSMutableDictionary dictionary];
         [result setValue:city.name forKey:@"city"];
         [result setValue:[NSNumber numberWithLongLong:city.size] forKey:@"size"];
@@ -67,9 +66,7 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
                 break;
         }
         [result setValue:completeCode forKey:@"completeCode"];
-        //[result setValue:status forKey:@"status"];
         return result;
-   // }
     
     
     return nil;
@@ -113,12 +110,12 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
         if(reqCB) reqCB(GaodeOfflineRequestNotExist);
         return;
     }
-    if([self searchInQueueByKey:item.name] != -1){
-        if(reqCB) reqCB(GaodeOfflineRequestDumplicate);
-        return;
-    }
     if(item.itemStatus == MAOfflineItemStatusInstalled){
         if(reqCB) reqCB(GaodeOfflineRequestAlreadyFinish);
+        return;
+    }
+    if([self searchInQueueByKey:item.name] != -1){
+        if(reqCB) reqCB(GaodeOfflineRequestDumplicate);
         return;
     }
     GaodeOfflineInQueueItem *inQueueItem=[[GaodeOfflineInQueueItem alloc]initWithName:item.name Status:GaodeInQueueItemWaiting];
@@ -136,10 +133,9 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
     GaodeOfflineInQueueItem *nextQueueItem=[self getInQueueItem:next];
     if(!nextQueueItem) return;
     MAOfflineItem *item=[self searchItem:nextQueueItem.name];
-
     
-
-    [_offlineMap downloadItem:item shouldContinueWhenAppEntersBackground:self.bgDownload downloadBlock:^(MAOfflineMapDownloadStatus downloadStatus, id info) {
+    [_offlineMap downloadItem:item shouldContinueWhenAppEntersBackground:self.bgDownload downloadBlock:^(MAOfflineItem * downloadItem,MAOfflineMapDownloadStatus downloadStatus, id info) {
+        //dispatch_async(dispatch_get_main_queue(), ^{
         switch (downloadStatus) {
             case MAOfflineMapDownloadStatusCancelled:
                 nextQueueItem.status=GaodeInQueueItemPaused;
@@ -148,6 +144,7 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
                 [self onDownloadFromOfflineItem:item Status:GaodeOfflineDownloadPause info:info];
                 break;
             case MAOfflineMapDownloadStatusCompleted:
+                self.isDownloading=NO;
                 break;
             
             case MAOfflineMapDownloadStatusError:
@@ -182,7 +179,9 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
             default:
                 break;
         }
-        [self run];
+        
+      //});
+        
     }];
     
     
@@ -215,37 +214,11 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
 
 
 -(void)onDownloadFromOfflineItem:(MAOfflineItem*)item Status:(GaodeOfflineDownloadStatus)status info:(id)info {
-    if([self.delegate respondsToSelector:@selector(offlineItem:downloadStatusDidChange:info:)]){
+      if([self.delegate respondsToSelector:@selector(offlineItem:downloadStatusDidChange:info:)]){
         [self.delegate offlineItem:item downloadStatusDidChange:status info:info];
-    }
+      }
 }
-/*
--(void)searchItem:(NSString*)searchKey result:(void (^)(MAOfflineItem* item, GaodeOfflineMapItemType type))resultBlock{
-    for(int i=0;i< [_offlineMap.cities count];i++){
-        if([[_offlineMap.cities objectAtIndex:i] isKindOfClass:[MAOfflineItem class]]){
-            MAOfflineItem *item =[_offlineMap.cities objectAtIndex:i];
-            if([@[item.pinyin,item.adcode,item.jianpin,item.name] indexOfObject:searchKey] != NSNotFound){
-                resultBlock(item,GaodeOfflineMapItemCity);
-                return;
-            }
-        }
-        
-    }
-    for(int i=0;i< [_offlineMap.provinces count];i++){
-        if([[_offlineMap.provinces objectAtIndex:i] isKindOfClass:[MAOfflineItem class]]){
-            MAOfflineItem *item =[_offlineMap.provinces objectAtIndex:i];
-            if([@[item.pinyin,item.adcode,item.jianpin,item.name] indexOfObject:searchKey] != NSNotFound){
-                resultBlock(item,GaodeOfflineMapItemCity);
-                return;
-            }
-        }
-        
-    }
-    resultBlock(nil,GaodeOfflineMapItemError);
-    
-    
-}
- */
+
 -(MAOfflineItem*)searchItem:(NSString*)searchKey{
     for(int i=0;i< [_offlineMap.cities count];i++){
         if([[_offlineMap.cities objectAtIndex:i] isKindOfClass:[MAOfflineItem class]]){
@@ -279,23 +252,31 @@ NSString *const cGaodeBackgroundDownloadKey=@"cGaodeBackgroundDownloadKey";
             GaodeOfflineInQueueItem *queueItem=self.downloadQueue[i];
             MAOfflineItem *item=[self searchItem:queueItem.name];
             NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-            [dict setValue:item.name forKey:@"name"];
-            [dict setValue:[NSNumber numberWithLongLong:item.size] forKey:@"size"];
-            [dict setValue:[item isKindOfClass:[MAOfflineProvince class]]?@2:@1 forKey:@"type"];
             NSNumber *completeCode;
             switch (item.itemStatus) {
                 case MAOfflineItemStatusNone:
                     completeCode=@0;
+                   [dict setValue:item.name forKey:@"name"];
+                   [dict setValue:[NSNumber numberWithLongLong:item.size] forKey:@"size"];
+                   [dict setValue:[item isKindOfClass:[MAOfflineProvince class]]?@2:@1 forKey:@"type"];
+                   [dict setValue:completeCode forKey:@"completeCode"];
+                   [result addObject:dict];
                     break;
                 case MAOfflineItemStatusCached:
                     completeCode=[NSNumber numberWithFloat:((float)item.downloadedSize/(float)item.size*100)];
+                    [dict setValue:item.name forKey:@"name"];
+                    [dict setValue:[NSNumber numberWithLongLong:item.size] forKey:@"size"];
+                    [dict setValue:[item isKindOfClass:[MAOfflineProvince class]]?@2:@1 forKey:@"type"];
+                    [dict setValue:completeCode forKey:@"completeCode"];
+                    [result addObject:dict];
                     break;
                 default:
                     completeCode=@100;
+                    result = [@[] mutableCopy];
                     break;
             }
-            [dict setValue:completeCode forKey:@"completeCode"];
-            [result addObject:dict];
+            
+            
         }
         return result;
     }

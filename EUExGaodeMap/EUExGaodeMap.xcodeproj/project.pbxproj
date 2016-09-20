@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		096B687C1D0D09A7009BE24A /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 096B687B1D0D09A7009BE24A /* AppCanKit.framework */; };
+		2113E83B1D8FA1BB00230E00 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2113E8381D8FA1BB00230E00 /* AMapFoundationKit.framework */; };
+		2113E83C1D8FA1BB00230E00 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2113E8391D8FA1BB00230E00 /* AMapSearchKit.framework */; };
+		2113E83D1D8FA1BB00230E00 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2113E83A1D8FA1BB00230E00 /* MAMapKit.framework */; };
+		2113E8421D8FA22900230E00 /* AMap.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2113E83E1D8FA1C600230E00 /* AMap.bundle */; };
+		2113E8431D8FA22E00230E00 /* AMapFoundationKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2113E8381D8FA1BB00230E00 /* AMapFoundationKit.framework */; };
+		2113E8441D8FA23200230E00 /* MAMapKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2113E83A1D8FA1BB00230E00 /* MAMapKit.framework */; };
+		2113E8451D8FA26B00230E00 /* AMapSearchKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2113E8391D8FA1BB00230E00 /* AMapSearchKit.framework */; };
 		4235B2901B5739F9004DA814 /* GaodeError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2731B5739F9004DA814 /* GaodeError.m */; };
 		4235B2911B5739F9004DA814 /* GaodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2751B5739F9004DA814 /* GaodeUtility.m */; };
 		4235B2921B5739F9004DA814 /* GaodeCACalloutBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B2781B5739F9004DA814 /* GaodeCACalloutBase.m */; };
@@ -23,13 +30,8 @@
 		4235B29E1B573A6E004DA814 /* GaodeOfflineInQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4235B29D1B573A6E004DA814 /* GaodeOfflineInQueueItem.m */; };
 		4247F9471B85DBBF00DDE38A /* GaodeCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */; };
 		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
-		424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
-		424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */; };
-		424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
-		424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C62D1D1B1B05E3D1002B1875 /* AMap.bundle */; };
 		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
-		C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
 		C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4C1B05E421002B1875 /* UIKit.framework */; };
 		C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4E1B05E433002B1875 /* Foundation.framework */; };
@@ -39,7 +41,6 @@
 		C62D1D571B05E44D002B1875 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D561B05E44D002B1875 /* CoreLocation.framework */; };
 		C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D581B05E459002B1875 /* CoreTelephony.framework */; };
 		C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */; };
-		C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D5C1B05E477002B1875 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,9 +50,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				424AD02B1C25209E00EEC1F8 /* AMap.bundle in CopyFiles */,
-				424AD02A1C25209A00EEC1F8 /* AMapSearchKit.framework in CopyFiles */,
-				424AD0291C25209400EEC1F8 /* AMapNaviKit.framework in CopyFiles */,
+				2113E8451D8FA26B00230E00 /* AMapSearchKit.framework in CopyFiles */,
+				2113E8441D8FA23200230E00 /* MAMapKit.framework in CopyFiles */,
+				2113E8431D8FA22E00230E00 /* AMapFoundationKit.framework in CopyFiles */,
+				2113E8421D8FA22900230E00 /* AMap.bundle in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +61,10 @@
 
 /* Begin PBXFileReference section */
 		096B687B1D0D09A7009BE24A /* AppCanKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCanKit.framework; sourceTree = "<group>"; };
+		2113E8381D8FA1BB00230E00 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		2113E8391D8FA1BB00230E00 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		2113E83A1D8FA1BB00230E00 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		2113E83E1D8FA1C600230E00 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
 		4235B2721B5739F9004DA814 /* GaodeError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeError.h; sourceTree = "<group>"; };
 		4235B2731B5739F9004DA814 /* GaodeError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeError.m; sourceTree = "<group>"; };
 		4235B2741B5739F9004DA814 /* GaodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeUtility.h; sourceTree = "<group>"; };
@@ -91,7 +97,6 @@
 		4247F9441B85DBBF00DDE38A /* GaodeCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButton.m; sourceTree = "<group>"; };
 		4247F9451B85DBBF00DDE38A /* GaodeCustomButtonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaodeCustomButtonManager.h; sourceTree = "<group>"; };
 		4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaodeCustomButtonManager.m; sourceTree = "<group>"; };
-		424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapNaviKit.framework; sourceTree = "<group>"; };
 		42A5E38A1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+uexGaodeMap.h"; sourceTree = "<group>"; };
 		42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+uexGaodeMap.m"; sourceTree = "<group>"; };
 		C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGaodeMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,8 +106,6 @@
 		C62D1D171B05E3D1002B1875 /* WidgetOneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetOneDelegate.h; sourceTree = "<group>"; };
 		C62D1D181B05E3D1002B1875 /* EUExGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMap.h; sourceTree = "<group>"; };
 		C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMap.m; sourceTree = "<group>"; };
-		C62D1D1B1B05E3D1002B1875 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppCanPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExGaodeMapInstance.h; sourceTree = "<group>"; };
 		C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExGaodeMapInstance.m; sourceTree = "<group>"; };
@@ -122,18 +125,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				424AD0141C24EF6200EEC1F8 /* AMapNaviKit.framework in Frameworks */,
-				C62D1D5D1B05E477002B1875 /* Security.framework in Frameworks */,
+				2113E83C1D8FA1BB00230E00 /* AMapSearchKit.framework in Frameworks */,
+				C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */,
 				C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */,
 				C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */,
 				C62D1D571B05E44D002B1875 /* CoreLocation.framework in Frameworks */,
 				C62D1D551B05E447002B1875 /* OpenGLES.framework in Frameworks */,
+				2113E83D1D8FA1BB00230E00 /* MAMapKit.framework in Frameworks */,
 				C62D1D531B05E443002B1875 /* QuartzCore.framework in Frameworks */,
-				C62D1D511B05E43D002B1875 /* CoreGraphics.framework in Frameworks */,
 				C62D1D4F1B05E433002B1875 /* Foundation.framework in Frameworks */,
 				C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */,
 				096B687C1D0D09A7009BE24A /* AppCanKit.framework in Frameworks */,
-				C62D1D3F1B05E3D1002B1875 /* AMapSearchKit.framework in Frameworks */,
+				2113E83B1D8FA1BB00230E00 /* AMapFoundationKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,14 +266,15 @@
 		C62D1D1A1B05E3D1002B1875 /* sourceCode */ = {
 			isa = PBXGroup;
 			children = (
+				2113E83E1D8FA1C600230E00 /* AMap.bundle */,
+				2113E8381D8FA1BB00230E00 /* AMapFoundationKit.framework */,
+				2113E8391D8FA1BB00230E00 /* AMapSearchKit.framework */,
+				2113E83A1D8FA1BB00230E00 /* MAMapKit.framework */,
 				096B687B1D0D09A7009BE24A /* AppCanKit.framework */,
 				4235B2701B5739F9004DA814 /* Classes */,
-				C62D1D1B1B05E3D1002B1875 /* AMap.bundle */,
-				C62D1D1C1B05E3D1002B1875 /* AMapSearchKit.framework */,
 				C62D1D1D1B05E3D1002B1875 /* AppCanPlugin-Prefix.pch */,
 				C62D1D201B05E3D1002B1875 /* EUExGaodeMapInstance.h */,
 				C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */,
-				424AD0131C24EF6200EEC1F8 /* AMapNaviKit.framework */,
 			);
 			path = sourceCode;
 			sourceTree = "<group>";
@@ -458,6 +462,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)/uexGaodeMap",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";
@@ -477,6 +482,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EUExGaodeMap/sourceCode",
+					"$(PROJECT_DIR)/uexGaodeMap",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EUExGaodeMap/sourceCode/AppCanPlugin-Prefix.pch";

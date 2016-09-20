@@ -17,7 +17,7 @@ static inline NSString * newUUID(){
     return [NSUUID UUID].UUIDString;
 }
 
-@interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
+@interface EUExGaodeMap ()<MAMapViewDelegate, AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
 }
 @property(nonatomic,weak)MAMapView *mapView;
 @property(nonatomic,weak)AMapSearchAPI *search;
@@ -54,9 +54,8 @@ static inline NSString * newUUID(){
         self.annotations=_sharedInstance.annotations;
         self.overlays=_sharedInstance.overlays;
         self.locationStatus =ContinuousLocationDisabled;
-        
         _mapView.showsUserLocation=NO;
-
+      
     }
     return self;
 }
@@ -110,8 +109,6 @@ static inline NSString * newUUID(){
 -(void)open:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
     ACArgsUnpack(NSDictionary *initInfo) = inArguments;
-    //id initInfo = [self getDataFromJson:inArguments[0]];
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     CGFloat left=0;
     CGFloat top=0;
     CGFloat width=CGRectGetWidth([self.webViewEngine webView].bounds);
@@ -158,10 +155,10 @@ static inline NSString * newUUID(){
    
     
     if(isScrollWithWeb){
-        //[EUtility brwView:meBrwView addSubviewToScrollView:_mapView];
+        
          [[self.webViewEngine webScrollView] addSubview:_mapView];
     }else{
-        //[EUtility brwView:meBrwView addSubview:_mapView];
+       
          [[self.webViewEngine webView] addSubview:_mapView];
     }
     
@@ -179,10 +176,7 @@ static inline NSString * newUUID(){
 
             double lon=[longitude doubleValue];
            CLLocationCoordinate2D center=CLLocationCoordinate2DMake(lat,lon);
-            
-          // CLLocationCoordinate2D center=CLLocationCoordinate2DMake(30.475798000000000001,114.4028150001);
-
-            [_mapView setCenterCoordinate:center animated:NO];
+           [_mapView setCenterCoordinate:center animated:NO];
             
 
         }
@@ -602,8 +596,8 @@ type://（必选） 0-关闭，1-开启
     return nil;
 }
 #pragma mark OverlayDelegate
-- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay{
-    
+//- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay{
+- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay{
     //tileOverlay
     if ([overlay isKindOfClass:[MATileOverlay class]]) {
              }
@@ -616,7 +610,7 @@ type://（必选） 0-关闭，1-开启
     //折线
     if ([overlay isKindOfClass:[GaodePolyline class]]) {
         GaodePolyline *polyline=(GaodePolyline*)overlay;
-        MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:polyline];
+        MAPolylineRenderer *polylineView = [[MAPolylineRenderer alloc] initWithPolyline:polyline];
         polylineView.lineWidth = polyline.lineWidth;
         polylineView.strokeColor = polyline.color;
         polylineView.lineJoinType = polyline.lineJoinType;//连接类型
@@ -627,7 +621,7 @@ type://（必选） 0-关闭，1-开启
     //多边形
     if ([overlay isKindOfClass:[GaodePolygon class]]) {
         GaodePolygon *polygon =(GaodePolygon *)overlay;
-        MAPolygonView *polygonView = [[MAPolygonView alloc] initWithPolygon:polygon];
+        MAPolygonRenderer *polygonView = [[MAPolygonRenderer alloc] initWithPolygon:polygon];
         polygonView.lineWidth = polygon.lineWidth;
         polygonView.strokeColor = polygon.strokeColor;
         polygonView.fillColor = polygon.fillColor;
@@ -637,8 +631,7 @@ type://（必选） 0-关闭，1-开启
     //圆
     if ([overlay isKindOfClass:[GaodeCircle class]]) {
         GaodeCircle *circle =(GaodeCircle *)overlay;
-        MACircleView *circleView = [[MACircleView alloc] initWithCircle:overlay];
-        
+        MACircleRenderer *circleView = [[MACircleRenderer alloc] initWithCircle:overlay];
         circleView.lineWidth = circle.lineWidth;
         circleView.strokeColor = circle.strokeColor;
         circleView.fillColor = circle.fillColor;
@@ -649,7 +642,7 @@ type://（必选） 0-关闭，1-开启
     //自定义图片
     if ([overlay isKindOfClass:[GaodeGroundOverlay class]])
     {
-        MAGroundOverlayView *groundOverlayView = [[MAGroundOverlayView alloc]
+        MAGroundOverlayRenderer *groundOverlayView = [[MAGroundOverlayRenderer alloc]
                                                   initWithGroundOverlay:overlay];
         
         return groundOverlayView;
@@ -661,7 +654,7 @@ type://（必选） 0-关闭，1-开启
             return nil;
         }
 
-        MACircleView  *accuracyCircleView = [[MACircleView alloc] initWithCircle:overlay];
+        MACircleRenderer  *accuracyCircleView = [[MACircleRenderer alloc] initWithCircle:overlay];
         accuracyCircleView.lineWidth=self.locationStyleOptions.lineWidth;
         accuracyCircleView.strokeColor=self.locationStyleOptions.strokeColor;
         accuracyCircleView.fillColor=self.locationStyleOptions.fillColor;
@@ -858,78 +851,6 @@ type://（必选） 0-关闭，1-开启
     [_mapView addAnnotation:pointAnnotation];
 
 }
-
-/******************新增接口**************************/
--(void)updateMarkerOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSString *identifier,NSDictionary *info) = inArguments;
-    if([inArguments count]<1) return;
-    if (!identifier) {
-        return;
-    }
-    NSString *longitude=nil;
-    if([info getStringForKey:@"longitude"]){
-        longitude=[info getStringForKey:@"longitude"];
-    }
-    NSString *latitude=nil;
-    if([info getStringForKey:@"latitude"]){
-        latitude=[info getStringForKey:@"latitude"];
-    }
-    NSString *icon=nil;
-    if([info getStringForKey:@"icon"]){
-        icon=[info getStringForKey:@"icon"];
-        icon=[self absPath:icon];
-    }
-    NSDictionary *bubble=nil;
-    if([info objectForKey:@"bubble"]){
-        bubble=[info objectForKey:@"bubble"];
-    }
-    
-    GaodePointAnnotation *pointAnnotation =[self searchAnnotationById:identifier];
-    if(!pointAnnotation) return;
-    
-    [_mapView removeAnnotation:pointAnnotation];
-    
-    
-    if(latitude && longitude){
-        pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
-    }
-    
-    if(icon){
-        [pointAnnotation createIconImage:icon];
-    }
-    
-    if(bubble){
-        BOOL isEmpty=YES;
-        if([bubble getStringForKey:@"title"]){
-            pointAnnotation.title=[bubble getStringForKey:@"title"];
-            isEmpty =NO;
-        }
-        
-        if([bubble getStringForKey:@"subTitle"]){
-            pointAnnotation.subtitle=[bubble getStringForKey:@"subTitle"];
-            isEmpty =NO;
-        }
-        pointAnnotation.canShowCallout=!isEmpty;
-    }
-    NSDictionary *customBubble=nil;
-    if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
-        customBubble=[info objectForKey:@"customBubble"];
-        
-    }
-    
-    
-    if(customBubble){
-        pointAnnotation.isCustomCallout=YES;
-        pointAnnotation.customCalloutData=customBubble;
-    }else{
-        pointAnnotation.isCustomCallout=NO;
-        pointAnnotation.customCalloutData=nil;
-    }
-    [_mapView addAnnotation:pointAnnotation];
-    
-}
-
-
 
 
 /*
@@ -1401,8 +1322,7 @@ id://(必选) 唯一标识符
     [dict setValue:@"1" forKey:@"errorCode"];
     [dict setValue:errorString forKey:@"errorInfo" ];
     [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
-    [self.func executeWithArguments:ACArgsPack(@(1))];
-    self.func = nil;
+    
 }
 
 
@@ -1426,39 +1346,32 @@ id://(必选) 唯一标识符
         city=[info getStringForKey:@"city"];
     }
     NSString *pageNum=nil;
-    if([info getStringForKey:@"city"]){
-        pageNum=[info getStringForKey:@"city"];
+    if([info getStringForKey:@"pageNum"]){
+        pageNum=[info getStringForKey:@"pageNum"];
+    }else{
+        pageNum = @"0";
     }
     NSDictionary *searchBound=nil;
     if([info objectForKey:@"searchBound"]){
         searchBound=[info objectForKey:@"searchBound"];
     }
-    AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
-    request.requireExtension=YES;
-    request.offset=30;
-    if(pageNum){
-        request.page=([pageNum integerValue]+1);
-    }
-    
-    
+ 
     BOOL isKeyEmpty=YES;
     if(searchKey){
-        request.keywords =searchKey;
         isKeyEmpty=NO;
     }
     if(poiTypeSet){
-        request.types=@[poiTypeSet];
         isKeyEmpty =NO;
     }
     if(isKeyEmpty){
         [self poiErrorCallBack:@"Missing searchKey or poiTypeSet!"];
+        [self.func executeWithArguments:ACArgsPack(@(1),@"Missing searchKey or poiTypeSet!")];
         return;
     }
     
     
     BOOL isPlaceEmpty=YES;
     if(city){
-        request.city =@[city];
         isPlaceEmpty=NO;
     }
     BOOL searchBoundAvailable = NO;
@@ -1468,22 +1381,33 @@ id://(必选) 唯一标识符
             type=[searchBound getStringForKey:@"type"];
             type=[type lowercaseString];
             if([type isEqual:@"circle"]){
-                request.searchType =AMapSearchType_PlaceAround;
-
+               AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSDictionary *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSDictionary *center=[dataInfo objectForKey:@"center"];
                     request.location = [AMapGeoPoint locationWithLatitude:[[center getStringForKey:@"latitude"] floatValue] longitude:[[center getStringForKey:@"longitude"] floatValue]];
-                    request.radius =[[dataInfo getStringForKey:@"radius"] integerValue];
+                    request.radius =[[dataInfo getStringForKey:@"radius"] integerValue]?:1000;
+                    request.sortrule =[[dataInfo objectForKey:@"isDistanceSort"] boolValue]?0:1;
+                    request.requireExtension=YES;
+                    request.offset=30;
+                    request.page=([pageNum integerValue]+1);
+                    if(searchKey){
+                        request.keywords =searchKey;
+                        poiTypeSet = nil;
+                    }
+                    if(poiTypeSet){
+                        request.types = poiTypeSet;
+                    }
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
+                    [self.search AMapPOIAroundSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
+                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                    return;
                 }
             }else if([type isEqual:@"rectangle"]){
                 
-                request.searchType =AMapSearchType_PlacePolygon;
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSDictionary *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSDictionary *lowerLeft=[dataInfo objectForKey:@"lowerLeft"];
@@ -1497,17 +1421,29 @@ id://(必选) 唯一标识符
                                                       ];
                     
                     
-                    request.polygon = [AMapGeoPolygon polygonWithPoints:@[leftTopPoint,rightButtomPoint]];
+                    AMapGeoPolygon *polygon = [AMapGeoPolygon polygonWithPoints:@[leftTopPoint,rightButtomPoint]];
+                    AMapPOIPolygonSearchRequest *request = [[AMapPOIPolygonSearchRequest alloc] init];
+                    request.polygon = polygon;
+                    request.requireExtension=YES;
+                    request.offset=30;
+                    request.page=([pageNum integerValue]+1);
+                    if(searchKey){
+                        request.keywords =searchKey;
+                        poiTypeSet = nil;
+                    }
+                    if(poiTypeSet){
+                        request.types = poiTypeSet;
+                    }
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
+                     [self.search AMapPOIPolygonSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
+                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                     return;
                 }
           
             }else if([type isEqual:@"polygon"]){
-                
-                request.searchType =AMapSearchType_PlacePolygon;
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSArray *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSMutableArray *polygonPoints=[NSMutableArray array];
@@ -1518,36 +1454,60 @@ id://(必选) 唯一标识符
                         
                         [polygonPoints addObject:point];
                     }
-                    NSInteger pointCount = [polygonPoints count];
-                    if(![polygonPoints[0] isEqual:polygonPoints[pointCount]]){
-                        [polygonPoints addObject:polygonPoints[0]];
-                    }
-                    
-                    
-
-                    
-                    
+                    AMapPOIPolygonSearchRequest *request = [[AMapPOIPolygonSearchRequest alloc] init];
                     request.polygon = [AMapGeoPolygon polygonWithPoints:polygonPoints];
+                    request.requireExtension=YES;
+                    request.offset=30;
+                    request.page=([pageNum integerValue]+1);
+                    if(searchKey){
+                        request.keywords =searchKey;
+                        poiTypeSet = nil;
+                    }
+                    if(poiTypeSet){
+                        request.types = poiTypeSet;
+                    }
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
+                    [self.search AMapPOIPolygonSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
+                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                     return;
                 }
             }
 
         }
-        if(!searchBoundAvailable){
-            request.searchType = AMapSearchType_PlaceKeyword;
+        
+    }
+    if(!searchBoundAvailable){
+        AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
+        if(searchKey){
+            request.keywords =searchKey;
+            poiTypeSet = nil;
         }
+        if(poiTypeSet){
+            request.types = poiTypeSet;
+        }
+        if(city){
+            request.city = city;
+            
+        }
+        request.requireExtension    = YES;
+        
+        /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
+        request.cityLimit           = YES;
+        request.requireSubPOIs      = YES;
+        isPlaceEmpty=NO;
+        [self.search AMapPOIKeywordsSearch:request];
         
     }
     if(isPlaceEmpty){
         [self poiErrorCallBack:@"Missing city or searchBound!"];
+        [self.func executeWithArguments:ACArgsPack(@(1),@"Missing city or searchBound!")];
         return;
     }
     
-    [_search AMapPlaceSearch:request];
+    
 }
 
 
@@ -1579,12 +1539,10 @@ id://(必选) 唯一标识符
     }else return;
     
     AMapGeocodeSearchRequest *geoRequest = [[AMapGeocodeSearchRequest alloc] init];
-    geoRequest.searchType =AMapSearchType_Geocode;
+    //geoRequest.searchType =AMapSearchType_Geocode;
     geoRequest.address = address;
-
-
     if(city){
-        geoRequest.city =@[city];
+        geoRequest.city = city;
     }
     
     [_search AMapGeocodeSearch: geoRequest];
@@ -1618,7 +1576,6 @@ id://(必选) 唯一标识符
         latitude=[info getStringForKey:@"latitude"];
     }else return;
     AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
-    regeoRequest.searchType = AMapSearchType_ReGeocode;
     regeoRequest.location = [AMapGeoPoint locationWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
     regeoRequest.radius = 10000;
     regeoRequest.requireExtension = YES;
@@ -1850,8 +1807,8 @@ updatingLocation:(BOOL)updatingLocation
     if (response.geocodes && [response.geocodes count] > 0) {
         error = @(0);
     }
-    if(request.city && [request.city count]>0){
-        [dict setValue:request.city[0] forKey:@"city"];
+    if(request.city){
+        [dict setValue:request.city forKey:@"city"];
     }
     if([response.geocodes count] > 0) {
         AMapGeocode  *geocode =response.geocodes[0];
@@ -1935,11 +1892,12 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 
--(void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request
-                response:(AMapPlaceSearchResponse *)respons{
+/* POI 搜索回调. */
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response{
     
-    if (respons.pois.count == 0){
+    if (response.pois.count == 0){
         [self poiErrorCallBack:@"Empty respons!"];
+        [self.func executeWithArguments:ACArgsPack(@(1),@"Empty respons!")];
         return;
     }
     
@@ -1947,8 +1905,8 @@ updatingLocation:(BOOL)updatingLocation
     [dict setValue:@"0" forKey:@"errorCode"];
     NSMutableArray *data =[NSMutableArray array];
 
-    for(int i=0;i<[respons.pois count];i++) {
-        AMapPOI *poi=respons.pois[i];
+    for(int i=0;i<[response.pois count];i++) {
+        AMapPOI *poi=response.pois[i];
         if(poi){
             NSMutableDictionary *poiData=[NSMutableDictionary dictionary];
             [poiData setValue:poi.address forKey:@"address"];
@@ -1986,7 +1944,7 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 
-- (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView dataSize:(NSInteger)dataSize{
+- (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView{
     [self callbackJsonWithName:@"onMapLoadedListener" Object:nil];
 }
     
@@ -2030,15 +1988,6 @@ updatingLocation:(BOOL)updatingLocation
     [self.webViewEngine callbackWithFunctionKeyPath:cbStr arguments:ACArgsPack(result)];
     
 }
-//-(void)callBack:(NSString *)str{
-//    [self performSelector:@selector(delayedCallBack:) withObject:str afterDelay:0.01];
-//    //[meBrwView stringByEvaluatingJavaScriptFromString:str];
-//}
-//
-//-(void)delayedCallBack:(NSString *)str{
-//    [meBrwView stringByEvaluatingJavaScriptFromString:str];
-//    
-//}
 
 - (id)getDataFromJson:(NSString *)jsonData{
     
@@ -2076,7 +2025,6 @@ updatingLocation:(BOOL)updatingLocation
         [self.annotations removeAllObjects];
         return;
     }
-    //id info =[self getDataFromJson:inArguments[0]];
     ACArgsUnpack(NSArray*info) = inArguments;
     if(![info isKindOfClass:[NSArray class]]) return;
     if([info count]==0){
@@ -2285,10 +2233,8 @@ updatingLocation:(BOOL)updatingLocation
     ACArgsUnpack(NSArray *info) = inArguments;
     if([info isKindOfClass:[NSArray class]]){
         for(NSString *keyStr in info){
-
                 [_sharedInstance.offlineMgr pauseDownloadByKey:keyStr];
 
-            
         }
     }
 }
@@ -2401,25 +2347,53 @@ updatingLocation:(BOOL)updatingLocation
 }
 -(void)isUpdate:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    //id info=[self getDataFromJson:inArguments[0]];
     ACArgsUnpack(NSDictionary *info) = inArguments;
-   ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
+    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     NSString *searchKey=nil;
     if([info objectForKey:@"city"]){
         searchKey=[info getStringForKey:@"city"];
     }else if([info objectForKey:@"province"]){
         searchKey=[info getStringForKey:@"province"];
     }
-    MAOfflineItem *item=[_sharedInstance.offlineMgr searchItem:searchKey];
+    NSMutableArray *result=[NSMutableArray array];
+    for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
+        if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
+            [result addObject:item.name];
+        }
+    }
+    for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
+        if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
+            [result addObject:item.name];
+        }
+    }
+
+
     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     NSNumber *error = @(1);
-    if(item){
-        error = @(0);
-        [dict setValue:item.name forKey:@"name"];
-        [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
-        [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
+    BOOL isExist = NO;
+    MAOfflineItem *item=[_sharedInstance.offlineMgr searchItem:searchKey];
+    if (!item) {
+        [dict setValue:searchKey forKey:@"name"];
+        [dict setValue:@"城市或省名称错误!" forKey:@"result"];
+        [func executeWithArguments:ACArgsPack(error,dict)];
+    }else{
+        for (NSString *key in result) {
+            if ([key isEqualToString:item.name]) {
+                isExist = YES;
+            }
+        }
+        if(isExist){
+            error = @(0);
+            [dict setValue:item.name forKey:@"name"];
+            [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
+            [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
+        }else{
+            [dict setValue:item.name forKey:@"name"];
+            [dict setValue:@"请先下载该地图!" forKey:@"result"];
+        }
+        [func executeWithArguments:ACArgsPack(error,dict)];
     }
-    [func executeWithArguments:ACArgsPack(error,dict)];
+    
     
 }
 -(void)delete:(NSMutableArray *)inArguments{
@@ -2531,7 +2505,6 @@ updatingLocation:(BOOL)updatingLocation
     if([inArguments count]<1) return nil;
     //id info=[self getDataFromJson:inArguments[0]];
     ACArgsUnpack(NSArray *info) = inArguments;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
     if(![info isKindOfClass:[NSArray class]]) return nil;
     __weak typeof(self) weakself=self;
      NSMutableDictionary *dict=[NSMutableDictionary dictionary];
