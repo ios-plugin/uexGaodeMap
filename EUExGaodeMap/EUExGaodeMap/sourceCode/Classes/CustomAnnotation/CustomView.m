@@ -123,7 +123,7 @@
         self.textView.numberOfLines=0;
         self.textView.frame=CGRectMake(_margin, _distance+self.titleView.frame.size.height,self.mainWidth,textRect.size.height);
         //self.textView.backgroundColor = [UIColor greenColor];
-        self.bounds=CGRectMake(0, 0, self.mainWidth+2*_margin, _distance*3+2*self.titleView.frame.size.height);
+        self.bounds=CGRectMake(0, 0, self.mainWidth+2*_margin, _distance*2+2*self.titleView.frame.size.height+kArrowHeight);
         //self.backgroundColor=[UIColor blackColor];
          [self addSubview:self.textView];
     }else{
