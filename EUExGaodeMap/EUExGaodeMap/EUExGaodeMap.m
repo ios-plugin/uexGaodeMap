@@ -9,7 +9,7 @@
 #import "EUExGaodeMap.h"
 #import "EUExGaodeMapInstance.h"
 #import "JSON.h"
-
+#import "CustomView.h"
 
 
 
@@ -734,7 +734,63 @@ type://（必选） 0-关闭，1-开启
     }
     
 }
-
+-(UIImage*)convertViewToImage:(UIView*)v{
+    CGSize s = v.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale);
+    [v.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage*image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+-(void)addMultiInfoWindow:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    NSArray *markerArray =[self getDataFromJson:inArguments[0]];
+    if([inArguments count]<1) return;
+    for(NSDictionary *info in markerArray)
+    {
+        
+        NSString *identifier=nil;
+        if([info getStringForKey:@"id"]){
+            identifier=[info getStringForKey:@"id"];
+        }
+        NSString *longitude=nil;
+        if([info getStringForKey:@"longitude"]){
+            longitude=[info getStringForKey:@"longitude"];
+        }else return ;
+        NSString *latitude=nil;
+        if([info getStringForKey:@"latitude"]){
+            latitude=[info getStringForKey:@"latitude"];
+        }else return ;
+        
+        NSString *title= info[@"title"]?:@"";
+        NSNumber *titleSize = info[@"titleSize"]?:@18;
+        NSString *titleColor = info[@"titleColor"]?:@"#000000";
+        
+        NSString *subTitle= info[@"subTitle"]?:@"";
+        NSNumber *subTitleSize = info[@"subTitleSize"]?:@12;
+        NSString *subTitleColor = info[@"subTitleColor"]?:@"#000000";
+        NSDictionary *dic =@{@"titleContent":title,@"titleFontSize":titleSize,@"titleColor":titleColor,@"textContent":subTitle,@"textFontSize":subTitleSize, @"textColor":subTitleColor,@"bgColor":@"#FFFFFF"};
+        CustomView *view = [[CustomView alloc]init];
+        view.dataDict = dic;
+        BOOL isLoad = [view loadData];
+        UIImage *image = nil;
+        
+        if (isLoad) {
+            image =  [self convertViewToImage:view];
+        }
+        
+        if([self searchAnnotationById:identifier])return ;
+        GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
+        pointAnnotation.isCustomCallout=NO;
+        pointAnnotation.identifier =identifier;
+        pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
+        pointAnnotation.iconImage = image;
+        
+        [_mapView addAnnotation:pointAnnotation];
+        [self.annotations addObject:pointAnnotation];
+        
+    }
+}
 
 
 /*

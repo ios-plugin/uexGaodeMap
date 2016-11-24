@@ -49,7 +49,7 @@
         <method name="deleteCustomButton"></method>
         <method name="showCustomButtons"></method>
         <method name="hideCustomButtons"></method>
-        
+        <method name="addMultiInfoWindow"></method>
 
             
             
