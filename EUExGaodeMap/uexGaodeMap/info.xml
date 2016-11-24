@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="4.0.0" build="0">
-        <info>0:支持引擎4.0，函数入参</info>
+        uexName="uexGaodeMap" version="4.0.1" build="1">
+        <info>1:新增addMultiInfoWindow</info>
+        <build>0: 支持引擎4.0，函数入参</build>
     </plugin>
 </uexplugins>
 

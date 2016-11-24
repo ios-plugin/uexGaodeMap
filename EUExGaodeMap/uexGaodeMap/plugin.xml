@@ -51,7 +51,7 @@
         <method name="hideCustomButtons"></method>
         
        <method name="updateMarkerOverlay"></method>
-            
+       <method name="addMultiInfoWindow"></method>    
             
             
     </plugin>
