@@ -77,8 +77,8 @@
 -(void)hideButtons:(NSArray *)ids completion:(void (^)(NSArray *, NSArray *))completion{
     NSMutableArray *succArr=[NSMutableArray array];
     NSMutableArray *failArr=[NSMutableArray array];
-    
-    for(NSString *identifier in ids){
+    for(id ident in ids){
+        NSString *identifier = [NSString stringWithFormat:@"%@",ident];
         if([self.buttonDict objectForKey:identifier]){
             GaodeCustomButton *button =[self.buttonDict objectForKey:identifier];
             if(button.isShown){
@@ -101,7 +101,8 @@
 -(void)showButtons:(NSArray *)ids completion:(void (^)(NSArray *, NSArray *))completion onClick:(eventBlock)clickBlock{
     NSMutableArray *succArr=[NSMutableArray array];
     NSMutableArray *failArr=[NSMutableArray array];
-    for(NSString *identifier in ids){
+    for(id ident in ids){
+        NSString *identifier = [NSString stringWithFormat:@"%@",ident];
         if([self.buttonDict objectForKey:identifier]){
            GaodeCustomButton *button =[self.buttonDict objectForKey:identifier];
             if(button.isShown){

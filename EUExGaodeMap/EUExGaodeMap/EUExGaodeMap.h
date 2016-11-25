@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EUExBase.h"
+
 @interface EUExGaodeMap : EUExBase
 
 @end

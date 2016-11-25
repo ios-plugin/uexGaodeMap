@@ -67,19 +67,16 @@
                           width:(CGFloat)width
                          height:(CGFloat)height
                          APIKey:(NSString *)key{
-    //if(!sharedObj) return NO;
-    
-    
     if(!self.isGaodeMaploaded){
         NSString *GaodeMapKey=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"uexGaodeMapKey"];
-        
         if(key && key.length>0){
-            [MAMapServices sharedServices].apiKey = key;
+            [AMapServices sharedServices].apiKey = key;
         }else{
-           [MAMapServices sharedServices].apiKey = GaodeMapKey;
+           [AMapServices sharedServices].apiKey = GaodeMapKey;
         }
         
-        self.searchAPI = [[AMapSearchAPI alloc] initWithSearchKey:GaodeMapKey Delegate:self];
+        self.searchAPI = [[AMapSearchAPI alloc] init];
+        self.searchAPI.delegate = self;
         self.isGaodeMaploaded =YES;
     }
     
@@ -112,6 +109,12 @@
      
 }
 
+#pragma mark - AMapSearchDelegate
+
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
+{
+    NSLog(@"%s: searchRequest = %@, errInfo= %@", __func__, [request class], error);
+}
 
 - (void)clearMapView{
     self.gaodeView.showsUserLocation = NO;
