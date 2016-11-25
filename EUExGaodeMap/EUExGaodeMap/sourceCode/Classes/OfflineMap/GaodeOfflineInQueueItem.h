@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "JSON.h"
 typedef NS_ENUM(NSInteger, GaodeInQueueItemStatus) {
     GaodeInQueueItemWaiting=0,
     GaodeInQueueItemPaused,

@@ -8,16 +8,14 @@
 
 #import "EUExGaodeMap.h"
 #import "EUExGaodeMapInstance.h"
+#import "JSON.h"
 #import "CustomView.h"
 
 
 
 
-static inline NSString * newUUID(){
-    return [NSUUID UUID].UUIDString;
-}
 
-@interface EUExGaodeMap ()<MAMapViewDelegate, AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
+@interface EUExGaodeMap ()<MAMapViewDelegate,AMapSearchDelegate,GaodeGestureDelegate,GaodeOfflineDelegate> {
 }
 @property(nonatomic,weak)MAMapView *mapView;
 @property(nonatomic,weak)AMapSearchAPI *search;
@@ -30,32 +28,21 @@ static inline NSString * newUUID(){
 @property(nonatomic,weak) NSMutableArray *annotations;
 @property(nonatomic,weak) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
-@property(nonatomic,strong) ACJSFunctionRef *func;
+
 @end
 
 @implementation EUExGaodeMap
 
-//-(id)initWithBrwView:(EBrowserView *) eInBrwView{
-//    if (self = [super initWithBrwView:eInBrwView]) {
-//         _sharedInstance=[EUExGaodeMapInstance sharedInstance];
-//        self.annotations=_sharedInstance.annotations;
-//        self.overlays=_sharedInstance.overlays;
-//        self.locationStatus =ContinuousLocationDisabled;
-//
-//        _mapView.showsUserLocation=NO;
-//
-//        
-//    }
-//    return self;
-//}
--(id)initWithWebViewEngine:(id<AppCanWebViewEngineObject>)engine{
-    if (self = [super initWithWebViewEngine:engine]) {
+-(id)initWithBrwView:(EBrowserView *) eInBrwView{
+    if (self = [super initWithBrwView:eInBrwView]) {
          _sharedInstance=[EUExGaodeMapInstance sharedInstance];
         self.annotations=_sharedInstance.annotations;
         self.overlays=_sharedInstance.overlays;
         self.locationStatus =ContinuousLocationDisabled;
+
         _mapView.showsUserLocation=NO;
-      
+
+        
     }
     return self;
 }
@@ -108,13 +95,15 @@ static inline NSString * newUUID(){
 
 -(void)open:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    ACArgsUnpack(NSDictionary *initInfo) = inArguments;
+
+    id initInfo = [self getDataFromJson:inArguments[0]];
+
     CGFloat left=0;
     CGFloat top=0;
-    CGFloat width=CGRectGetWidth([self.webViewEngine webView].bounds);
-    CGFloat height=CGRectGetHeight([self.webViewEngine webView].bounds);
+    CGFloat width=CGRectGetWidth(meBrwView.bounds);
+    CGFloat height=CGRectGetHeight(meBrwView.bounds);
     BOOL isScrollWithWeb=false;
-    if(initInfo[@"left"]){
+    if([initInfo getStringForKey:@"left"]){
         left=[[initInfo getStringForKey:@"left"] floatValue];
     }
     if([initInfo getStringForKey:@"top"]){
@@ -155,11 +144,9 @@ static inline NSString * newUUID(){
    
     
     if(isScrollWithWeb){
-        
-         [[self.webViewEngine webScrollView] addSubview:_mapView];
+        [EUtility brwView:meBrwView addSubviewToScrollView:_mapView];
     }else{
-       
-         [[self.webViewEngine webView] addSubview:_mapView];
+        [EUtility brwView:meBrwView addSubview:_mapView];
     }
     
 
@@ -176,14 +163,17 @@ static inline NSString * newUUID(){
 
             double lon=[longitude doubleValue];
            CLLocationCoordinate2D center=CLLocationCoordinate2DMake(lat,lon);
-           [_mapView setCenterCoordinate:center animated:NO];
+            
+          // CLLocationCoordinate2D center=CLLocationCoordinate2DMake(30.475798000000000001,114.4028150001);
+
+            [_mapView setCenterCoordinate:center animated:NO];
             
 
         }
         
     }
     
-    //[self callbackJsonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!" Function:func];
+    [self callbackJsonWithName:@"cbOpen" Object:@"Initialize GaodeMap successfully!"];
       
     
 }
@@ -219,8 +209,7 @@ static inline NSString * newUUID(){
  */
 -(void)setMapType:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    ACArgsUnpack(NSDictionary *mapType) = inArguments;
-    //id mapType = [self getDataFromJson:inArguments[0]];
+    id mapType = [self getDataFromJson:inArguments[0]];
     NSInteger MAMapType;
     NSString *type = [mapType getStringForKey:@"type"];
     if([type isEqual:@"2"]){
@@ -248,8 +237,7 @@ type://（必选） 0-关闭，1-开启
 */
 -(void)setTrafficEnabled:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    //id info =[self getDataFromJson:inArguments[0]];
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *traffic=[info getStringForKey:@"type"];
     if([traffic isEqual:@"1"]){
         _mapView.showTraffic= YES;
@@ -273,8 +261,7 @@ type://（必选） 0-关闭，1-开启
  */
 -(void)setCenter:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *longitude,*latitude;
     if(![info getStringForKey:@"longitude"]){
         return;
@@ -310,8 +297,7 @@ type://（必选） 0-关闭，1-开启
 }
 -(void)setZoomLevel:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     float zoom =[[info getStringForKey:@"level"] floatValue];
     [self mapZoom:zoom];
 
@@ -365,8 +351,7 @@ type://（必选） 0-关闭，1-开启
 -(void)rotate:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *angle=nil;
     if([info getStringForKey:@"angle"]){
         angle=[info getStringForKey:@"angle"];
@@ -391,8 +376,7 @@ type://（必选） 0-关闭，1-开启
 -(void)overlook:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *angle=nil;
     if([info getStringForKey:@"angle"]){
         angle=[info getStringForKey:@"angle"];
@@ -417,8 +401,7 @@ type://（必选） 0-关闭，1-开启
 -(void)setZoomEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    //id info =[self getDataFromJson:inArguments[0]];
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -443,8 +426,7 @@ type://（必选） 0-关闭，1-开启
 -(void)setRotateEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -470,8 +452,7 @@ type://（必选） 0-关闭，1-开启
 -(void)setCompassEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -496,8 +477,7 @@ type://（必选） 0-关闭，1-开启
 -(void)setScrollEnable:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -536,6 +516,7 @@ type://（必选） 0-关闭，1-开启
             if(pointAnnotation.iconImage){
   
                 annotationView.image = pointAnnotation.iconImage;
+
                 //设置中心心点偏移,使得标注底部中间点成为经纬度对应点
                 CGFloat offsetY=annotationView.image.size.height/-2;
                 annotationView.centerOffset = CGPointMake(0, offsetY);
@@ -596,8 +577,8 @@ type://（必选） 0-关闭，1-开启
     return nil;
 }
 #pragma mark OverlayDelegate
-//- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay{
-- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay{
+- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay{
+    
     //tileOverlay
     if ([overlay isKindOfClass:[MATileOverlay class]]) {
              }
@@ -610,7 +591,7 @@ type://（必选） 0-关闭，1-开启
     //折线
     if ([overlay isKindOfClass:[GaodePolyline class]]) {
         GaodePolyline *polyline=(GaodePolyline*)overlay;
-        MAPolylineRenderer *polylineView = [[MAPolylineRenderer alloc] initWithPolyline:polyline];
+        MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:polyline];
         polylineView.lineWidth = polyline.lineWidth;
         polylineView.strokeColor = polyline.color;
         polylineView.lineJoinType = polyline.lineJoinType;//连接类型
@@ -621,7 +602,7 @@ type://（必选） 0-关闭，1-开启
     //多边形
     if ([overlay isKindOfClass:[GaodePolygon class]]) {
         GaodePolygon *polygon =(GaodePolygon *)overlay;
-        MAPolygonRenderer *polygonView = [[MAPolygonRenderer alloc] initWithPolygon:polygon];
+        MAPolygonView *polygonView = [[MAPolygonView alloc] initWithPolygon:polygon];
         polygonView.lineWidth = polygon.lineWidth;
         polygonView.strokeColor = polygon.strokeColor;
         polygonView.fillColor = polygon.fillColor;
@@ -631,7 +612,8 @@ type://（必选） 0-关闭，1-开启
     //圆
     if ([overlay isKindOfClass:[GaodeCircle class]]) {
         GaodeCircle *circle =(GaodeCircle *)overlay;
-        MACircleRenderer *circleView = [[MACircleRenderer alloc] initWithCircle:overlay];
+        MACircleView *circleView = [[MACircleView alloc] initWithCircle:overlay];
+        
         circleView.lineWidth = circle.lineWidth;
         circleView.strokeColor = circle.strokeColor;
         circleView.fillColor = circle.fillColor;
@@ -642,7 +624,7 @@ type://（必选） 0-关闭，1-开启
     //自定义图片
     if ([overlay isKindOfClass:[GaodeGroundOverlay class]])
     {
-        MAGroundOverlayRenderer *groundOverlayView = [[MAGroundOverlayRenderer alloc]
+        MAGroundOverlayView *groundOverlayView = [[MAGroundOverlayView alloc]
                                                   initWithGroundOverlay:overlay];
         
         return groundOverlayView;
@@ -654,7 +636,7 @@ type://（必选） 0-关闭，1-开启
             return nil;
         }
 
-        MACircleRenderer  *accuracyCircleView = [[MACircleRenderer alloc] initWithCircle:overlay];
+        MACircleView  *accuracyCircleView = [[MACircleView alloc] initWithCircle:overlay];
         accuracyCircleView.lineWidth=self.locationStyleOptions.lineWidth;
         accuracyCircleView.strokeColor=self.locationStyleOptions.strokeColor;
         accuracyCircleView.fillColor=self.locationStyleOptions.fillColor;
@@ -686,29 +668,25 @@ type://（必选） 0-关闭，1-开启
 
 
 
--(NSArray*)addMarkersOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSArray *markerArray) = inArguments;
-    NSMutableArray *returnArr = [NSMutableArray arrayWithCapacity:markerArray.count];
-    if([inArguments count]<1) return nil;
-    //NSArray *markerArray =[self getDataFromJson:inArguments[0]];
+-(void)addMarkersOverlay:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1) return;
+    NSArray *markerArray =[self getDataFromJson:inArguments[0]];
     for(NSDictionary *info in markerArray)
     {
         
         NSString *identifier=nil;
         if([info getStringForKey:@"id"]){
             identifier=[info getStringForKey:@"id"];
-        }else{
-            identifier = newUUID();
-        };
-        [returnArr addObject:identifier];
+        }else return;
         NSString *longitude=nil;
         if([info getStringForKey:@"longitude"]){
         longitude=[info getStringForKey:@"longitude"];
-        }else return nil;
+        }else return;
         NSString *latitude=nil;
         if([info getStringForKey:@"latitude"]){
             latitude=[info getStringForKey:@"latitude"];
-        }else return nil;
+        }else return;
         NSString *icon=nil;
         if([info getStringForKey:@"icon"]){
             icon=[info getStringForKey:@"icon"];
@@ -719,12 +697,12 @@ type://（必选） 0-关闭，1-开启
             bubble=[info objectForKey:@"bubble"];
         }
         NSDictionary *customBubble=nil;
-            if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
+                                           if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
             customBubble=[info objectForKey:@"customBubble"];
                                                
         }
 
-        if([self searchAnnotationById:identifier])return nil;
+        if([self searchAnnotationById:identifier])return;
 
         GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
         pointAnnotation.identifier =identifier;
@@ -754,7 +732,7 @@ type://（必选） 0-关闭，1-开启
         [self.annotations addObject:pointAnnotation];
 
     }
-    return [returnArr copy];
+    
 }
 -(UIImage*)convertViewToImage:(UIView*)v{
     CGSize s = v.bounds.size;
@@ -764,28 +742,25 @@ type://（必选） 0-关闭，1-开启
     UIGraphicsEndImageContext();
     return image;
 }
--(NSArray*)addMultiInfoWindow:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSArray *markerArray) = inArguments;
-    NSMutableArray *returnArr = [NSMutableArray arrayWithCapacity:markerArray.count];
-    if([inArguments count]<1) return nil;
+-(void)addMultiInfoWindow:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    NSArray *markerArray =[self getDataFromJson:inArguments[0]];
+    if([inArguments count]<1) return;
     for(NSDictionary *info in markerArray)
     {
         
         NSString *identifier=nil;
         if([info getStringForKey:@"id"]){
             identifier=[info getStringForKey:@"id"];
-        }else{
-            identifier = newUUID();
-        };
-        [returnArr addObject:identifier];
+        }
         NSString *longitude=nil;
         if([info getStringForKey:@"longitude"]){
             longitude=[info getStringForKey:@"longitude"];
-        }else return nil;
+        }else return ;
         NSString *latitude=nil;
         if([info getStringForKey:@"latitude"]){
             latitude=[info getStringForKey:@"latitude"];
-        }else return nil;
+        }else return ;
         
         NSString *title= info[@"title"]?:@"";
         NSNumber *titleSize = info[@"titleSize"]?:@18;
@@ -804,7 +779,7 @@ type://（必选） 0-关闭，1-开启
             image =  [self convertViewToImage:view];
         }
         
-        if([self searchAnnotationById:identifier])return nil;
+        if([self searchAnnotationById:identifier])return ;
         GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
         pointAnnotation.isCustomCallout=NO;
         pointAnnotation.identifier =identifier;
@@ -815,7 +790,6 @@ type://（必选） 0-关闭，1-开启
         [self.annotations addObject:pointAnnotation];
         
     }
-    return [returnArr copy];
 }
 
 
@@ -843,8 +817,7 @@ type://（必选） 0-关闭，1-开启
 -(void)setMarkerOverlay:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
@@ -913,6 +886,10 @@ type://（必选） 0-关闭，1-开启
 }
 
 
+
+
+
+
 /*
  ###addPolylineOverlay
  params:
@@ -930,16 +907,14 @@ type://（必选） 0-关闭，1-开启
 
 
 
--(NSString*)addPolylineOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    if([inArguments count]<1) return nil;
-    //id info =[self getDataFromJson:inArguments[0]];
+-(void)addPolylineOverlay:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1) return;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
-    }else{
-        identifier = newUUID();
-    }
+    }else return;
     NSString *fillColor=nil;
     if([info getStringForKey:@"fillColor"]){
         fillColor=[info getStringForKey:@"fillColor"];
@@ -951,7 +926,7 @@ type://（必选） 0-关闭，1-开启
     NSArray *property=nil;
     if([info objectForKey:@"property"]){
         property=[info objectForKey:@"property"];
-    }else return nil;
+    }else return;
 
 
     NSInteger count =[property count];
@@ -963,12 +938,7 @@ type://（必选） 0-关闭，1-开启
         commonPolylineCoords[i].latitude = [[location getStringForKey:@"latitude"] floatValue];
         commonPolylineCoords[i].longitude = [[location getStringForKey:@"longitude"] floatValue];
     }
-    //[self clearOverlayById:identifier];
-    for (GaodePolyline *polyline in self.overlays) {
-        if ([polyline.identifier isEqualToString:identifier]) {
-            return nil;
-        }
-    }
+    [self clearOverlayById:identifier];
     GaodePolyline *polyline = [GaodePolyline polylineWithCoordinates:commonPolylineCoords count:count];
     polyline.identifier =identifier;
     [polyline dataInit];
@@ -981,7 +951,6 @@ type://（必选） 0-关闭，1-开启
     }
     [_mapView addOverlay: polyline];
     [self.overlays addObject:polyline];
-    return identifier;
 }
 
 
@@ -1078,28 +1047,26 @@ type://（必选） 0-关闭，1-开启
 
 
 
--(NSString*)addCircleOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    if([inArguments count]<1) return nil;
-    //id info =[self getDataFromJson:inArguments[0]];
+-(void)addCircleOverlay:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1) return;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
-    }else{
-        identifier = newUUID();
-    }
+    }else return;
     NSString *longitude=nil;
     if([info getStringForKey:@"longitude"]){
         longitude=[info getStringForKey:@"longitude"];
-    }else return nil;
+    }else return;
     NSString *latitude=nil;
     if([info getStringForKey:@"latitude"]){
         latitude=[info getStringForKey:@"latitude"];
-    }else return nil;
+    }else return;
     NSString *radius=nil;
     if([info getStringForKey:@"radius"]){
         radius=[info getStringForKey:@"radius"];
-    }else return nil;
+    }else return;
     NSString *fillColor=nil;
     if([info getStringForKey:@"fillColor"]){
         fillColor=[info getStringForKey:@"fillColor"];
@@ -1113,12 +1080,8 @@ type://（必选） 0-关闭，1-开启
         lineWidth=[info getStringForKey:@"lineWidth"];
     }
     
-    //[self clearOverlayById:identifier];
-    for (GaodeCircle *circle in self.overlays) {
-        if ([circle.identifier isEqualToString:identifier]) {
-            return nil;
-        }
-    }
+    [self clearOverlayById:identifier];
+    
     GaodeCircle *circle = [GaodeCircle circleWithCenterCoordinate:CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue])
                                                            radius:[radius doubleValue]];
     circle.identifier =identifier;
@@ -1142,7 +1105,7 @@ type://（必选） 0-关闭，1-开启
     [_mapView addOverlay: circle];
 
     [self.overlays addObject:circle];
-    return identifier;
+    
 }
 
 
@@ -1165,16 +1128,14 @@ type://（必选） 0-关闭，1-开启
 
 
 
--(NSString*)addPolygonOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    if([inArguments count]<1) return nil;
-    //id info =[self getDataFromJson:inArguments[0]];
+-(void)addPolygonOverlay:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1) return;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
-    }else{
-        identifier = newUUID();
-    }
+    }else return;
     NSString *fillColor=nil;
     if([info getStringForKey:@"fillColor"]){
         fillColor=[info getStringForKey:@"fillColor"];
@@ -1190,7 +1151,7 @@ type://（必选） 0-关闭，1-开启
     NSArray *property=nil;
     if([info objectForKey:@"property"]){
         property=[info objectForKey:@"property"];
-    }else return nil;
+    }else return;
     
     NSInteger count =[property count];
     CLLocationCoordinate2D coordinates[count];
@@ -1201,12 +1162,7 @@ type://（必选） 0-关闭，1-开启
         coordinates[i].latitude = [[location getStringForKey:@"latitude"] floatValue];
         coordinates[i].longitude = [[location getStringForKey:@"longitude"] floatValue];
     }
-    //[self clearOverlayById:identifier];
-    for (GaodePolygon *polygon in self.overlays) {
-        if ([polygon.identifier isEqualToString:identifier]) {
-            return nil;
-        }
-    }
+    [self clearOverlayById:identifier];
     GaodePolygon *polygon = [GaodePolygon polygonWithCoordinates:coordinates count:count];
     polygon.identifier =identifier;
     [polygon dataInit];
@@ -1224,7 +1180,7 @@ type://（必选） 0-关闭，1-开启
 
     [_mapView addOverlay:polygon];
     [self.overlays addObject:polygon];
-    return identifier;
+    
 }
 
 
@@ -1245,27 +1201,25 @@ type://（必选） 0-关闭，1-开启
  */
 
 
--(NSString*)addGroundOverlay:(NSMutableArray *)inArguments{
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    if([inArguments count]<1) return nil;
-    //id info =[self getDataFromJson:inArguments[0]];
+-(void)addGroundOverlay:(NSMutableArray *)inArguments{
+    
+    if([inArguments count]<1) return;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *identifier=nil;
     if([info getStringForKey:@"id"]){
         identifier=[info getStringForKey:@"id"];
-    }else{
-        identifier = newUUID();
-    }
+    }else return;
     NSString *imageUrl=nil;
     if([info getStringForKey:@"imageUrl"]){
         imageUrl=[info objectForKey:@"imageUrl"];
-    }else return nil;
+    }else return;
 
     NSArray *property=nil;
     if([info objectForKey:@"property"]){
         property=[info objectForKey:@"property"];
-    }else return nil;
+    }else return;
     
-    if([property count] < 2) return nil;
+    if([property count] < 2) return;
     NSDictionary *southWestDict =property[0];
     NSDictionary *northEastDict =property[1];
     
@@ -1279,20 +1233,14 @@ type://（必选） 0-关闭，1-开启
     if(!overlayImageData){
         overlayImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self absPath:imageUrl]]];
     }
-    //[self clearOverlayById:identifier];
-    for (GaodeGroundOverlay *groundOverlay in self.overlays) {
-        if ([groundOverlay.identifier isEqualToString:identifier]) {
-            return nil;
-        }
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        GaodeGroundOverlay *groundOverlay = [GaodeGroundOverlay groundOverlayWithBounds:coordinateBounds icon:[UIImage imageWithData:overlayImageData]];
-        groundOverlay.identifier =identifier;
-        [_mapView addOverlay:groundOverlay];
-        _mapView.visibleMapRect = groundOverlay.boundingMapRect;
-         [self.overlays addObject:groundOverlay];
-    });
-     return identifier;
+    [self clearOverlayById:identifier];
+    GaodeGroundOverlay *groundOverlay = [GaodeGroundOverlay groundOverlayWithBounds:coordinateBounds icon:[UIImage imageWithData:overlayImageData]];
+    groundOverlay.identifier =identifier;
+    [_mapView addOverlay:groundOverlay];
+    _mapView.visibleMapRect = groundOverlay.boundingMapRect;
+    [self.overlays addObject:groundOverlay];
+    
+    
     
 }
 
@@ -1382,17 +1330,13 @@ id://(必选) 唯一标识符
     [dict setValue:@"1" forKey:@"errorCode"];
     [dict setValue:errorString forKey:@"errorInfo" ];
     [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
-    
 }
 
 
 -(void)poiSearch:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-    self.func = func;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *searchKey=nil;
     if([info getStringForKey:@"searchKey"]){
         searchKey=[info getStringForKey:@"searchKey"];
@@ -1406,32 +1350,39 @@ id://(必选) 唯一标识符
         city=[info getStringForKey:@"city"];
     }
     NSString *pageNum=nil;
-    if([info getStringForKey:@"pageNum"]){
-        pageNum=[info getStringForKey:@"pageNum"];
-    }else{
-        pageNum = @"0";
+    if([info getStringForKey:@"city"]){
+        pageNum=[info getStringForKey:@"city"];
     }
     NSDictionary *searchBound=nil;
     if([info objectForKey:@"searchBound"]){
         searchBound=[info objectForKey:@"searchBound"];
     }
- 
+    AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
+    request.requireExtension=YES;
+    request.offset=30;
+    if(pageNum){
+        request.page=([pageNum integerValue]+1);
+    }
+    
+    
     BOOL isKeyEmpty=YES;
     if(searchKey){
+        request.keywords =searchKey;
         isKeyEmpty=NO;
     }
     if(poiTypeSet){
+        request.types=@[poiTypeSet];
         isKeyEmpty =NO;
     }
     if(isKeyEmpty){
         [self poiErrorCallBack:@"Missing searchKey or poiTypeSet!"];
-        [self.func executeWithArguments:ACArgsPack(@(1),@"Missing searchKey or poiTypeSet!")];
         return;
     }
     
     
     BOOL isPlaceEmpty=YES;
     if(city){
+        request.city =@[city];
         isPlaceEmpty=NO;
     }
     BOOL searchBoundAvailable = NO;
@@ -1441,33 +1392,22 @@ id://(必选) 唯一标识符
             type=[searchBound getStringForKey:@"type"];
             type=[type lowercaseString];
             if([type isEqual:@"circle"]){
-               AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
+                request.searchType =AMapSearchType_PlaceAround;
+
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSDictionary *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSDictionary *center=[dataInfo objectForKey:@"center"];
                     request.location = [AMapGeoPoint locationWithLatitude:[[center getStringForKey:@"latitude"] floatValue] longitude:[[center getStringForKey:@"longitude"] floatValue]];
-                    request.radius =[[dataInfo getStringForKey:@"radius"] integerValue]?:1000;
-                    request.sortrule =[[dataInfo objectForKey:@"isDistanceSort"] boolValue]?0:1;
-                    request.requireExtension=YES;
-                    request.offset=30;
-                    request.page=([pageNum integerValue]+1);
-                    if(searchKey){
-                        request.keywords =searchKey;
-                        poiTypeSet = nil;
-                    }
-                    if(poiTypeSet){
-                        request.types = poiTypeSet;
-                    }
+                    request.radius =[[dataInfo getStringForKey:@"radius"] integerValue];
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
-                    [self.search AMapPOIAroundSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
-                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                    return;
                 }
             }else if([type isEqual:@"rectangle"]){
                 
+                request.searchType =AMapSearchType_PlacePolygon;
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSDictionary *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSDictionary *lowerLeft=[dataInfo objectForKey:@"lowerLeft"];
@@ -1481,29 +1421,17 @@ id://(必选) 唯一标识符
                                                       ];
                     
                     
-                    AMapGeoPolygon *polygon = [AMapGeoPolygon polygonWithPoints:@[leftTopPoint,rightButtomPoint]];
-                    AMapPOIPolygonSearchRequest *request = [[AMapPOIPolygonSearchRequest alloc] init];
-                    request.polygon = polygon;
-                    request.requireExtension=YES;
-                    request.offset=30;
-                    request.page=([pageNum integerValue]+1);
-                    if(searchKey){
-                        request.keywords =searchKey;
-                        poiTypeSet = nil;
-                    }
-                    if(poiTypeSet){
-                        request.types = poiTypeSet;
-                    }
+                    request.polygon = [AMapGeoPolygon polygonWithPoints:@[leftTopPoint,rightButtomPoint]];
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
-                     [self.search AMapPOIPolygonSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
-                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                     return;
                 }
           
             }else if([type isEqual:@"polygon"]){
+                
+                request.searchType =AMapSearchType_PlacePolygon;
                 if([searchBound objectForKey:@"dataInfo"]){
                     NSArray *dataInfo=[searchBound objectForKey:@"dataInfo"];
                     NSMutableArray *polygonPoints=[NSMutableArray array];
@@ -1514,60 +1442,36 @@ id://(必选) 唯一标识符
                         
                         [polygonPoints addObject:point];
                     }
-                    AMapPOIPolygonSearchRequest *request = [[AMapPOIPolygonSearchRequest alloc] init];
+                    NSInteger pointCount = [polygonPoints count];
+                    if(![polygonPoints[0] isEqual:polygonPoints[pointCount]]){
+                        [polygonPoints addObject:polygonPoints[0]];
+                    }
+                    
+                    
+
+                    
+                    
                     request.polygon = [AMapGeoPolygon polygonWithPoints:polygonPoints];
-                    request.requireExtension=YES;
-                    request.offset=30;
-                    request.page=([pageNum integerValue]+1);
-                    if(searchKey){
-                        request.keywords =searchKey;
-                        poiTypeSet = nil;
-                    }
-                    if(poiTypeSet){
-                        request.types = poiTypeSet;
-                    }
                     searchBoundAvailable =YES;
                     isPlaceEmpty=NO;
-                    [self.search AMapPOIPolygonSearch:request];
                 }else{
                     [self poiErrorCallBack:@"Missing dataInfo!"];
-                    [self.func executeWithArguments:ACArgsPack(@(1),@"Missing dataInfo!")];
                     return;
                 }
             }
 
         }
-        
-    }
-    if(!searchBoundAvailable){
-        AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
-        if(searchKey){
-            request.keywords =searchKey;
-            poiTypeSet = nil;
+        if(!searchBoundAvailable){
+            request.searchType = AMapSearchType_PlaceKeyword;
         }
-        if(poiTypeSet){
-            request.types = poiTypeSet;
-        }
-        if(city){
-            request.city = city;
-            
-        }
-        request.requireExtension    = YES;
-        
-        /*  搜索SDK 3.2.0 中新增加的功能，只搜索本城市的POI。*/
-        request.cityLimit           = YES;
-        request.requireSubPOIs      = YES;
-        isPlaceEmpty=NO;
-        [self.search AMapPOIKeywordsSearch:request];
         
     }
     if(isPlaceEmpty){
         [self poiErrorCallBack:@"Missing city or searchBound!"];
-        [self.func executeWithArguments:ACArgsPack(@(1),@"Missing city or searchBound!")];
         return;
     }
     
-    
+    [_search AMapPlaceSearch:request];
 }
 
 
@@ -1585,11 +1489,8 @@ id://(必选) 唯一标识符
 -(void)geocode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *city=nil;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-    self.func = func;
     if([info getStringForKey:@"city"]){
         city=[info getStringForKey:@"city"];
     }
@@ -1599,10 +1500,12 @@ id://(必选) 唯一标识符
     }else return;
     
     AMapGeocodeSearchRequest *geoRequest = [[AMapGeocodeSearchRequest alloc] init];
-    //geoRequest.searchType =AMapSearchType_Geocode;
+    geoRequest.searchType =AMapSearchType_Geocode;
     geoRequest.address = address;
+
+
     if(city){
-        geoRequest.city = city;
+        geoRequest.city =@[city];
     }
     
     [_search AMapGeocodeSearch: geoRequest];
@@ -1623,11 +1526,8 @@ id://(必选) 唯一标识符
 -(void)reverseGeocode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *longitude=nil;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-    self.func = func;
     if([info getStringForKey:@"longitude"]){
         longitude=[info getStringForKey:@"longitude"];
     }else return;
@@ -1636,6 +1536,7 @@ id://(必选) 唯一标识符
         latitude=[info getStringForKey:@"latitude"];
     }else return;
     AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
+    regeoRequest.searchType = AMapSearchType_ReGeocode;
     regeoRequest.location = [AMapGeoPoint locationWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
     regeoRequest.radius = 10000;
     regeoRequest.requireExtension = YES;
@@ -1667,12 +1568,8 @@ id://(必选) 唯一标识符
         default:
             return;
             break;
-    
     }
-    if (inArguments.count > 0) {
-        ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-        self.func = func;
-    }
+
 
     _mapView.showsUserLocation = YES;
 
@@ -1729,8 +1626,7 @@ id://(必选) 唯一标识符
     
     if([inArguments count]<1) return;
     if(self.locationStatus == ContinuousLocationDisabled) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -1770,8 +1666,7 @@ id://(必选) 唯一标识符
 -(void)setUserTrackingMode:(NSMutableArray *)inArguments{
     
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     NSString *type=nil;
     if([info getStringForKey:@"type"]){
         type=[info getStringForKey:@"type"];
@@ -1810,35 +1705,25 @@ updatingLocation:(BOOL)updatingLocation
     
     NSDate *datenow = [NSDate date];
     NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
-    NSNumber *error = @1;
-    if (userLocation.coordinate.latitude && userLocation.coordinate.longitude) {
-        error = @(0);
-    }
     //取出当前位置的坐标
     NSMutableDictionary *dict =[NSMutableDictionary dictionaryWithCapacity:2];
     [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.latitude] forKey:@"latitude"];
     [dict setValue:[NSString stringWithFormat:@"%f",userLocation.coordinate.longitude] forKey:@"longitude"];
     [dict setValue:timestamp forKey:@"timestamp"];
-    
     switch (self.locationStatus) {
         case GettingCurrentPosition:
             self.locationStatus=ContinuousLocationDisabled;
             _mapView.showsUserLocation=NO;
             [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
-            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
-            self.func = nil;
             break;
         case GettingCurrentPositionWhileLocating:
             self.locationStatus=ContinuousLocationEnabled;
             [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
-            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
-            self.func = nil;
+
             break;
         case GettingCurrentPositionWhileMarking:
             self.locationStatus=ContinuousLocationEnabledWithMarker;
             [self callbackJsonWithName:@"cbGetCurrentLocation" Object:dict];
-            [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
-            self.func = nil;
             break;
                 
         default:
@@ -1863,12 +1748,8 @@ updatingLocation:(BOOL)updatingLocation
 {
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
     [dict setValue:request.address forKey:@"address"];
-    NSNumber *error = @(1);
-    if (response.geocodes && [response.geocodes count] > 0) {
-        error = @(0);
-    }
-    if(request.city){
-        [dict setValue:request.city forKey:@"city"];
+    if(request.city && [request.city count]>0){
+        [dict setValue:request.city[0] forKey:@"city"];
     }
     if([response.geocodes count] > 0) {
         AMapGeocode  *geocode =response.geocodes[0];
@@ -1880,8 +1761,6 @@ updatingLocation:(BOOL)updatingLocation
     }
 
     [self callbackJsonWithName:@"cbGeocode" Object:dict];
-    [self.func executeWithArguments:ACArgsPack(error,[dict copy])];
-    self.func = nil;
 }
 
 
@@ -1897,28 +1776,17 @@ updatingLocation:(BOOL)updatingLocation
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
 {
     NSMutableDictionary *dict =[NSMutableDictionary dictionary];
-    NSMutableDictionary *resultDic = [NSMutableDictionary dictionary];
-    NSNumber *error = @(1);
     if(response.regeocode != nil) {
         [dict setValue:@0 forKey:@"errorCode"];
         [dict setValue:response.regeocode.formattedAddress forKey:@"address"];
         
-        [resultDic setValue:response.regeocode.formattedAddress forKey:@"address"];
-        [resultDic setValue:@(request.location.latitude) forKey:@"latitude"];
-        [resultDic setValue:@(request.location.longitude) forKey:@"longitude"];
-         error = @(0);
         
     }else{
         [dict setValue:@-1 forKey:@"errorCode"];
-         error = @(1);
     }
     [dict setValue:@(request.location.latitude) forKey:@"latitude"];
     [dict setValue:@(request.location.longitude) forKey:@"longitude"];
-    
-    
     [self callbackJsonWithName:@"cbReverseGeocode" Object:dict];
-    [self.func executeWithArguments:ACArgsPack(error,resultDic)];
-    self.func = nil;
 }
 
 
@@ -1952,12 +1820,11 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 
-/* POI 搜索回调. */
-- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response{
+-(void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request
+                response:(AMapPlaceSearchResponse *)respons{
     
-    if (response.pois.count == 0){
+    if (respons.pois.count == 0){
         [self poiErrorCallBack:@"Empty respons!"];
-        [self.func executeWithArguments:ACArgsPack(@(1),@"Empty respons!")];
         return;
     }
     
@@ -1965,8 +1832,8 @@ updatingLocation:(BOOL)updatingLocation
     [dict setValue:@"0" forKey:@"errorCode"];
     NSMutableArray *data =[NSMutableArray array];
 
-    for(int i=0;i<[response.pois count];i++) {
-        AMapPOI *poi=response.pois[i];
+    for(int i=0;i<[respons.pois count];i++) {
+        AMapPOI *poi=respons.pois[i];
         if(poi){
             NSMutableDictionary *poiData=[NSMutableDictionary dictionary];
             [poiData setValue:poi.address forKey:@"address"];
@@ -1993,9 +1860,6 @@ updatingLocation:(BOOL)updatingLocation
     [dict setValue:data forKey:@"data"];
     [self callbackJsonWithName:@"cbPoiSearch" Object:dict];
     
-    [self.func executeWithArguments:ACArgsPack(@(0),[data copy])];
-    self.func = nil;
-    
 }
 
 /*
@@ -2004,7 +1868,7 @@ updatingLocation:(BOOL)updatingLocation
  */
 
 
-- (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView{
+- (void)mapViewDidFinishLoadingMap:(MAMapView *)mapView dataSize:(NSInteger)dataSize{
     [self callbackJsonWithName:@"onMapLoadedListener" Object:nil];
 }
     
@@ -2033,20 +1897,27 @@ updatingLocation:(BOOL)updatingLocation
  
  */
 
-
+//见 cbGetCurrentLocation
 -(void) callbackJsonWithName:(NSString *)name Object:(id)obj{
     NSString *result;
     if([obj isKindOfClass:[NSString class]]){
         result=(NSString *)obj;
     }else{
-        result=[obj ac_JSONFragment];
+        result=[obj JSONFragment];
     }
+
+    NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
     
-    //NSString *jsSuccessStr = [NSString stringWithFormat:@"if(uexGaodeMap.%@ != null){uexGaodeMap.%@('%@');}",name,name,result];
-    // [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
-    NSString *cbStr = [NSString stringWithFormat:@"uexGaodeMap.%@",name];
-    [self.webViewEngine callbackWithFunctionKeyPath:cbStr arguments:ACArgsPack(result)];
+    [self performSelectorOnMainThread:@selector(callBack:) withObject:jsSuccessStr waitUntilDone:YES];
     
+}
+-(void)callBack:(NSString *)str{
+    [self performSelector:@selector(delayedCallBack:) withObject:str afterDelay:0.01];
+    //[meBrwView stringByEvaluatingJavaScriptFromString:str];
+}
+
+-(void)delayedCallBack:(NSString *)str{
+    [meBrwView stringByEvaluatingJavaScriptFromString:str];
 }
 
 - (id)getDataFromJson:(NSString *)jsonData{
@@ -2085,7 +1956,7 @@ updatingLocation:(BOOL)updatingLocation
         [self.annotations removeAllObjects];
         return;
     }
-    ACArgsUnpack(NSArray*info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     if(![info isKindOfClass:[NSArray class]]) return;
     if([info count]==0){
         [_mapView removeAnnotations:self.annotations];
@@ -2121,20 +1992,19 @@ updatingLocation:(BOOL)updatingLocation
 
         return;
     }
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSArray*info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     if(![info isKindOfClass:[NSArray class]]) return;
     
-    for(id data in info){
-        NSString *identifier = [NSString stringWithFormat:@"%@",data];
+    for(NSDictionary *infoDict in info){
+        if([infoDict getStringForKey:@"id"]){
+            NSString *identifier=[infoDict getStringForKey:@"id"];
             [self clearOverlayById:identifier];
         }
-    
+    }
 }
 -(void)setScaleVisible:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    //id info =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary*info) = inArguments;
+    id info =[self getDataFromJson:inArguments[0]];
     if([info isKindOfClass:[NSDictionary class]]){
         id result=[info objectForKey:@"visible"];
         if([result boolValue]==YES || [result isEqual:@"true"]){
@@ -2175,9 +2045,7 @@ updatingLocation:(BOOL)updatingLocation
 -(void)download:(NSMutableArray *)inArguments{
      _sharedInstance.offlineMgr.delegate=self;
     if([inArguments count]<1) return;
-    //id dlInfo =[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSArray *dlInfo) = inArguments;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
+     id dlInfo =[self getDataFromJson:inArguments[0]];
     if([dlInfo isKindOfClass:[NSArray class]]){
         for(NSDictionary *downloadDict in dlInfo){
             NSString *searchKey=nil;
@@ -2212,18 +2080,11 @@ updatingLocation:(BOOL)updatingLocation
                                 
                                 break;
                         }
-                        NSMutableDictionary *dict =[NSMutableDictionary dictionary];
+                        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
                         [dict setValue:searchKey forKey:@"name"];
                         [dict setValue:errorCode forKey:@"errorCode"];
                         if(errorStr)[dict setValue:errorStr forKey:@"errorStr"];
                         [self callbackJsonWithName:@"cbDownload" Object:dict];
-                        
-                        NSMutableDictionary *resultDic =[NSMutableDictionary dictionary];
-                        [resultDic setValue:searchKey forKey:@"name"];
-                        if (errorCode) {
-                            [resultDic setValue:errorStr forKey:@"errorStr"];
-                        }
-                        [func executeWithArguments:ACArgsPack(errorCode,resultDic)];
                     }];
 
                 });
@@ -2289,20 +2150,20 @@ updatingLocation:(BOOL)updatingLocation
 
 -(void)pause:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    //id info=[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSArray *info) = inArguments;
+    id info=[self getDataFromJson:inArguments[0]];
     if([info isKindOfClass:[NSArray class]]){
         for(NSString *keyStr in info){
+
                 [_sharedInstance.offlineMgr pauseDownloadByKey:keyStr];
 
+            
         }
     }
 }
 -(void)restart:(NSMutableArray *)inArguments{
      _sharedInstance.offlineMgr.delegate=self;
     if([inArguments count]<1) return;
-    //id info=[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSArray *info) = inArguments;
+    id info=[self getDataFromJson:inArguments[0]];
     if([info isKindOfClass:[NSArray class]]){
         for(NSString *keyStr in info){
 
@@ -2316,14 +2177,7 @@ updatingLocation:(BOOL)updatingLocation
 
 -(void)getAvailableCityList:(NSMutableArray *)inArguments{
     NSMutableArray *result=[NSMutableArray array];
-    ACJSFunctionRef *func = nil;
-    if (inArguments.count > 0) {
-        func = JSFunctionArg(inArguments.lastObject);
-    }
-    NSNumber *error = @(1);
-    if (_sharedInstance.offlineMgr.offlineMap.cities.count > 0) {
-        error = @(0);
-    }
+
          for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
              
              [result addObject:[_sharedInstance.offlineMgr parseCity:item]];
@@ -2331,8 +2185,7 @@ updatingLocation:(BOOL)updatingLocation
              
          }
          [self callbackJsonWithName:@"cbGetAvailableCityList" Object:result];
-         [func executeWithArguments:ACArgsPack(error,result)];
-    
+         
          
 
 
@@ -2341,31 +2194,16 @@ updatingLocation:(BOOL)updatingLocation
 
 -(void)getAvailableProvinceList:(NSMutableArray *)inArguments{
     NSMutableArray *result=[NSMutableArray array];
-    ACJSFunctionRef *func = nil;
-    if (inArguments.count > 0) {
-        func = JSFunctionArg(inArguments.lastObject);
-    }
-     NSNumber *error = @(1);
-    if (_sharedInstance.offlineMgr.offlineMap.provinces.count > 0) {
-        error = @(0);
-    }
+
     for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
             [result addObject:[_sharedInstance.offlineMgr parseProvince:item]];
     }
     [self callbackJsonWithName:@"cbGetAvailableProvinceList" Object:result];
-    [func executeWithArguments:ACArgsPack(error,result)];
 }
 
 -(void)getDownloadList:(NSMutableArray *)inArguments{
     NSMutableArray *result=[NSMutableArray array];
-    ACJSFunctionRef *func = nil;
-    if (inArguments.count > 0) {
-        func = JSFunctionArg(inArguments.lastObject);
-    }
-    NSNumber *error = @(1);
-    if ( _sharedInstance.offlineMgr.offlineMap.cities || _sharedInstance.offlineMgr.offlineMap.provinces) {
-        error = @(0);
-    }
+
         for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
             if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
                 NSMutableDictionary *dict=[NSMutableDictionary dictionary];
@@ -2387,83 +2225,41 @@ updatingLocation:(BOOL)updatingLocation
             }
         }
         [self callbackJsonWithName:@"cbGetDownloadList" Object:result];
-    [func executeWithArguments:ACArgsPack(error,result)];
 
-    
+        
 
 }
 -(void)getDownloadingList:(NSMutableArray *)inArguments{
-    ACJSFunctionRef *func = nil;
-    if (inArguments.count > 0) {
-       func = JSFunctionArg(inArguments.lastObject);
-    }
-    NSNumber *error = @(1);
-    NSArray *resultArr = [_sharedInstance.offlineMgr getDownloadingList];
-    if (resultArr) {
-        error = @(0);
-    }
-    [self callbackJsonWithName:@"cbGetDownloadingList" Object:resultArr];
-    [func executeWithArguments:ACArgsPack(error,resultArr)];
+    [self callbackJsonWithName:@"cbGetDownloadingList" Object:[_sharedInstance.offlineMgr getDownloadingList]];
 }
 -(void)isUpdate:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
+    id info=[self getDataFromJson:inArguments[0]];
+    
+    
     NSString *searchKey=nil;
     if([info objectForKey:@"city"]){
         searchKey=[info getStringForKey:@"city"];
     }else if([info objectForKey:@"province"]){
         searchKey=[info getStringForKey:@"province"];
     }
-    NSMutableArray *result=[NSMutableArray array];
-    for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.cities){
-        if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
-            [result addObject:item.name];
-        }
-    }
-    for(MAOfflineItem *item in _sharedInstance.offlineMgr.offlineMap.provinces){
-        if(item.itemStatus == MAOfflineItemStatusInstalled||item.itemStatus==MAOfflineItemStatusExpired){
-            [result addObject:item.name];
-        }
-    }
-
-
-    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    NSNumber *error = @(1);
-    BOOL isExist = NO;
     MAOfflineItem *item=[_sharedInstance.offlineMgr searchItem:searchKey];
-    if (!item) {
-        [dict setValue:searchKey forKey:@"name"];
-        [dict setValue:@"城市或省名称错误!" forKey:@"result"];
-        [func executeWithArguments:ACArgsPack(error,dict)];
-    }else{
-        for (NSString *key in result) {
-            if ([key isEqualToString:item.name]) {
-                isExist = YES;
-            }
-        }
-        if(isExist){
-            error = @(0);
-            [dict setValue:item.name forKey:@"name"];
-            [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
-            [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
-        }else{
-            [dict setValue:item.name forKey:@"name"];
-            [dict setValue:@"请先下载该地图!" forKey:@"result"];
-        }
-        [func executeWithArguments:ACArgsPack(error,dict)];
+    if(item){
+        NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+        [dict setValue:item.name forKey:@"name"];
+        [dict setValue:item.itemStatus==MAOfflineItemStatusExpired?@0:@1 forKey:@"result"];
+        [self callbackJsonWithName:@"cbIsUpdate" Object:dict];
     }
     
     
 }
 -(void)delete:(NSMutableArray *)inArguments{
-    if([inArguments count]<3){
+    if([inArguments count]<1){
         [_sharedInstance.offlineMgr.offlineMap cancelAll];
         [_sharedInstance.offlineMgr.offlineMap clearDisk];
         [_sharedInstance.offlineMgr clearQueue];
         [_mapView reloadMap];
-        //ACJSFunctionRef *func = JSFunctionArg(inArguments.lastObject);
-        //[self callbackJsonWithName:@"cbDelete" Object:nil Function:func];
+        [self callbackJsonWithName:@"cbDelete" Object:nil];
 
     }
     
@@ -2472,11 +2268,11 @@ updatingLocation:(BOOL)updatingLocation
 
 #pragma mark - Custom Buttons
 
--(NSString*)setCustomButton:(NSMutableArray *)inArguments{
-    if([inArguments count]<1) return nil;
+-(void)setCustomButton:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
     //id info=[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSDictionary *info) = inArguments;
-    if(![info isKindOfClass:[NSDictionary class]]) return nil;
+    id info =[inArguments[0] JSONValue];
+    if(![info isKindOfClass:[NSDictionary class]]) return;
     NSString *identifier,*title=nil;
     UIColor *titleColor=[UIColor blackColor];
     UIImage *bgImage=nil;
@@ -2484,21 +2280,19 @@ updatingLocation:(BOOL)updatingLocation
     CGFloat titleSize=-1;
     if([info objectForKey:@"x"]){
         x=[[info objectForKey:@"x"] floatValue];
-    }else return nil;
+    }else return;
     if([info objectForKey:@"y"]){
         y=[[info objectForKey:@"y"] floatValue];
-    }else return nil;
+    }else return;
     if([info objectForKey:@"width"]){
         w=[[info objectForKey:@"width"] floatValue];
-    }else return nil;
+    }else return;
     if([info objectForKey:@"height"]){
         h=[[info objectForKey:@"height"] floatValue];
-    }else return nil;
+    }else return;
     if([info objectForKey:@"id"]){
-        identifier=[info getStringForKey:@"id"];
-    }else{
-        identifier = newUUID();
-    };
+        identifier=[info objectForKey:@"id"];
+    }else return;
     if([info objectForKey:@"bgImage"]){
         NSString* imageUrl=[info objectForKey:@"bgImage"];
         NSData *imageData = [NSData dataWithContentsOfFile:[self absPath:imageUrl]];
@@ -2506,7 +2300,7 @@ updatingLocation:(BOOL)updatingLocation
             imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[self absPath:imageUrl]]];
         }
         bgImage=[UIImage imageWithData:imageData];
-    }else return nil;
+    }else return;
     if([info objectForKey:@"title"]){
         title=[info objectForKey:@"title"];
     }
@@ -2518,7 +2312,6 @@ updatingLocation:(BOOL)updatingLocation
     if([info objectForKey:@"titleSize"]){
         titleSize=[[info objectForKey:@"titleSize"] floatValue];
     }
-    __block NSString *returnIdentifier = nil;
     [_sharedInstance.buttonMgr addButtonWithId:identifier
                                           andX:x
                                           andY:y
@@ -2530,47 +2323,43 @@ updatingLocation:(BOOL)updatingLocation
                                     andBGImage:bgImage
                                     completion:^(NSString *identifier, BOOL result) {
                                         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
+                                        [dict setValue:identifier forKey:@"id"];
                                         if(result){
                                             [dict setValue:@YES forKey:@"isSuccess"];
-                                            returnIdentifier = identifier;
                                         }else{
                                             [dict setValue:@NO forKey:@"isSuccess"];
-                                            returnIdentifier = nil;
                                         }
                                         [self callbackJsonWithName:@"cbSetCustomButton" Object:dict];
                                     }];
     
-    return returnIdentifier;
+    
 }
 
--(NSNumber*)deleteCustomButton:(NSMutableArray *)inArguments{
-    if([inArguments count]<1) return nil;
-    ACArgsUnpack(NSString*identifier) = inArguments;
-    __block BOOL res;
+-(void)deleteCustomButton:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    
+    NSString *identifier=inArguments[0];
+    
+    
     [_sharedInstance.buttonMgr deleteButtonWithId:identifier completion:^(NSString *identifier, BOOL result) {
         NSMutableDictionary *dict=[NSMutableDictionary dictionary];
         [dict setValue:identifier forKey:@"id"];
         if(result){
             [dict setValue:@YES forKey:@"isSuccess"];
-            res = YES;
         }else{
             [dict setValue:@NO forKey:@"isSuccess"];
-            res = NO;
         }
         [self callbackJsonWithName:@"cbDeleteCustomButton" Object:dict];
     }];
-    return @(res);
 }
--(NSDictionary*)showCustomButtons:(NSMutableArray *)inArguments{
-    if([inArguments count]<1) return nil;
-    //id info=[self getDataFromJson:inArguments[0]];
-    ACArgsUnpack(NSArray *info) = inArguments;
-    if(![info isKindOfClass:[NSArray class]]) return nil;
+-(void)showCustomButtons:(NSMutableArray *)inArguments{
+    if([inArguments count]<1) return;
+    id info=[self getDataFromJson:inArguments[0]];
+    if(![info isKindOfClass:[NSArray class]]) return;
     __weak typeof(self) weakself=self;
-     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
     [_sharedInstance.buttonMgr showButtons:info
                                 completion:^(NSArray *succArr, NSArray *failArr) {
-                                   
+                                    NSMutableDictionary *dict=[NSMutableDictionary dictionary];
                                     [dict setValue:succArr forKey:@"successfulIds"];
                                     [dict setValue:failArr forKey:@"failedIds"];
                                     [self callbackJsonWithName:@"cbShowCustomButtons" Object:dict];
@@ -2579,32 +2368,29 @@ updatingLocation:(BOOL)updatingLocation
                                        if(weakself) [weakself callbackJsonWithName:@"onCustomButtonClick" Object:identifier];
                                        
                                    }];
-    return [dict copy];
+    
 }
 
 
--(NSDictionary*)hideCustomButtons:(NSMutableArray *)inArguments{
-     NSMutableDictionary *dict=[NSMutableDictionary dictionary];
-    if([inArguments count] < 1){
+-(void)hideCustomButtons:(NSMutableArray *)inArguments{
+    if([inArguments count]<1){
         [_sharedInstance.buttonMgr hideButtons:[_sharedInstance.buttonMgr.buttonDict allKeys] completion:^(NSArray *succArr, NSArray *failArr) {
-           
+            NSMutableDictionary *dict=[NSMutableDictionary dictionary];
             [dict setValue:succArr forKey:@"successfulIds"];
             [dict setValue:failArr forKey:@"failedIds"];
             [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
         }];
     }else{
-        //id info=[self getDataFromJson:inArguments[0]];
-        ACArgsUnpack(NSArray *info) = inArguments;
-        if(![info isKindOfClass:[NSArray class]]) return nil;
+        id info=[self getDataFromJson:inArguments[0]];
+        if(![info isKindOfClass:[NSArray class]]) return;
         [_sharedInstance.buttonMgr hideButtons:info completion:^(NSArray *succArr, NSArray *failArr) {
-          
+            NSMutableDictionary *dict=[NSMutableDictionary dictionary];
             [dict setValue:succArr forKey:@"successfulIds"];
             [dict setValue:failArr forKey:@"failedIds"];
             [self callbackJsonWithName:@"cbHideCustomButtons" Object:dict];
             
         }];
     }
-    return [dict copy];
 }
 
 @end

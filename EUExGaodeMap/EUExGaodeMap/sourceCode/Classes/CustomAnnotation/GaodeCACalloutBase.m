@@ -38,6 +38,7 @@
         if(![self loadData]){
             *error =[GaodeError CACalloutDataError];
         }
+        
     }
     return self;
 }
