@@ -12,8 +12,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #import <AMapNaviKit/AMapNaviKit.h>
+    #import <AMapFoundationKit/AMapFoundationKit.h>
+    #import <MAMapKit/MAMapKit.h>
     #import <AMapSearchKit/AMapSearchAPI.h>
     #import "GaodeError.h"
     #import "NSDictionary+uexGaodeMap.h"
+    #import <AppCanKit/AppCanKit.h>
+
 #endif

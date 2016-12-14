@@ -27,7 +27,7 @@
 -(void)createIconImage:(NSString *)str{
      str=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSData *imageData=nil;
-    if([str hasPrefix:@"http"]){
+    if([str hasPrefix:@"http"] || [str hasPrefix:@"https"]){
         imageData=[NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
     }else{
         imageData = [NSData dataWithContentsOfFile:str];
