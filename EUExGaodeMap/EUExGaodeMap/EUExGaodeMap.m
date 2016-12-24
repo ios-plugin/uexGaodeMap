@@ -2638,7 +2638,7 @@ updatingLocation:(BOOL)updatingLocation
     request.strategy = numberArg(info[@"strategy"]).integerValue;
     request.origin = [AMapGeoPoint uexGaode_pointFromJSON:dictionaryArg(info[@"origin"])];
     request.destination = [AMapGeoPoint uexGaode_pointFromJSON:dictionaryArg(info[@"destination"])];
-    request.avoidroad = stringArg(info[@"avoidroad"]);
+    request.avoidroad = stringArg(info[@"avoidRoad"]);
     request.uexCallbackBlock = ^(NSError *error,AMapRouteSearchResponse *response){
         if (error) {
             UEX_ERROR e = uexErrorMake(error.code,error.localizedDescription);
