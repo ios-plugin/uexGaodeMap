@@ -8,7 +8,7 @@
 
 #import "EUExGaodeMapInstance.h"
 
-@interface EUExGaodeMapInstance()<UIGestureRecognizerDelegate>
+@interface EUExGaodeMapInstance()<UIGestureRecognizerDelegate,MAMapViewDelegate, AMapSearchDelegate>
 @property (nonatomic, strong) UITapGestureRecognizer *singleTap;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
 
@@ -49,11 +49,11 @@
 {
     self = [super init];
     if (self){
-        self.annotations =[NSMutableArray array];
-        self.overlays = [NSMutableArray array];
-        self.isGaodeMaploaded=NO;
-        self.locationStyleOptions=[[GaodeLocationStyle alloc] init];
-        self.offlineMgr=[[GaodeOfflineMapManager alloc]initWithMapView:self.gaodeView];
+        _annotations = [NSMutableArray array];
+        _overlays = [NSMutableArray array];
+        _isGaodeMaploaded = NO;
+        _locationStyleOptions = [[GaodeLocationStyle alloc] init];
+        _offlineMgr = [[GaodeOfflineMapManager alloc]initWithMapView:self.gaodeView];
 
             
             
@@ -76,7 +76,6 @@
         }
         
         self.searchAPI = [[AMapSearchAPI alloc] init];
-        self.searchAPI.delegate = self;
         self.isGaodeMaploaded =YES;
     }
     
@@ -102,19 +101,14 @@
         self.status =[self.gaodeView getMapStatus];
         self.buttonMgr=[[GaodeCustomButtonManager alloc]initWithMapView:self.gaodeView];
     }else{
-        self.gaodeView.frame=CGRectMake(left,top,width,height);
+        self.gaodeView.frame = CGRectMake(left,top,width,height);
     }
-    self.gaodeView.scaleOrigin=CGPointMake(self.gaodeView.scaleOrigin.x, height-40);
-    self.gaodeView.compassOrigin=CGPointMake(5, 5);
+    self.gaodeView.scaleOrigin = CGPointMake(self.gaodeView.scaleOrigin.x, height-40);
+    self.gaodeView.compassOrigin = CGPointMake(5, 5);
      
 }
 
-#pragma mark - AMapSearchDelegate
 
-- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
-{
-    NSLog(@"%s: searchRequest = %@, errInfo= %@", __func__, [request class], error);
-}
 
 - (void)clearMapView{
     self.gaodeView.showsUserLocation = NO;
@@ -135,7 +129,7 @@
 {
     self.searchAPI.delegate = nil;
     self.gaodeView.delegate = nil;
-    self.delegate=nil;
+    self.delegate = nil;
 }
 
 

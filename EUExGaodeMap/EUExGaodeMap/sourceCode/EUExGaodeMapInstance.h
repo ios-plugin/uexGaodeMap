@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
 
 @end
 
-@interface EUExGaodeMapInstance : NSObject<MAMapViewDelegate, AMapSearchDelegate>
+@interface EUExGaodeMapInstance : NSObject
 @property (nonatomic,strong)MAMapView *gaodeView;
 @property (nonatomic,strong)AMapSearchAPI *searchAPI;
 @property (nonatomic,strong) NSMutableArray *annotations;

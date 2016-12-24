@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin name="uexGaodeMap">
-            
         <method name="open"></method>
         <method name="close"></method>
         <method name="setMapType"></method>
@@ -49,11 +48,13 @@
         <method name="deleteCustomButton"></method>
         <method name="showCustomButtons"></method>
         <method name="hideCustomButtons"></method>
-        
-       <method name="updateMarkerOverlay"></method>
-       <method name="addMultiInfoWindow"></method>    
-            
-            
+        <method name="updateMarkerOverlay"></method>
+        <method name="addMultiInfoWindow"></method>    
+        <method name="resize"></method>
+        <method name="drivingRouteSearch"></method>
+        <method name="walkingRouteSearch"></method>
+        <method name="ridingRouteSearch"></method>
+        <method name="transitRouteSearch"></method>
     </plugin>
         
 </uexplugins>
