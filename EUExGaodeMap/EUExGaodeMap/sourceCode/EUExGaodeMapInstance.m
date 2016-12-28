@@ -68,6 +68,7 @@
                          height:(CGFloat)height
                          APIKey:(NSString *)key{
     if(!self.isGaodeMaploaded){
+        [AMapServices sharedServices].enableHTTPS = YES;
         NSString *GaodeMapKey=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"uexGaodeMapKey"];
         if(key && key.length>0){
             [AMapServices sharedServices].apiKey = key;
