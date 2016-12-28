@@ -2644,10 +2644,14 @@ updatingLocation:(BOOL)updatingLocation
             UEX_ERROR e = uexErrorMake(error.code,error.localizedDescription);
             [callback executeWithArguments:ACArgsPack(e,error.localizedDescription)];
         }else{
-            NSMutableArray *result = [NSMutableArray array];
+            NSMutableArray *paths = [NSMutableArray array];
             for (AMapPath *path in response.route.paths){
-                [result addObject:path.uexGaode_JSONPresentation];
+                [paths addObject:path.uexGaode_JSONPresentation];
             }
+            NSDictionary *result = @{
+                                     @"paths": paths,
+                                     @"taxiCost": @(response.route.taxiCost),
+             };
             [callback executeWithArguments:ACArgsPack(kUexNoError,result)];
         }
     };
@@ -2666,10 +2670,14 @@ updatingLocation:(BOOL)updatingLocation
             UEX_ERROR e = uexErrorMake(error.code,error.localizedDescription);
             [callback executeWithArguments:ACArgsPack(e,error.localizedDescription)];
         }else{
-            NSMutableArray *result = [NSMutableArray array];
+            NSMutableArray *paths = [NSMutableArray array];
             for (AMapPath *path in response.route.paths){
-                [result addObject:path.uexGaode_JSONPresentation];
+                [paths addObject:path.uexGaode_JSONPresentation];
             }
+            NSDictionary *result = @{
+                                     @"paths": paths,
+                                     @"taxiCost": @(response.route.taxiCost),
+                                     };
             [callback executeWithArguments:ACArgsPack(kUexNoError,result)];
         }
     };
@@ -2686,10 +2694,14 @@ updatingLocation:(BOOL)updatingLocation
             UEX_ERROR e = uexErrorMake(error.code,error.localizedDescription);
             [callback executeWithArguments:ACArgsPack(e,error.localizedDescription)];
         }else{
-            NSMutableArray *result = [NSMutableArray array];
+            NSMutableArray *paths = [NSMutableArray array];
             for (AMapPath *path in response.route.paths){
-                [result addObject:path.uexGaode_JSONPresentation];
+                [paths addObject:path.uexGaode_JSONPresentation];
             }
+            NSDictionary *result = @{
+                                     @"paths": paths,
+                                     @"taxiCost": @(response.route.taxiCost),
+                                     };
             [callback executeWithArguments:ACArgsPack(kUexNoError,result)];
         }
     };
@@ -2708,10 +2720,14 @@ updatingLocation:(BOOL)updatingLocation
             UEX_ERROR e = uexErrorMake(error.code,error.localizedDescription);
             [callback executeWithArguments:ACArgsPack(e,error.localizedDescription)];
         }else{
-            NSMutableArray *result = [NSMutableArray array];
+            NSMutableArray *paths = [NSMutableArray array];
             for (AMapTransit *transit in response.route.transits){
-                [result addObject:transit.uexGaode_JSONPresentation];
+                [paths addObject:transit.uexGaode_JSONPresentation];
             }
+            NSDictionary *result = @{
+                                     @"paths": paths,
+                                     @"taxiCost": @(response.route.taxiCost),
+                                     };
             [callback executeWithArguments:ACArgsPack(kUexNoError,result)];
         }
     };
