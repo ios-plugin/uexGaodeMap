@@ -15,13 +15,13 @@
         <method name="setRotateEnable"></method>
         <method name="setCompassEnable"></method>
         <method name="setScrollEnable"></method>
-        <method name="addMarkersOverlay" sync = "true"></method>
+        <method name="addMarkersOverlay"></method>
         <method name="setMarkerOverlay"></method>
-        <method name="addPolylineOverlay" sync = "true"></method>
+        <method name="addPolylineOverlay"></method>
         <method name="removeOverlay"></method>
-        <method name="addCircleOverlay" sync = "true"></method>
-        <method name="addPolygonOverlay" sync = "true"></method>
-        <method name="addGroundOverlay" sync = "true"></method>
+        <method name="addCircleOverlay"></method>
+        <method name="addPolygonOverlay"></method>
+        <method name="addGroundOverlay"></method>
         <method name="removeMarkersOverlay"></method>
         <method name="poiSearch"></method>
         <method name="geocode"></method>
@@ -55,6 +55,7 @@
         <method name="walkingRouteSearch"></method>
         <method name="ridingRouteSearch"></method>
         <method name="transitRouteSearch"></method>
+        <method name="queryProcessedTrace"></method>
     </plugin>
         
 </uexplugins>

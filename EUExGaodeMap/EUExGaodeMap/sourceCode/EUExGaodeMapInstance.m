@@ -7,19 +7,19 @@
 //
 
 #import "EUExGaodeMapInstance.h"
-
+#import <AppCanKit/ACEXTScope.h>
 @interface EUExGaodeMapInstance()<UIGestureRecognizerDelegate,MAMapViewDelegate, AMapSearchDelegate>
 @property (nonatomic, strong) UITapGestureRecognizer *singleTap;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
-
+@property (nonatomic,strong)MATraceManager *traceManager;
+@property (nonatomic,strong)NSMutableArray <NSOperation *> *traceQueryingOperations;
 @end
 
 
 
 
 @implementation EUExGaodeMapInstance
-+ (instancetype)sharedInstance
-{
++ (instancetype)sharedInstance{
     static dispatch_once_t pred = 0;
     __strong static EUExGaodeMapInstance *sharedObj = nil;
     dispatch_once(&pred, ^{
@@ -35,6 +35,10 @@
 
 
 -(void)clearAll{
+    for (NSOperation *op in self.traceQueryingOperations) {
+        [op cancel];
+    }
+    [self.traceQueryingOperations removeAllObjects];
     [self clearMapView];
     [self clearDelegate];
     [self.annotations removeAllObjects];
@@ -42,11 +46,11 @@
     [self.gaodeView setMapStatus: _status animated:NO duration:0];
     [self.gaodeView removeFromSuperview];
     [self.buttonMgr hideAllButtons];
+
     
 }
 
-- (id)init
-{
+- (id)init{
     self = [super init];
     if (self){
         _annotations = [NSMutableArray array];
@@ -54,9 +58,8 @@
         _isGaodeMaploaded = NO;
         _locationStyleOptions = [[GaodeLocationStyle alloc] init];
         _offlineMgr = [[GaodeOfflineMapManager alloc]initWithMapView:self.gaodeView];
-
-            
-            
+        _traceManager = [[MATraceManager alloc] init];
+        _traceQueryingOperations = [NSMutableArray array];
     }
         
     return self;
@@ -81,12 +84,6 @@
     }
     
     [self setFrameLeft:left top:top width:width height:height];
-    
-    
-
-    
-    
-    
     return YES;
 }
 
@@ -113,48 +110,62 @@
 
 - (void)clearMapView{
     self.gaodeView.showsUserLocation = NO;
-    
     [self.gaodeView removeAnnotations:self.gaodeView.annotations];
-    
     [self.gaodeView removeOverlays:self.gaodeView.overlays];
-
-    
-    
-    
     [self.gaodeView setCompassImage:nil];
 
 }
 
 
-- (void)clearDelegate
-{
+- (void)clearDelegate{
     self.searchAPI.delegate = nil;
     self.gaodeView.delegate = nil;
     self.delegate = nil;
 }
 
 
+
+
+- (void)queryProcessedTraceWith:(NSArray<MATraceLocation *> *)locations
+                           type:(AMapCoordinateType)type
+                 finishCallback:(MAFinishCallback)finishCallback
+                 failedCallback:(MAFailedCallback)failedCallback{
+    @weakify(self);
+    __block NSOperation *op = [self.traceManager queryProcessedTraceWith:locations type:type processingCallback:nil finishCallback:^(NSArray<MATracePoint *> *points, double distance) {
+        @strongify(self);
+        [self.traceQueryingOperations removeObject:op];
+        if (finishCallback) {
+            finishCallback(points,distance);
+        }
+        
+    } failedCallback:^(int errorCode, NSString *errorDesc) {
+        @strongify(self);
+        [self.traceQueryingOperations removeObject:op];
+        if (failedCallback) {
+            failedCallback(errorCode,errorDesc);
+        }
+    }];
+    [self.traceQueryingOperations addObject: op];
+}
+
+
+
+
 #pragma mark - 手势
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    if ((gestureRecognizer == self.singleTap||gestureRecognizer==self.longPress) && ([touch.view isKindOfClass:[UIControl class]] || [touch.view isKindOfClass:[MAAnnotationView class]]))
-    {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ((gestureRecognizer == self.singleTap||gestureRecognizer==self.longPress) && ([touch.view isKindOfClass:[UIControl class]] || [touch.view isKindOfClass:[MAAnnotationView class]]))    {
         return NO;
     }
     
-
-    
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     return YES;
 }
 
-- (void)setupGestures
-{
+- (void)setupGestures{
     self.longPress=[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
     self.longPress.minimumPressDuration=1.0;
     self.longPress.delegate=self;
@@ -172,7 +183,7 @@
     
 }
 
--(void)handleSingleTap:(UITapGestureRecognizer *)theSingleTap{
+- (void)handleSingleTap:(UITapGestureRecognizer *)theSingleTap{
     CLLocationCoordinate2D coordinate=[self parseGesture:theSingleTap];
     if([self.delegate respondsToSelector:@selector(handleGesture:withCoordinate:)]){
         [self.delegate handleGesture:GaodeGestureTypeClick withCoordinate:coordinate];
@@ -183,7 +194,7 @@
 
 }
 
--(void)handleLongPress:(UILongPressGestureRecognizer *)theLongPress{
+- (void)handleLongPress:(UILongPressGestureRecognizer *)theLongPress{
     
     if(theLongPress.state==UIGestureRecognizerStateBegan){
         CLLocationCoordinate2D coordinate=[self parseGesture:theLongPress];
@@ -196,7 +207,7 @@
    
 }
 
--(CLLocationCoordinate2D)parseGesture:(UIGestureRecognizer *)gesture{
+- (CLLocationCoordinate2D)parseGesture:(UIGestureRecognizer *)gesture{
     CGPoint point=[gesture locationInView:self.gaodeView];
     return [self.gaodeView convertPoint:point toCoordinateFromView:self.gaodeView];
     

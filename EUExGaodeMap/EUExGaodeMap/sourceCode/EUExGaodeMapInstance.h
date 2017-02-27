@@ -13,6 +13,7 @@
 #import "GaodeCustomAnnotationView.h"
 #import "GaodeOfflineMapManager.h"
 #import "GaodeCustomButtonManager.h"
+#import <MAMapKit/MATraceManager.h>
 
 typedef NS_ENUM(NSInteger, GaodeGestureType){
     GaodeGestureTypeClick=0,
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
 @property (nonatomic,strong) MAMapStatus *status;
 @property(nonatomic,strong)GaodeOfflineMapManager *offlineMgr;
 @property(nonatomic,strong)GaodeCustomButtonManager *buttonMgr;
+
 @property(nonatomic,weak)id<GaodeGestureDelegate> delegate;
 
 
@@ -48,4 +50,13 @@ typedef NS_ENUM(NSInteger, GaodeGestureType){
                          APIKey:(NSString *)key;
 
 -(void)clearAll;
+
+
+- (void)queryProcessedTraceWith:(NSArray<MATraceLocation *>*)locations
+                           type:(AMapCoordinateType)type
+                 finishCallback:(MAFinishCallback)finishCallback
+                 failedCallback:(MAFailedCallback)failedCallback;
+
+
+
 @end

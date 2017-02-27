@@ -31,6 +31,7 @@ static inline NSString * newUUID(){
 @property(nonatomic,readonly) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
 @property(nonatomic,strong) ACJSFunctionRef *func;
+
 @end
 
 @implementation EUExGaodeMap
@@ -568,7 +569,7 @@ type://（必选） 0-关闭，1-开启
         }else{
             MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:pointAnnotation.identifier];
             
-            
+
             if (annotationView == nil) {
                 annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointAnnotation.identifier];
             }
@@ -707,75 +708,50 @@ type://（必选） 0-关闭，1-开启
 
 -(NSArray*)addMarkersOverlay:(NSMutableArray *)inArguments{
     ACArgsUnpack(NSArray *markerArray) = inArguments;
-    NSMutableArray *returnArr = [NSMutableArray arrayWithCapacity:markerArray.count];
-    if([inArguments count]<1) return nil;
-    //NSArray *markerArray =[self getDataFromJson:inArguments[0]];
-    for(NSDictionary *info in markerArray)
-    {
+    if (!markerArray) {
+        return nil;
+    }
+    NSMutableArray *ids = [NSMutableArray arrayWithCapacity:markerArray.count];
+    for(NSDictionary *info in markerArray)    {
+        NSString *identifier = stringArg(info[@"id"]) ?: newUUID();
+        NSNumber *longitude = numberArg(info[@"longitude"]);
+        NSNumber *latitude = numberArg(info[@"latitude"]);
+        if (!longitude || !latitude || [self searchAnnotationById:identifier]) {
+            continue;
+        }
+        [ids addObject:identifier];
+
+        NSString *icon = [self absPath:stringArg(info[@"icon"])];
         
-        NSString *identifier=nil;
-        if([info getStringForKey:@"id"]){
-            identifier=[info getStringForKey:@"id"];
-        }else{
-            identifier = newUUID();
-        };
-        [returnArr addObject:identifier];
-        NSString *longitude=nil;
-        if([info getStringForKey:@"longitude"]){
-        longitude=[info getStringForKey:@"longitude"];
-        }else return nil;
-        NSString *latitude=nil;
-        if([info getStringForKey:@"latitude"]){
-            latitude=[info getStringForKey:@"latitude"];
-        }else return nil;
-        NSString *icon=nil;
-        if([info getStringForKey:@"icon"]){
-            icon=[info getStringForKey:@"icon"];
-            icon=[self absPath:icon];
-        }
-        NSDictionary *bubble=nil;
-        if([info objectForKey:@"bubble"]&&[[info objectForKey:@"bubble"] isKindOfClass:[NSDictionary class]]){
-            bubble=[info objectForKey:@"bubble"];
-        }
-        NSDictionary *customBubble=nil;
-            if([info objectForKey:@"customBubble"]&&[[info objectForKey:@"customBubble"] isKindOfClass:[NSDictionary class]]){
-            customBubble=[info objectForKey:@"customBubble"];
-                                               
-        }
 
-        if([self searchAnnotationById:identifier])return nil;
+        NSDictionary *bubble = dictionaryArg(info[@"bubble"]);
+        NSDictionary *customBubble = dictionaryArg(info[@"customBubble"]);
 
-        GaodePointAnnotation *pointAnnotation =[[GaodePointAnnotation alloc] init];
+
+
+
+        GaodePointAnnotation *pointAnnotation = [[GaodePointAnnotation alloc] init];
         pointAnnotation.identifier =identifier;
-        pointAnnotation.coordinate=CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]);
+        pointAnnotation.coordinate = CLLocationCoordinate2DMake([latitude doubleValue], [longitude doubleValue]);
         if(icon){
             [pointAnnotation createIconImage:icon];
         }
         if(customBubble){
-            pointAnnotation.isCustomCallout=YES;
-            pointAnnotation.customCalloutData=customBubble;
+            pointAnnotation.isCustomCallout = YES;
+            pointAnnotation.customCalloutData = customBubble;
+        }else{
+            pointAnnotation.title = stringArg(bubble[@"title"]);
+            pointAnnotation.subtitle = stringArg(bubble[@"subTitle"]);
+            pointAnnotation.canShowCallout = pointAnnotation.title || pointAnnotation.subtitle;
         }
-        if(bubble&&!pointAnnotation.isCustomCallout){
-            BOOL isEmpty=YES;
-            if([bubble getStringForKey:@"title"]){
-                pointAnnotation.title=[bubble getStringForKey:@"title"];
-                isEmpty =NO;
-            }
-        
-            if([bubble getStringForKey:@"subTitle"]){
-                pointAnnotation.subtitle=[bubble getStringForKey:@"subTitle"];
-                isEmpty =NO;
-            }
-            pointAnnotation.canShowCallout=!isEmpty;
-        }
-        
+
         [self.mapView addAnnotation:pointAnnotation];
         [self.annotations addObject:pointAnnotation];
 
     }
-    return [returnArr copy];
+    return [ids copy];
 }
--(UIImage*)convertViewToImage:(UIView*)v{
+- (UIImage*) convertViewToImage:(UIView*)v{
     CGSize s = v.bounds.size;
     UIGraphicsBeginImageContextWithOptions(s, NO, [UIScreen mainScreen].scale);
     [v.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -783,13 +759,11 @@ type://（必选） 0-关闭，1-开启
     UIGraphicsEndImageContext();
     return image;
 }
--(NSArray*)addMultiInfoWindow:(NSMutableArray *)inArguments{
+- (NSArray*) addMultiInfoWindow:(NSMutableArray *)inArguments{
     ACArgsUnpack(NSArray *markerArray) = inArguments;
     NSMutableArray *returnArr = [NSMutableArray arrayWithCapacity:markerArray.count];
     if([inArguments count]<1) return nil;
-    for(NSDictionary *info in markerArray)
-    {
-        
+    for(NSDictionary *info in markerArray){
         NSString *identifier=nil;
         if([info getStringForKey:@"id"]){
             identifier=[info getStringForKey:@"id"];
@@ -2732,6 +2706,79 @@ updatingLocation:(BOOL)updatingLocation
         }
     };
     [self.search AMapTransitRouteSearch:request];
+}
+
+
+
+- (void)queryProcessedTrace:(NSMutableArray *)inArguments{
+    ACArgsUnpack(NSDictionary *info,ACJSFunctionRef *callback) = inArguments;
+
+    NSArray *traceList = arrayArg(info[@"traceList"]);
+    NSNumber *coordinateType = numberArg(info[@"coordinateType"]);
+    UEX_PARAM_GUARD_NOT_NIL(traceList);
+    UEX_PARAM_GUARD_NOT_NIL(coordinateType);
+    UEX_PARAM_GUARD_NOT_NIL(callback);
+    
+    AMapCoordinateType type = -1;
+    switch (coordinateType.integerValue) {
+        case 2:
+            type = AMapCoordinateTypeGPS;
+            break;
+        case 3:
+            type = AMapCoordinateTypeBaidu;
+            break;
+        default:
+            break;
+    }
+    
+    NSMutableArray<MATraceLocation *> *tracePoints = [NSMutableArray array];
+    for (NSInteger i = 0; i < traceList.count; i++) {
+        NSDictionary *traceInfo = dictionaryArg(traceList[i]);
+        if (!traceInfo) {
+            continue;
+        }
+        NSNumber *latitude = numberArg(traceInfo[@"latitude"]);
+        NSNumber *longitude = numberArg(traceInfo[@"longitude"]);
+        if (!latitude || !longitude) {
+            continue;
+        }
+        NSNumber *bearing = numberArg(traceInfo[@"bearing"]);
+        NSNumber *time = numberArg(traceInfo[@"time"]);
+        NSNumber *speed = numberArg(traceInfo[@"speed"]);
+        
+        MATraceLocation *location = [[MATraceLocation alloc]init];
+        location.loc = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+        if (bearing) {
+            location.angle = bearing.doubleValue;
+        }
+        if (time) {
+            location.time = time.doubleValue;
+        }
+        if (speed) {
+            location.speed = speed.doubleValue;
+        }
+        [tracePoints addObject:location];
+    }
+    
+    [self.sharedInstance queryProcessedTraceWith:tracePoints type:type finishCallback:^(NSArray<MATracePoint *> *points, double distance) {
+        NSMutableArray *linePoints = [NSMutableArray array];
+        for (MATracePoint *p in points ) {
+            NSMutableDictionary *pointDict = [NSMutableDictionary dictionary];
+            [pointDict setValue:@(p.latitude) forKey:@"latitude"];
+            [pointDict setValue:@(p.longitude) forKey:@"longitude"];
+            [linePoints addObject:pointDict];
+        }
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setValue:linePoints forKey:@"linePoints"];
+        [dict setValue:@(distance) forKey:@"distance"];
+        [callback executeWithArguments:ACArgsPack(kUexNoError,dict)];
+        
+        
+    } failedCallback:^(int errorCode, NSString *errorDesc) {
+        UEX_ERROR error = uexErrorMake(1,errorDesc);
+        [callback executeWithArguments:ACArgsPack(error,errorDesc)];
+    }];
+    
 }
 
 
