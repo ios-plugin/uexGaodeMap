@@ -32,6 +32,9 @@ static inline NSString * newUUID(){
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
 @property(nonatomic,strong) ACJSFunctionRef *func;
 
+//记录地图最后一次的缩放级别数值
+@property(nonatomic,assign) float lastZoomLevel;
+
 @end
 
 @implementation EUExGaodeMap
@@ -101,6 +104,9 @@ static inline NSString * newUUID(){
 - (void)open:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
     ACArgsUnpack(NSDictionary *initInfo) = inArguments;
+    
+    self.lastZoomLevel = 0;
+    
     CGFloat left=0;
     CGFloat top=0;
     CGFloat width=CGRectGetWidth([self.webViewEngine webView].bounds);
@@ -531,6 +537,36 @@ type://（必选） 0-关闭，1-开启
 
 #pragma mark AnnotationDelegate
 
+/*!
+ @brief 地图区域即将改变时会调用此接口
+ @param mapview 地图View
+ @param animated 是否动画
+ */
+//- (void)mapView:(MAMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+//{
+//
+//}
+
+/*!
+ @brief 地图区域改变完成后会调用此接口
+ @param mapview 地图View
+ @param animated 是否动画
+ */
+- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    
+    //NSLog(@"AppCan --> uexGaodeMap --> regionDidChangeAnimated --> mapView.zoomLevel = %f",mapView.zoomLevel);
+    if (self.lastZoomLevel != mapView.zoomLevel) {
+        
+        NSDictionary *resultDic = [NSDictionary dictionaryWithObjectsAndKeys:@(mapView.zoomLevel),@"zoom",@(mapView.centerCoordinate.longitude),@"longitude",@(mapView.centerCoordinate.longitude),@"latitude", nil];
+        
+        NSString *dataStr = [resultDic ac_JSONFragment];
+        
+        [self callbackJsonWithName:@"onCameraChangeFinish" Object:dataStr];
+        
+        self.lastZoomLevel = mapView.zoomLevel;
+    }
+}
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
     
