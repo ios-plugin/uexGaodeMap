@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="4.0.6" build="2017091501">
-        <info>6: 定位小蓝点换为箭头，setUserTrackingMode方法的type参数扩展到4，折线覆盖物添加纹理</info>
+        uexName="uexGaodeMap" version="4.0.7" build="2017092801">
+        <info>7: 修改onCameraChangeFinish的触发条件为地图区域改变</info>
+        <build>6: 定位小蓝点换为箭头，setUserTrackingMode方法的type参数扩展到4，折线覆盖物添加纹理</build>
         <build>5: 增加onCameraChangeFinish方法，用于监听地图比例尺变化并返回当前地图的缩放级别和中心点坐标</build>
         <build>4: 更新SDK,避免因JSPatch导致的上架问题</build>
         <build>3: 添加轨迹纠偏接口</build>
