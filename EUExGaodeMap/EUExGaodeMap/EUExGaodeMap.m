@@ -522,8 +522,9 @@ type://（必选） 0-关闭，1-开启
 {
     
     //NSLog(@"AppCan --> uexGaodeMap --> regionDidChangeAnimated --> mapView.zoomLevel = %f",mapView.zoomLevel);
-    if (self.lastZoomLevel != mapView.zoomLevel) {
-        
+    
+//    if (self.lastZoomLevel != mapView.zoomLevel) {
+    
         NSDictionary *resultDic = [NSDictionary dictionaryWithObjectsAndKeys:@(mapView.zoomLevel),@"zoom",@(mapView.centerCoordinate.longitude),@"longitude",@(mapView.centerCoordinate.longitude),@"latitude", nil];
         
         NSString *dataStr = [resultDic JSONFragment];
@@ -531,8 +532,8 @@ type://（必选） 0-关闭，1-开启
         //回调给当前网页
         [EUtility brwView:self.meBrwView evaluateScript:jsStr];
         
-        self.lastZoomLevel = mapView.zoomLevel;
-    }
+//        self.lastZoomLevel = mapView.zoomLevel;
+//    }
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{

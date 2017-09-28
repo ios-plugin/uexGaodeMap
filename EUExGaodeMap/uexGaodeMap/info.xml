@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <uexplugins>
-  <plugin uexName="uexGaodeMap" version="3.0.14" build="14">
-    <info>14: 折线覆盖物添加纹理</info>
+  <plugin uexName="uexGaodeMap" version="3.0.15" build="15">
+    <info>15: 修改onCameraChangeFinish的触发条件为地图区域改变</info>
+    <build>14: 折线覆盖物添加纹理</build>
     <build>13: 定位小蓝点换为箭头，setUserTrackingMode方法的type参数扩展到4</build>
     <build>12: 新增接口addMultiInfoWindow</build>
     <build>11: 移除默认的定位权限配置</build>
