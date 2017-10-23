@@ -11,7 +11,8 @@
 #import "CustomView.h"
 #import "uexGaodeRouteSearch.h"
 
-
+#define PathImageString @"lineImagePath"
+#define IsShowLineImage @"isShowLineImage"
 
 static inline NSString * newUUID(){
     return [NSUUID UUID].UUIDString;
@@ -31,6 +32,16 @@ static inline NSString * newUUID(){
 @property(nonatomic,readonly) NSMutableArray *overlays;
 @property(nonatomic,strong) GaodeLocationStyle *locationStyleOptions;
 @property(nonatomic,strong) ACJSFunctionRef *func;
+
+@property (nonatomic, strong) MAAnnotationView *userLocationAnnotationView;
+//记录地图最后一次的缩放级别数值
+@property(nonatomic,assign) float lastZoomLevel;
+//是否停止旋转箭头
+@property(nonatomic,assign) BOOL isStopRotateHeader;
+//折线的纹理图片
+@property (nonatomic, strong) UIImage *lineImage;
+//折线是否使用纹理图片
+@property(nonatomic,assign) BOOL isShowLineImage;
 
 @end
 
@@ -101,6 +112,10 @@ static inline NSString * newUUID(){
 - (void)open:(NSMutableArray *)inArguments{
     if([inArguments count]<1) return;
     ACArgsUnpack(NSDictionary *initInfo) = inArguments;
+    
+    self.lastZoomLevel = 0;
+    self.isStopRotateHeader = NO;
+    
     CGFloat left=0;
     CGFloat top=0;
     CGFloat width=CGRectGetWidth([self.webViewEngine webView].bounds);
@@ -531,10 +546,44 @@ type://（必选） 0-关闭，1-开启
 
 #pragma mark AnnotationDelegate
 
+/*!
+ @brief 地图区域即将改变时会调用此接口
+ @param mapview 地图View
+ @param animated 是否动画
+ */
+//- (void)mapView:(MAMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+//{
+//
+//}
+
+/*!
+ @brief 地图区域改变完成后会调用此接口
+ @param mapview 地图View
+ @param animated 是否动画
+ */
+- (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    
+    //NSLog(@"AppCan --> uexGaodeMap --> regionDidChangeAnimated --> mapView.zoomLevel = %f",mapView.zoomLevel);
+    
+//    if (self.lastZoomLevel != mapView.zoomLevel) {
+    
+        NSDictionary *resultDic = [NSDictionary dictionaryWithObjectsAndKeys:@(mapView.zoomLevel),@"zoom",@(mapView.centerCoordinate.longitude),@"longitude",@(mapView.centerCoordinate.longitude),@"latitude", nil];
+        
+        NSString *dataStr = [resultDic ac_JSONFragment];
+        
+        [self callbackJsonWithName:@"onCameraChangeFinish" Object:dataStr];
+        
+//        self.lastZoomLevel = mapView.zoomLevel;
+//    }
+}
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation{
     
-    
+    //带箭头的原点图片
+    NSBundle *pluginBundle = [EUtility bundleForPlugin:@"uexGaodeMap"];
+    NSString *pathImage = [[pluginBundle resourcePath] stringByAppendingPathComponent:@"userPosition.png"];
+    UIImage *imageHeader = [UIImage imageWithContentsOfFile:pathImage];
     
     //大头针标注
     if ([annotation isKindOfClass:[GaodePointAnnotation class]]) {
@@ -598,20 +647,22 @@ type://（必选） 0-关闭，1-开启
     //自定义定位标注
     
     if ([annotation isKindOfClass:[MAUserLocation class]]) {
-        if(self.locationStatus == ContinuousLocationEnabledWithMarker){
-            return nil;
+        //        if(self.locationStatus == ContinuousLocationEnabledWithMarker){
+        //            return nil;
+        //        }
+        MAAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:self.locationStyleOptions.identifier];
+        if (annotationView == nil) {
+            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
+                                                          reuseIdentifier:self.locationStyleOptions.identifier];
+            
         }
-             MAAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:self.locationStyleOptions.identifier];
-            if (annotationView == nil) {
-                annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
-                                                              reuseIdentifier:self.locationStyleOptions.identifier];
-            }
-
-            return annotationView;
-        }
-    
         
-    
+        //使用箭头
+        annotationView.image = imageHeader;
+        
+        self.userLocationAnnotationView = annotationView;
+        return annotationView;
+    }
     
     return nil;
 }
@@ -635,6 +686,11 @@ type://（必选） 0-关闭，1-开启
         polylineView.strokeColor = polyline.color;
         polylineView.lineJoinType = polyline.lineJoinType;//连接类型
         polylineView.lineCapType = polyline.lineCapType;//端点类型
+        
+        if (self.isShowLineImage == YES && self.lineImage) {
+            [polylineView loadStrokeTextureImage:self.lineImage];
+        }
+        
         return polylineView;
     }
     
@@ -946,6 +1002,20 @@ type://（必选） 0-关闭，1-开启
         property=[info objectForKey:@"property"];
     }else return nil;
 
+    self.isShowLineImage = NO;
+    if ([info objectForKey:IsShowLineImage] && [[info objectForKey:IsShowLineImage] boolValue]) {
+        
+        self.isShowLineImage = YES;
+        
+        if ([info objectForKey:PathImageString]) {
+            NSString *imagePath = [self absPath:[NSString stringWithFormat:@"%@",[info objectForKey:PathImageString]]];
+            self.lineImage = [UIImage imageWithContentsOfFile:imagePath];
+        } else {
+            NSBundle *pluginBundle = [EUtility bundleForPlugin:@"uexGaodeMap"];
+            NSString *imagePath = [[pluginBundle resourcePath] stringByAppendingPathComponent:@"arrowTexture.png"];
+            self.lineImage = [UIImage imageWithContentsOfFile:imagePath];
+        }
+    }
 
     NSInteger count =[property count];
     CLLocationCoordinate2D commonPolylineCoords[count];
@@ -1732,15 +1802,15 @@ id://(必选) 唯一标识符
     if([type isEqual:@"0"]){
         self.locationStatus= ContinuousLocationEnabled;
         self.mapView.showsUserLocation = NO;
-        self.mapView.showsUserLocation = YES;
+        //        _mapView.showsUserLocation = YES;
         
-
+        
     }
     if([type isEqual:@"1"]){
         self.locationStatus=ContinuousLocationEnabledWithMarker;
-        self.mapView.showsUserLocation = NO;
+        //        _mapView.showsUserLocation = NO;
         self.mapView.showsUserLocation = YES;
-
+        
     }
 
     
@@ -1771,16 +1841,20 @@ id://(必选) 唯一标识符
     }else return;
     if ([type  isEqual:@"1"]){
         [self.mapView setUserTrackingMode:MAUserTrackingModeNone  animated:YES];
+        self.isStopRotateHeader = YES;
     }
     if ([type  isEqual:@"2"]){
         [self.mapView setUserTrackingMode:MAUserTrackingModeFollow  animated:YES];
+        self.isStopRotateHeader = YES;
     }
     if ([type  isEqual:@"3"]){
         [self.mapView setUserTrackingMode:MAUserTrackingModeFollowWithHeading  animated:YES];
+        self.isStopRotateHeader = NO;
     }
-    
-    
-    
+    if ([type  isEqual:@"4"]){
+        [self.mapView setUserTrackingMode:MAUserTrackingModeFollow  animated:YES];
+        self.isStopRotateHeader = NO;
+    }
 }
 
 
@@ -1800,6 +1874,16 @@ id://(必选) 唯一标识符
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
 updatingLocation:(BOOL)updatingLocation
 {
+    //让定位箭头随着方向旋转
+    if (!updatingLocation && self.userLocationAnnotationView != nil && self.isStopRotateHeader==NO)
+    {
+        [UIView animateWithDuration:0.1 animations:^{
+            
+            double degree = userLocation.heading.trueHeading - self.mapView.rotationDegree;
+            self.userLocationAnnotationView.transform = CGAffineTransformMakeRotation(degree * M_PI / 180.f );
+            
+        }];
+    }
     
     NSDate *datenow = [NSDate date];
     NSString *timestamp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];

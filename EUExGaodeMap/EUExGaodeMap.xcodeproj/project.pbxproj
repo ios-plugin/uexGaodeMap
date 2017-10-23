@@ -33,6 +33,9 @@
 		4247F9481B85DBBF00DDE38A /* GaodeCustomButtonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247F9461B85DBBF00DDE38A /* GaodeCustomButtonManager.m */; };
 		429E86A31E0CCE5800DFB0E8 /* uexGaodeRouteSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 429E86A21E0CCE5800DFB0E8 /* uexGaodeRouteSearch.m */; };
 		42A5E38C1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */; };
+		696795D21F6B6D04002E8E45 /* arrowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 696795CF1F6B6D04002E8E45 /* arrowTexture.png */; };
+		696795D31F6B6D04002E8E45 /* userPosition.png in Resources */ = {isa = PBXBuildFile; fileRef = 696795D01F6B6D04002E8E45 /* userPosition.png */; };
+		696795D41F6B6D04002E8E45 /* userPosition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696795D11F6B6D04002E8E45 /* userPosition@2x.png */; };
 		C62D1D3E1B05E3D1002B1875 /* EUExGaodeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D191B05E3D1002B1875 /* EUExGaodeMap.m */; };
 		C62D1D411B05E3D1002B1875 /* EUExGaodeMapInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = C62D1D211B05E3D1002B1875 /* EUExGaodeMapInstance.m */; };
 		C62D1D4D1B05E421002B1875 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D4C1B05E421002B1875 /* UIKit.framework */; };
@@ -44,6 +47,16 @@
 		C62D1D591B05E459002B1875 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D581B05E459002B1875 /* CoreTelephony.framework */; };
 		C62D1D5B1B05E46A002B1875 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62D1D5A1B05E46A002B1875 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		696795CD1F6B68D9002E8E45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C62D1CEF1B05E2D6002B1875 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 696795C61F6B6836002E8E45;
+			remoteInfo = uexGaodeMapBundle;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C62D1CF51B05E2D6002B1875 /* CopyFiles */ = {
@@ -105,6 +118,10 @@
 		429E86A21E0CCE5800DFB0E8 /* uexGaodeRouteSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = uexGaodeRouteSearch.m; path = RouteSearch/uexGaodeRouteSearch.m; sourceTree = "<group>"; };
 		42A5E38A1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+uexGaodeMap.h"; sourceTree = "<group>"; };
 		42A5E38B1BC7520F00E6E385 /* NSDictionary+uexGaodeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+uexGaodeMap.m"; sourceTree = "<group>"; };
+		696795C71F6B6836002E8E45 /* uexGaodeMap.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uexGaodeMap.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		696795CF1F6B6D04002E8E45 /* arrowTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowTexture.png; sourceTree = "<group>"; };
+		696795D01F6B6D04002E8E45 /* userPosition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userPosition.png; sourceTree = "<group>"; };
+		696795D11F6B6D04002E8E45 /* userPosition@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userPosition@2x.png"; sourceTree = "<group>"; };
 		C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libuexGaodeMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62D1D131B05E3D1002B1875 /* EBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBrowserView.h; sourceTree = "<group>"; };
 		C62D1D151B05E3D1002B1875 /* EUExBaseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUExBaseDefine.h; sourceTree = "<group>"; };
@@ -127,6 +144,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		696795C41F6B6836002E8E45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C62D1CF41B05E2D6002B1875 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,10 +266,21 @@
 			name = RouteSearch;
 			sourceTree = "<group>";
 		};
+		696795C81F6B6836002E8E45 /* uexGaodeMapBundle */ = {
+			isa = PBXGroup;
+			children = (
+				696795CF1F6B6D04002E8E45 /* arrowTexture.png */,
+				696795D01F6B6D04002E8E45 /* userPosition.png */,
+				696795D11F6B6D04002E8E45 /* userPosition@2x.png */,
+			);
+			path = uexGaodeMapBundle;
+			sourceTree = "<group>";
+		};
 		C62D1CEE1B05E2D6002B1875 = {
 			isa = PBXGroup;
 			children = (
 				C62D1D111B05E3D1002B1875 /* EUExGaodeMap */,
+				696795C81F6B6836002E8E45 /* uexGaodeMapBundle */,
 				C62D1D4B1B05E3DA002B1875 /* Frameworks */,
 				C62D1CF81B05E2D6002B1875 /* Products */,
 			);
@@ -255,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				C62D1CF71B05E2D6002B1875 /* libuexGaodeMap.a */,
+				696795C71F6B6836002E8E45 /* uexGaodeMap.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -316,6 +352,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		696795C61F6B6836002E8E45 /* uexGaodeMapBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 696795CC1F6B6836002E8E45 /* Build configuration list for PBXNativeTarget "uexGaodeMapBundle" */;
+			buildPhases = (
+				696795C31F6B6836002E8E45 /* Sources */,
+				696795C41F6B6836002E8E45 /* Frameworks */,
+				696795C51F6B6836002E8E45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = uexGaodeMapBundle;
+			productName = uexGaodeMapBundle;
+			productReference = 696795C71F6B6836002E8E45 /* uexGaodeMap.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		C62D1CF61B05E2D6002B1875 /* EUExGaodeMap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C62D1D0B1B05E2D6002B1875 /* Build configuration list for PBXNativeTarget "EUExGaodeMap" */;
@@ -327,6 +380,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				696795CE1F6B68D9002E8E45 /* PBXTargetDependency */,
 			);
 			name = EUExGaodeMap;
 			productName = EUExGaodeMap;
@@ -342,6 +396,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AppCan;
 				TargetAttributes = {
+					696795C61F6B6836002E8E45 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
 					C62D1CF61B05E2D6002B1875 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -360,11 +418,32 @@
 			projectRoot = "";
 			targets = (
 				C62D1CF61B05E2D6002B1875 /* EUExGaodeMap */,
+				696795C61F6B6836002E8E45 /* uexGaodeMapBundle */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		696795C51F6B6836002E8E45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				696795D21F6B6D04002E8E45 /* arrowTexture.png in Resources */,
+				696795D31F6B6D04002E8E45 /* userPosition.png in Resources */,
+				696795D41F6B6D04002E8E45 /* userPosition@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		696795C31F6B6836002E8E45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C62D1CF31B05E2D6002B1875 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -394,7 +473,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		696795CE1F6B68D9002E8E45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 696795C61F6B6836002E8E45 /* uexGaodeMapBundle */;
+			targetProxy = 696795CD1F6B68D9002E8E45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		696795CA1F6B6836002E8E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = NO;
+				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGaodeMap;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zywx.uexGaodeMapBundle;
+				PRODUCT_NAME = uexGaodeMap;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		696795CB1F6B6836002E8E45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = NO;
+				CONFIGURATION_BUILD_DIR = $SRCROOT/uexGaodeMap;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zywx.uexGaodeMapBundle;
+				PRODUCT_NAME = uexGaodeMap;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		C62D1D091B05E2D6002B1875 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -522,6 +651,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		696795CC1F6B6836002E8E45 /* Build configuration list for PBXNativeTarget "uexGaodeMapBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				696795CA1F6B6836002E8E45 /* Debug */,
+				696795CB1F6B6836002E8E45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C62D1CF21B05E2D6002B1875 /* Build configuration list for PBXProject "EUExGaodeMap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
